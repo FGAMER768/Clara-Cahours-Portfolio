@@ -32,6 +32,9 @@ styles/
   footer.css                Pied de page et section contact
 ```
 
+## À faire avant mise en ligne
+
+
 ## Fonctionnement des deux systèmes légers
 
 - **Thème clair / sombre** : détecte la préférence système au premier
