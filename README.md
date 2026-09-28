@@ -33,6 +33,8 @@ images/
   projects/<projet>/        Jaquette, couverture et visuels de chaque projet
                             (10 dossiers, un par fiche ou tuile de l'accueil)
   gallery/                  Illustrations, dessins, flyers, 3D
+  og/                       Aperçus de partage 1200×630, un par page
+                            (voir « Aperçu de partage »)
 icons/
   sprite.svg                Icônes de l'interface : menu, lune, soleil,
                             flèches, fermer, lecture, LinkedIn, téléchargement
@@ -148,6 +150,26 @@ la clé `cv.download`.
 - Sur certains navigateurs mobiles (notamment Safari sur iPhone), le
   fichier peut s'ouvrir dans un aperçu avec un bouton d'enregistrement :
   c'est un choix du navigateur, le code ne peut pas l'empêcher.
+
+## Aperçu de partage (Open Graph)
+
+Chaque page (l'accueil et les 9 fiches) déclare dans son `<head>` des balises
+`og:*` et `twitter:card`, pour qu'un lien collé dans un message, sur LinkedIn
+ou sur X affiche un titre, une description et une image.
+
+- Titre et description sont en français uniquement : les robots n'exécutent
+  pas JavaScript, ils ne voient donc jamais la traduction anglaise.
+- Exception à la règle des chemins relatifs : `og:url` et `og:image` doivent
+  être des URL **absolues** (`https://claracahours.vercel.app/...`). Si le
+  domaine change, remplacer `claracahours.vercel.app` dans les 10 pages.
+- Les images sont dans `images/og/`, une par page, nommée comme le fichier
+  HTML (`sinnaya.jpg` pour `pages/sinnaya.html`, `home.jpg` pour l'accueil).
+  Format 1200 × 630 px, JPEG, de préférence sous 300 Ko (au-delà, WhatsApp
+  peut ne pas afficher l'image). Pour en changer une, remplacer le fichier en
+  gardant le nom et les dimensions.
+- Les réseaux gardent l'aperçu en cache : après une modification, forcer la
+  mise à jour avec le Sharing Debugger de Facebook ou le Post Inspector de
+  LinkedIn.
 
 ## Images
 
