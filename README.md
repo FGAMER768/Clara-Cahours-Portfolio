@@ -118,7 +118,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(185 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
+(194 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Le JSON fait foi : au chargement, il remplace le texte écrit dans le HTML.
