@@ -120,8 +120,12 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(206 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
+(209 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
+
+Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
+`data-i18n` / `data-i18n-attr` dans le HTML injecté, puis appeler
+`window.claraPortfolioI18n.refresh()` juste après l'insertion dans la page.
 
 Le JSON fait foi : au chargement, il remplace le texte écrit dans le HTML.
 Ce texte HTML ne sert que de repli si le JSON n'est pas chargé ou si la clé

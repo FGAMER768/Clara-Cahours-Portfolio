@@ -35,20 +35,27 @@
     lightbox.setAttribute("aria-modal", "true");
     lightbox.setAttribute("aria-hidden", "true");
     lightbox.innerHTML =
-      '<button class="lightbox__close" type="button" data-lightbox-close aria-label="Fermer">' +
+      '<button class="lightbox__close" type="button" data-lightbox-close data-i18n-attr="aria-label:lightbox.close" aria-label="Fermer">' +
       '<svg aria-hidden="true"><use href="' + spritePath + '#icon-close"></use></svg>' +
       "</button>" +
-      '<button class="lightbox__nav lightbox__nav--prev" type="button" data-lightbox-prev aria-label="Image précédente">' +
+      '<button class="lightbox__nav lightbox__nav--prev" type="button" data-lightbox-prev data-i18n-attr="aria-label:lightbox.previous" aria-label="Image précédente">' +
       '<svg aria-hidden="true"><use href="' + spritePath + '#icon-chevron-left"></use></svg>' +
       "</button>" +
       '<div class="lightbox__stage">' +
       '<img class="lightbox__image" data-lightbox-image alt="" />' +
       "</div>" +
-      '<button class="lightbox__nav lightbox__nav--next" type="button" data-lightbox-next aria-label="Image suivante">' +
+      '<button class="lightbox__nav lightbox__nav--next" type="button" data-lightbox-next data-i18n-attr="aria-label:lightbox.next" aria-label="Image suivante">' +
       '<svg aria-hidden="true"><use href="' + spritePath + '#icon-chevron-right"></use></svg>' +
       "</button>" +
       '<p class="lightbox__status" data-lightbox-status></p>';
     document.body.appendChild(lightbox);
+
+    // Les libellés ci-dessus sont en français par défaut : on demande à
+    // i18n.js de les traduire maintenant que les boutons existent (si le
+    // JSON n'est pas encore chargé, il s'en chargera à son arrivée).
+    if (window.claraPortfolioI18n && window.claraPortfolioI18n.refresh) {
+      window.claraPortfolioI18n.refresh();
+    }
 
     var stage = lightbox.querySelector(".lightbox__stage");
     var image = lightbox.querySelector("[data-lightbox-image]");

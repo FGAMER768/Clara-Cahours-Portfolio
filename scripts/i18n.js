@@ -118,6 +118,12 @@
     setLang: setLang,
     getLang: function () {
       return currentLang;
+    },
+    // Rejoue la traduction sur toute la page. À appeler après avoir
+    // injecté du HTML depuis JavaScript (ex. la lightbox) : sans ça, ce
+    // HTML ne serait traduit que si le JSON arrive après sa création.
+    refresh: function () {
+      translate(currentLang);
     }
   };
 })();
