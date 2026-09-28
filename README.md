@@ -16,6 +16,10 @@ images/
     mecha-crisis/
     beez-adventures/
   gallery/                  Illustrations, dessins, flyers, 3D
+icons/
+  sprite.svg                Icônes de l'interface (menu, thème, LinkedIn...)
+  favicon/                  Favicon « CC » : .svg (principal), .ico et .png (repli),
+                            apple-touch-icon.png (écran d'accueil iOS)
 scripts/
   theme.js                  Bascule clair / sombre, persistée en localStorage
   i18n.js                   Charge data/i18n.json, bascule FR / EN
