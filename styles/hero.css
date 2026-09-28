@@ -228,8 +228,23 @@
   color: var(--color-ink-muted);
 }
 
-.hero__cta {
+/* Les deux liens d'action du hero (projets + CV) sont regroupés :
+   la marge haute et l'espacement passent au conteneur, et ils
+   passent à la ligne proprement sur petit écran. */
+.hero__actions {
   margin-top: var(--space-6);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4) var(--space-6);
+}
+
+.hero__cta svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.hero__cta {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);

@@ -16,6 +16,8 @@ images/
     mecha-crisis/
     beez-adventures/
   gallery/                  Illustrations, dessins, flyers, 3D
+documents/
+  CV.pdf                    CV téléchargeable (boutons du hero et de la section Contact)
 icons/
   sprite.svg                Icônes de l'interface (menu, thème, LinkedIn...)
   favicon/                  Favicon « CC » : .svg (principal), .ico et .png (repli),
@@ -37,6 +39,11 @@ styles/
 ```
 
 ## À faire avant mise en ligne
+
+- Déposer le CV dans `documents/CV.pdf` (nom exact, majuscules comprises :
+  GitHub Pages distingue majuscules et minuscules). Le fichier est proposé au
+  téléchargement sous le nom `CV-Clara-Cahours-de-Virgile.pdf`. Pour le mettre
+  à jour, il suffit de remplacer ce fichier, aucun code à modifier.
 
 
 ## Fonctionnement des deux systèmes légers

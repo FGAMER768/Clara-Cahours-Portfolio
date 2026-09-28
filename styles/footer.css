@@ -40,7 +40,46 @@
 .contact-section__links {
   margin-top: var(--space-5);
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: var(--space-3);
+}
+
+/* Action principale : bouton plein. Texte en "papier" sur fond
+   accent-strong : le contraste reste bon dans les deux thèmes, car
+   accent-strong est foncé en clair et clair en sombre, tandis que
+   "papier" fait l'inverse. */
+.contact-section__cv {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  border: 1px solid var(--color-accent-strong);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent-strong);
+  color: var(--color-paper);
+  font-weight: 700;
+  font-size: var(--step-sm);
+  transition: transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.contact-section__cv svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.contact-section__cv:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-raised);
+}
+
+/* base.css impose border-radius: 4px sur :focus-visible, ce qui
+   "carrerait" les coins d'un bouton pilule au clavier. */
+.contact-section__cv:focus-visible,
+.contact-section__linkedin:focus-visible,
+.site-footer__social:focus-visible {
+  border-radius: var(--radius-pill);
 }
 
 .contact-section__linkedin {
