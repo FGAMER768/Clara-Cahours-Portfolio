@@ -63,10 +63,6 @@
       btn.setAttribute("aria-pressed", isActive ? "true" : "false");
     });
 
-    if (dict["meta.title"]) {
-      document.title = dict["meta.title"];
-    }
-
     currentLang = lang;
   }
 

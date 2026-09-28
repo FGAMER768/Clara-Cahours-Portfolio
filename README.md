@@ -114,11 +114,13 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 - `data-i18n="clé"` remplace le texte de l'élément.
 - `data-i18n-attr="alt:clé, aria-label:autre.clé"` remplace des attributs
   (textes alternatifs des images, libellés accessibles...).
-- La clé `meta.title` fixe le titre de l'onglet (accueil uniquement).
+- Le titre de l'onglet se traduit comme le reste : la balise `<title>` porte
+  un `data-i18n` (`meta.title` pour l'accueil, `meta.title.<fiche>` pour
+  chaque fiche).
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(194 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
+(203 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Le JSON fait foi : au chargement, il remplace le texte écrit dans le HTML.
