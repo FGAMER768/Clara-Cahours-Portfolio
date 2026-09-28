@@ -1,8 +1,10 @@
 # Portfolio Clara Cahours de Virgile
 
 Site statique en HTML / CSS / JS vanilla. Aucun framework, aucun build,
-rien à installer. Seule ressource externe : la police Inter, chargée
-depuis Google Fonts. Pensé pour un hébergement statique de type GitHub
+rien à installer. La police Inter est hébergée dans le dépôt (`fonts/`) :
+l'affichage du site ne dépend d'aucun domaine externe. Seules les vidéos
+YouTube intégrées (chargées à l'approche de l'écran) en contactent un.
+Pensé pour un hébergement statique de type GitHub
 Pages : tous les chemins sont relatifs (jamais de `/` initial), le site
 peut donc vivre dans un sous-dossier.
 
@@ -35,6 +37,9 @@ images/
   gallery/                  Illustrations, dessins, flyers, 3D
   og/                       Aperçus de partage 1200×630, un par page
                             (voir « Aperçu de partage »)
+fonts/
+  inter/                    Police Inter (fichier variable, sous-ensemble latin,
+                            toutes graisses) et sa licence SIL OFL
 icons/
   sprite.svg                Icônes de l'interface : menu, lune, soleil,
                             flèches, fermer, lecture, LinkedIn, téléchargement
@@ -52,6 +57,7 @@ scripts/
   ripple.js                 Effet « goutte d'eau » au tap (voir plus bas)
   showcase.js               Sons de survol des jaquettes (voir plus bas)
 styles/
+  fonts.css                 @font-face d'Inter (chargé avant tokens.css)
   tokens.css                Couleurs, typo, espacements, rayons (variables)
   base.css                  Reset, focus visible, classes utilitaires
   layout.css                Ajustements de mise en page globaux

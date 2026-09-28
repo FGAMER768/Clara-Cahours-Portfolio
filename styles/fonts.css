@@ -1,0 +1,28 @@
+/*
+  Police Inter, hébergée dans le dépôt (plus de requête vers Google Fonts).
+
+  Un seul fichier variable couvre toutes les graisses (100 à 900) : le site
+  utilise 400, 500, 600 et 700, sans fichier supplémentaire par graisse.
+  Sous-ensemble « latin » uniquement : il contient tout le français et
+  l'anglais (accents, œ, ç, apostrophe typographique, tirets, €).
+  Si le site s'ouvre un jour à une langue qui a besoin d'autres caractères
+  (polonais, tchèque, turc...), ajouter le sous-ensemble « latin-ext »
+  (fichier Inter-latin-ext-variable.woff2 de @fontsource-variable/inter,
+  avec son unicode-range) ; le navigateur ne le télécharge que si un de
+  ses caractères apparaît réellement dans la page.
+
+  Le nom de famille reste « Inter » : --font-body (tokens.css) est inchangé.
+  Licence SIL OFL 1.1, texte dans fonts/inter/LICENSE.txt.
+  Le chemin est relatif à ce fichier (styles/ -> ../fonts/), donc valable
+  depuis l'accueil comme depuis pages/.
+*/
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/inter/Inter-latin-variable.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

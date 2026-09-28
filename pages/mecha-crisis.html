@@ -26,10 +26,12 @@
   <link rel="apple-touch-icon" href="../icons/favicon/apple-touch-icon.png" />
   <meta name="theme-color" content="#6F5D96" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Police Inter hébergée (voir styles/fonts.css). Le preload lance le
+       téléchargement dès le <head>, sans attendre que le CSS soit lu ;
+       crossorigin est obligatoire pour une police, même du même domaine. -->
+  <link rel="preload" href="../fonts/inter/Inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
 
+  <link rel="stylesheet" href="../styles/fonts.css" />
   <link rel="stylesheet" href="../styles/tokens.css" />
   <link rel="stylesheet" href="../styles/base.css" />
   <link rel="stylesheet" href="../styles/layout.css" />
