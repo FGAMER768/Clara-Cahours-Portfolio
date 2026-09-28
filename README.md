@@ -40,11 +40,6 @@ styles/
 
 ## À faire avant mise en ligne
 
-- Déposer le CV dans `documents/CV.pdf` (nom exact, majuscules comprises :
-  GitHub Pages distingue majuscules et minuscules). Le fichier est proposé au
-  téléchargement sous le nom `CV-Clara-Cahours-de-Virgile.pdf`. Pour le mettre
-  à jour, il suffit de remplacer ce fichier, aucun code à modifier.
-
 
 ## Fonctionnement des deux systèmes légers
 
