@@ -36,3 +36,55 @@
 .contact-section__email:hover {
   color: var(--color-secondary);
 }
+
+.contact-section__links {
+  margin-top: var(--space-5);
+  display: flex;
+  justify-content: center;
+}
+
+.contact-section__linkedin {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: var(--step-sm);
+  color: var(--color-accent-strong);
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.contact-section__linkedin svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.contact-section__linkedin:hover {
+  background-color: var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.site-footer__social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-pill);
+  color: var(--color-ink-muted);
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.site-footer__social svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.site-footer__social:hover {
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+}
