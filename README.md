@@ -75,13 +75,6 @@ styles/
 .gitignore                  Exclut l'archive Clara-s-Website.zip et
                             documents/scenario-sequence.pdf
 ```
-
-**Présents mais non chargés.** `scripts/ripple.js`, `styles/ripple.css` et
-`scripts/showcase.js` ne sont référencés par aucune page : ni l'effet de
-goutte d'eau, ni les sons de survol des jaquettes ne sont actifs. Pour les
-réactiver, ajouter la balise `<link>` ou `<script>` correspondante dans
-`index.html` (et dans les fiches concernées). Sinon, on peut les supprimer.
-
 ## À faire avant mise en ligne
 
 
@@ -99,6 +92,24 @@ donc ajouter une couleur ailleurs dans le code casserait la bascule.
 Attention : les valeurs sombres existent **en double** dans `tokens.css`
 (sélecteur `[data-theme="dark"]` et media query `prefers-color-scheme`).
 Modifier une couleur sombre impose de la changer aux deux endroits.
+
+### Effet « goutte d'eau » (ripple)
+
+Au tap ou au clic sur un bouton, un cercle part du point de contact, grandit
+et s'estompe (550 ms). Il remplace le surlignement bleu des navigateurs
+mobiles, supprimé dans `base.css`. Il est actif sur : icônes et bouton de
+langue de la navbar, flèches des sliders, boutons de la lightbox.
+
+- `scripts/ripple.js` écoute `pointerdown` (et Entrée/Espace, avec un cercle
+  centré) sur `document` : les boutons créés dynamiquement, comme ceux de la
+  lightbox, sont donc couverts sans code supplémentaire.
+- Pour ajouter l'effet à un autre bouton, ajouter son sélecteur à
+  `RIPPLE_SELECTOR` en tête de `ripple.js`.
+- `styles/ripple.css` doit être chargé **avant** `navbar.css`, `gallery.css`
+  et `lightbox.css` : `.ripple-host` impose `position: relative`, que les
+  boutons de la lightbox (`position: absolute`) doivent pouvoir surcharger.
+- Désactivé si l'utilisateur demande moins d'animations
+  (`prefers-reduced-motion`).
 
 ### Langue FR / EN
 
