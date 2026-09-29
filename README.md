@@ -84,20 +84,6 @@ réactiver, ajouter la balise `<link>` ou `<script>` correspondante dans
 
 ## À faire avant mise en ligne
 
-- [ ] Déposer le CV dans `documents/CV.pdf` (voir « CV téléchargeable »).
-- [ ] Ouvrir en navigation privée, sans être connecté, chaque lien externe :
-      le profil LinkedIn (public, mais LinkedIn peut quand même afficher un
-      mur de connexion aux visiteurs non connectés), le sommaire Notion, les
-      2 Google Docs et le dossier Google Drive. Chacun doit s'ouvrir sans
-      demander de droits d'accès.
-- [ ] Parcourir l'accueil et les 9 fiches en FR puis en EN, en thème clair
-      puis sombre, sur mobile et sur ordinateur.
-- [ ] Vérifier la casse exacte des noms de fichiers : GitHub Pages
-      distingue majuscules et minuscules (`CV.pdf` et non `cv.pdf`).
-- [ ] Retirer de `pages/mecha-crisis.html` la diapo qui pointe vers
-      `concept-10.png` : ce fichier n'existe pas. Rien n'est visible (la
-      diapo se retire d'elle-même et le compteur affiche bien « 1 / 9 »),
-      mais le navigateur fait une requête inutile qui échoue.
 
 ## Fonctionnement des systèmes légers
 
