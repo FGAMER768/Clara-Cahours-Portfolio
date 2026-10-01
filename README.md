@@ -29,7 +29,8 @@ pages/                      Une fiche par projet (thème, langue et navbar
 data/
   i18n.json                 Toutes les chaînes FR / EN, clé par clé
 documents/
-  CV.pdf                    CV téléchargeable (boutons du hero et de Contact)
+  CV-Clara-Cahours-de-Virgile.pdf
+                            CV téléchargeable (boutons du hero et de Contact)
 images/
   profile/                  Photo de portrait (cercle du hero)
   projects/<projet>/        Jaquette, couverture et visuels de chaque projet
@@ -72,6 +73,8 @@ styles/
   project-page.css          Fiches projet (lien de retour, dégagement navbar)
   footer.css                Pied de page et section contact
   ripple.css                Style de l'effet « goutte d'eau » (voir plus bas)
+vercel.json                 Facultatif : force le nom du CV au téléchargement
+                            (voir « CV téléchargeable »)
 .gitignore                  Exclut l'archive Clara-s-Website.zip et
                             documents/scenario-sequence.pdf
 ```
@@ -140,19 +143,54 @@ l'emplacement de `i18n.js`, ce qui fonctionne aussi depuis `pages/`.
 
 ## CV téléchargeable
 
-Le CV est le fichier `documents/CV.pdf` (casse exacte). Deux boutons y
-mènent : un dans le hero, un dans la section Contact, tous deux traduits par
-la clé `cv.download`.
+Le CV est le fichier `documents/CV-Clara-Cahours-de-Virgile.pdf` (casse
+exacte). Deux boutons y mènent : un dans le hero, un dans la section
+Contact, tous deux traduits par la clé `cv.download`.
 
-- L'attribut `download` force le téléchargement (pas d'ouverture dans le
-  navigateur) et propose le nom `CV-Clara-Cahours-de-Virgile.pdf`.
-- Pour mettre le CV à jour, remplacer le fichier : aucun code à modifier.
+- Le nom téléchargé est celui du fichier lui-même. L'attribut `download`
+  (même valeur) force le téléchargement sans ouverture dans le navigateur.
+- Pour mettre le CV à jour, remplacer le fichier en gardant exactement le
+  même nom : aucun code à modifier.
 - Le lien doit rester **relatif** : un lien vers `raw.githubusercontent.com`
   ferait ignorer l'attribut `download`, car le fichier serait sur un autre
   domaine.
 - Sur certains navigateurs mobiles (notamment Safari sur iPhone), le
   fichier peut s'ouvrir dans un aperçu avec un bouton d'enregistrement :
   c'est un choix du navigateur, le code ne peut pas l'empêcher.
+
+### Historique du renommage
+
+À l'origine, le fichier s'appelait `documents/CV.pdf` et les boutons
+portaient `download="CV-Clara-Cahours-de-Virgile.pdf"`, en comptant sur cet
+attribut pour proposer un nom propre. En pratique, le CV arrivait sous le
+nom `CV`.
+
+La cause exacte n'a pas pu être vérifiée. Deux pistes sont possibles :
+`download` n'est qu'une suggestion, que certains navigateurs ignorent (ils
+reprennent alors le nom du fichier dans l'URL) ; ou la version en ligne
+n'était pas encore à jour. Le code lui-même était correct.
+
+Solution retenue : donner directement le bon nom au fichier
+(`CV-Clara-Cahours-de-Virgile.pdf`). Le nom est alors correct même si
+`download` est ignoré, sur n'importe quel hébergeur et sans configuration.
+Contrepartie : l'ancienne URL `documents/CV.pdf` n'existe plus, tout lien
+posté ailleurs (LinkedIn, mails) vers l'ancienne adresse est à mettre à jour.
+
+### `vercel.json` (facultatif)
+
+Le fichier `vercel.json` ajoute une ceinture et des bretelles : il fait
+envoyer par le serveur l'en-tête `Content-Disposition: attachment;
+filename="CV-Clara-Cahours-de-Virgile.pdf"`, que les navigateurs appliquent
+en priorité, avant `download` et avant le nom de l'URL. Le CV est alors
+téléchargé sous le bon nom même si quelqu'un ouvre directement l'adresse du
+PDF.
+
+- **Le site fonctionne très bien sans** : le nom du fichier suffit déjà.
+  Supprimer `vercel.json` ne casse rien.
+- Il n'agit que sur Vercel (ou un hébergeur qui lit ce format). GitHub
+  Pages ignore le fichier, car il ne permet pas de régler les en-têtes.
+- Si le fichier PDF est renommé, mettre à jour `source` et `filename` dans
+  `vercel.json`.
 
 ## Aperçu de partage (Open Graph)
 
