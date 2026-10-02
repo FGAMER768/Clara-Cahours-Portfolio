@@ -32,6 +32,8 @@
   --bee-black: #211E28;
   --bee-wing: #CFE3F1;
   --bee-blush: #B58BD6;
+  --bee-halo: #FFF3D1;
+  --bee-halo-display: none;
 
   position: absolute;
   top: 0;
@@ -42,6 +44,18 @@
   touch-action: manipulation;
   cursor: pointer;
   will-change: transform;
+}
+
+/* Thème sombre : on affiche le contour. Comme dans tokens.css, la règle
+   existe en double (choix explicite + préférence système). */
+:root[data-theme="dark"] .beez-bee {
+  --bee-halo-display: inline;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .beez-bee {
+    --bee-halo-display: inline;
+  }
 }
 
 /* Zone de touche élargie autour de l'abeille. */
@@ -68,6 +82,25 @@
   height: 100%;
   overflow: visible;
 }
+
+/* Contour clair derrière la silhouette, pour le thème sombre : le noir
+   de l'abeille (#211E28) est presque la couleur du fond (#16131C).
+   Masqué en thème clair. */
+.beez-bee__halo {
+  display: var(--bee-halo-display);
+  fill: var(--bee-halo);
+  stroke: var(--bee-halo);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.beez-bee__halo-line {
+  fill: none;
+}
+
+.beez-bee__halo-line--legs { stroke-width: 5; }
+.beez-bee__halo-line--antennae { stroke-width: 5.4; }
 
 .beez-bee__yellow { fill: var(--bee-yellow); }
 .beez-bee__yellow-light { fill: var(--bee-yellow-light); }

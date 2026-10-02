@@ -2,7 +2,8 @@
   Easter egg : trophée « débloqué », façon console de jeu.
 
   Deux façons de le déclencher :
-  - Clavier : le Konami code (↑ ↑ ↓ ↓ ← → ← → B A).
+  - Clavier : un Konami code à la sauce maison (↑ ↑ ↓ ↓ ← → ← → C C,
+    les initiales de Clara Cahours).
   - Tactile (et souris) : 5 taps rapides sur le portrait du hero.
 
   Le trophée s'affiche en bas de l'écran, avec un petit carillon généré
@@ -19,7 +20,7 @@
   var KONAMI = [
     "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
     "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
-    "b", "a"
+    "c", "c"
   ];
 
   var TAPS_REQUIRED = 5;     // nombre de taps sur le portrait

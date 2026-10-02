@@ -153,7 +153,8 @@ l'emplacement de `i18n.js`, ce qui fonctionne aussi depuis `pages/`.
 Sur l'accueil uniquement, un trophée « débloqué » s'affiche en bas de
 l'écran, avec un petit carillon (Web Audio, aucun fichier audio) :
 
-- **Clavier** : le Konami code, ↑ ↑ ↓ ↓ ← → ← → B A.
+- **Clavier** : un Konami code à la sauce maison, ↑ ↑ ↓ ↓ ← → ← → C C
+  (les initiales de Clara Cahours, à la place du B A d'origine).
 - **Tactile / souris** : 5 clics ou taps en moins de 2 secondes sur le
   portrait du hero.
 
@@ -195,7 +196,12 @@ est dans `data/i18n.json` (clés `easteregg.beez.*`).
 
 L'abeille est une illustration SVG : ses couleurs sont des variables
 déclarées dans `styles/beez-egg.css` (et non dans `tokens.css`), car
-elles ne doivent pas changer avec le thème. Le compteur, lui, utilise
+elles ne doivent pas changer avec le thème. Une seule exception : en
+thème sombre, un contour crème (`--bee-halo`) entoure la silhouette,
+car le noir de l'abeille se confond avec le fond. Comme pour
+`tokens.css`, la règle qui l'active existe **en double** dans
+`beez-egg.css` (`[data-theme="dark"]` et media query
+`prefers-color-scheme`). Le compteur, lui, utilise
 les tokens habituels. Avec `prefers-reduced-motion`, les abeilles ne
 volent pas : elles se posent à l'écran, sans battement d'ailes, et
 restent attrapables pendant 20 secondes. Le jeu est au pointeur et

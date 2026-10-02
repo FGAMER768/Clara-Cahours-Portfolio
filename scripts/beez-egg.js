@@ -54,6 +54,18 @@
   // pas avec le thème clair / sombre).
   var BEE_SVG =
     '<svg viewBox="0 0 80 56" focusable="false">' +
+    // Contour clair, visible en thème sombre uniquement (voir beez-egg.css) :
+    // les parties noires de l'abeille (antennes, pattes, dard) se fondent
+    // sinon dans le fond. Même silhouette que le dessin, sans les ailes.
+    '<g class="beez-bee__halo">' +
+    '<ellipse cx="29" cy="34" rx="21" ry="14"/>' +
+    '<circle cx="56" cy="32" r="14"/>' +
+    '<path d="M9 31L1 34L9 37Z"/>' +
+    '<circle cx="46" cy="8" r="2.4"/>' +
+    '<circle cx="66" cy="8" r="2.4"/>' +
+    '<path class="beez-bee__halo-line beez-bee__halo-line--legs" d="M22 46v6M29 47v6M36 46v6"/>' +
+    '<path class="beez-bee__halo-line beez-bee__halo-line--antennae" d="M52 19Q50 11 46 8M60 19Q62 11 66 8"/>' +
+    "</g>" +
     '<g class="beez-bee__wings">' +
     '<ellipse class="beez-bee__wing" cx="30" cy="14" rx="8" ry="13" transform="rotate(-15 30 24)"/>' +
     '<ellipse class="beez-bee__wing beez-bee__wing--back" cx="41" cy="15" rx="7" ry="12" transform="rotate(12 41 24)"/>' +
