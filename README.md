@@ -293,6 +293,37 @@ plusieurs largeurs (`nom-400w.webp`, `nom-800w.webp`...), listées dans les
 créer soi-même les variantes avant de les déposer. Le portrait du hero est
 chargé en priorité, toutes les autres images en différé (`loading="lazy"`).
 
+## Statistiques de visite
+
+Le site utilise **Vercel Web Analytics** (offre Hobby, gratuite) : pages
+vues, visiteurs, pays, appareils et provenance, sans cookie et sans rien
+à héberger. Rien à surveiller : on consulte les chiffres dans le tableau
+de bord Vercel, onglet **Analytics** du projet.
+
+- **Mise en place** : activer *Analytics* dans le projet Vercel (bouton
+  *Enable*), puis redéployer. Les 10 pages portent dans leur `<head>` un
+  petit script (`/_vercel/insights/script.js`) ; sans l'activation, ou hors
+  Vercel (en local, GitHub Pages), il renvoie une erreur 404 sans
+  conséquence.
+- **Pas de paquet npm** : les panneaux « Next.js » et « Other » du tableau
+  de bord proposent `@vercel/analytics`, qui suppose un outil de build. Ce
+  site n'en a pas : seule la balise `<script>` s'applique.
+- **Vérifier que ça marche** : ouvrir le site (sans bloqueur de pub), puis
+  les outils de développement, onglet Réseau, filtre Fetch/XHR : chaque
+  page ouverte doit envoyer une requête se terminant par `/view`.
+- **Si les chiffres restent vides** : la documentation Vercel pour le HTML
+  pur indique désormais un chemin propre au projet
+  (`/<chemin-unique>/script.js`) à la place de `/_vercel/insights/`. Il
+  faudrait alors le remplacer dans les 10 pages (`index.html` et
+  `pages/*.html`).
+- **Limites** : un bloqueur de pub peut empêcher la mesure (les chiffres
+  sont donc un minimum). Sur l'offre gratuite, pas d'événements
+  personnalisés : on ne peut pas compter les easter eggs, seulement les
+  visites. Au-delà de 50 000 événements par mois (loin d'être atteint), la
+  collecte est mise en pause, sans facture.
+- Le script est servi par le domaine du site lui-même : aucun domaine
+  externe n'est contacté.
+
 ## Crédits
 
 - **Bourdonnement d'abeille** (`audio/bee-buzzing.mp3`) : effet sonore de
