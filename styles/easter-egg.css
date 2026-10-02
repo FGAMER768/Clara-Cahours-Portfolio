@@ -7,6 +7,21 @@
   (accent-strong sur papier / sur ocre doux, encre sur papier).
 */
 
+/* Pas de surbrillance bleue au tap ni de sélection : base.css ne couvre
+   que les liens et les boutons. Le portrait reçoit 5 taps rapides, il
+   est le premier à en souffrir (on garde son menu « enregistrer l'image »
+   en pression longue). */
+.trophy-toast,
+.hero__portrait {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.trophy-toast {
+  -webkit-touch-callout: none;
+}
+
 /* Au-dessus de la navbar (100) et du lien d'évitement (200),
    sous la lightbox (1000). Ne capte jamais les clics hors du trophée. */
 .trophy-region {

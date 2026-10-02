@@ -7,6 +7,19 @@
   dans tokens.css (elles ne doivent pas changer avec le thème).
 */
 
+/* Pas de surbrillance bleue au tap, ni de sélection de texte ou de menu
+   de pression longue : base.css ne couvre que les liens et les boutons,
+   or les abeilles, le compteur et le repère de la frise sont des
+   éléments ordinaires. */
+.beez-bee,
+.beez-hud,
+.timeline__marker[data-beez-trigger] {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
 /* Zone de touche du repère de la frise : le point fait 14 px, trop
    petit au doigt. On l'agrandit sans rien changer à son apparence. */
 .timeline__marker[data-beez-trigger]::after {

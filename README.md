@@ -158,6 +158,12 @@ l'écran, avec un petit carillon (Web Audio, aucun fichier audio) :
 - **Tactile / souris** : 5 clics ou taps en moins de 2 secondes sur le
   portrait du hero.
 
+Les éléments des deux easter eggs (trophée, portrait, abeilles, compteur,
+repère de la frise) n'ont ni surbrillance bleue au tap ni sélection de
+texte : `base.css` ne le fait que pour les liens et les boutons, ces
+éléments ont donc leurs propres règles dans `easter-egg.css` et
+`beez-egg.css`.
+
 Il disparaît seul après 6 secondes, ou au clic, et peut être redéclenché
 à volonté. Réglages en tête de `scripts/easter-egg.js` (séquence, nombre
 de taps, durées). `SFX_VOLUME`, au même endroit, règle le volume de tous
