@@ -67,7 +67,9 @@
       return audioCtx;
     }
 
-    function playTone(frequency, startDelay, duration, volume) {
+    // endFrequency (facultatif) : la note glisse vers cette hauteur
+    // (utile pour un petit « pop »).
+    function playTone(frequency, startDelay, duration, volume, endFrequency) {
       var ctx = getAudioContext();
       if (!ctx) {
         return;
@@ -79,6 +81,9 @@
 
         oscillator.type = "triangle";
         oscillator.frequency.setValueAtTime(frequency, start);
+        if (endFrequency) {
+          oscillator.frequency.exponentialRampToValueAtTime(endFrequency, start + duration);
+        }
 
         gain.gain.setValueAtTime(0, start);
         gain.gain.linearRampToValueAtTime(volume, start + 0.01);
@@ -122,15 +127,26 @@
       }, EXIT_DURATION);
     }
 
-    function showToast() {
+    // Contenu par défaut (Konami). Un autre easter egg peut fournir le
+    // sien : clés i18n + texte français de repli pour chaque ligne.
+    var DEFAULT_TROPHY = {
+      label: { key: "easteregg.label", fallback: "Trophée débloqué" },
+      name: { key: "easteregg.name", fallback: "Esprit curieux" },
+      text: {
+        key: "easteregg.text",
+        fallback: "Code secret trouvé. Les meilleurs niveaux cachent toujours quelque chose."
+      }
+    };
+
+    function showToast(content) {
       toast = document.createElement("div");
       toast.className = "trophy-toast";
       toast.innerHTML =
         '<span class="trophy-toast__icon" aria-hidden="true">' + TROPHY_ICON + "</span>" +
         '<div class="trophy-toast__body">' +
-        '<p class="trophy-toast__label" data-i18n="easteregg.label">Trophée débloqué</p>' +
-        '<p class="trophy-toast__name" data-i18n="easteregg.name">Esprit curieux</p>' +
-        '<p class="trophy-toast__text" data-i18n="easteregg.text">Code secret trouvé. Les meilleurs niveaux cachent toujours quelque chose.</p>' +
+        '<p class="trophy-toast__label" data-i18n="' + content.label.key + '">' + content.label.fallback + "</p>" +
+        '<p class="trophy-toast__name" data-i18n="' + content.name.key + '">' + content.name.fallback + "</p>" +
+        '<p class="trophy-toast__text" data-i18n="' + content.text.key + '">' + content.text.fallback + "</p>" +
         "</div>";
 
       region.appendChild(toast);
@@ -149,14 +165,20 @@
       hideTimer = window.setTimeout(hideToast, TOAST_DURATION);
     }
 
-    function unlock() {
+    function unlock(content) {
       // Un seul trophée à l'écran à la fois (y compris pendant sa sortie).
       if (toast) {
         return;
       }
       playChime();
-      showToast();
+      showToast(content || DEFAULT_TROPHY);
     }
+
+    // Petite API pour les autres easter eggs (scripts/beez-egg.js).
+    window.claraPortfolioEgg = {
+      unlock: unlock,
+      playTone: playTone
+    };
 
     /* ---------- Déclencheur 1 : Konami code ---------- */
 

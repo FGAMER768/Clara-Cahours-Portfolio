@@ -38,6 +38,9 @@ images/
   gallery/                  Illustrations, dessins, flyers, 3D
   og/                       Aperçus de partage 1200×630, un par page
                             (voir « Aperçu de partage »)
+audio/
+  bee-buzzing.mp3           Bourdonnement de l'easter egg Beez (2,6 s)
+  LICENSE.txt               Crédit et lien de la source (voir « Crédits »)
 fonts/
   inter/                    Police Inter (fichier variable, sous-ensemble latin,
                             toutes graisses) et sa licence SIL OFL
@@ -58,6 +61,7 @@ scripts/
   ripple.js                 Effet « goutte d'eau » au tap (voir plus bas)
   showcase.js               Sons de survol des jaquettes (voir plus bas)
   easter-egg.js             Trophée caché (voir « Easter egg »)
+  beez-egg.js               Abeilles à rattraper (voir « Easter egg Beez »)
 styles/
   fonts.css                 @font-face d'Inter (chargé avant tokens.css)
   tokens.css                Couleurs, typo, espacements, rayons (variables)
@@ -75,6 +79,7 @@ styles/
   footer.css                Pied de page et section contact
   ripple.css                Style de l'effet « goutte d'eau » (voir plus bas)
   easter-egg.css            Style du trophée caché
+  beez-egg.css              Style des abeilles et de leur compteur
 vercel.json                 Facultatif : force le nom du CV au téléchargement
                             (voir « CV téléchargeable »)
 .gitignore                  Exclut l'archive Clara-s-Website.zip et
@@ -130,7 +135,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(212 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
+(214 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -157,6 +162,41 @@ Il disparaît seul après 6 secondes, ou au clic, et peut être redéclenché
 de taps, durées). Le texte est dans `data/i18n.json` (clés `easteregg.*`),
 les couleurs viennent uniquement de `tokens.css`. Avec
 `prefers-reduced-motion`, le trophée apparaît sans glissement ni rebond.
+
+### Easter egg Beez (abeilles à rattraper)
+
+Sur l'accueil uniquement. Cinq abeilles, inspirées de Beez Adventures,
+traversent l'écran ; il faut les attraper (clic ou tap) avant qu'elles
+ne sortent. Un compteur « n / 5 » s'affiche sous la navbar. Les cinq
+attrapées, un second trophée s'affiche (« Retour à la ruche »).
+
+- **Clavier** : taper le mot `beez` sur la page.
+- **Tactile / souris** : toucher le petit repère « Beez Adventures » de
+  la frise du parcours (attribut `data-beez-trigger` sur son
+  `.timeline__marker` dans `index.html`).
+
+**Sons.** Chaque abeille attrapée fait un petit « pop » synthétisé (Web
+Audio, comme le carillon). À la capture de la cinquième, un bourdonnement
+(`audio/bee-buzzing.mp3`, 2,6 s) se joue juste avant l'apparition du
+trophée. Le fichier n'est chargé qu'au lâcher des abeilles, pas au
+chargement de la page, et son chemin est calculé à partir de
+l'emplacement de `beez-egg.js` (`BUZZ_PATH`). Le volume se règle avec
+`BUZZ_VOLUME` en tête du script. Si le fichier est absent ou si le
+navigateur refuse la lecture, le jeu continue sans le bourdonnement.
+
+`beez-egg.js` s'appuie sur `easter-egg.js`, qui doit donc être chargé
+avant lui : celui-ci expose `window.claraPortfolioEgg` (`unlock` pour
+afficher un trophée, `playTone` pour les sons). Réglages en tête de
+`beez-egg.js` (nombre d'abeilles, vitesses, durées). Le texte du trophée
+est dans `data/i18n.json` (clés `easteregg.beez.*`).
+
+L'abeille est une illustration SVG : ses couleurs sont des variables
+déclarées dans `styles/beez-egg.css` (et non dans `tokens.css`), car
+elles ne doivent pas changer avec le thème. Le compteur, lui, utilise
+les tokens habituels. Avec `prefers-reduced-motion`, les abeilles ne
+volent pas : elles se posent à l'écran, sans battement d'ailes, et
+restent attrapables pendant 20 secondes. Le jeu est au pointeur et
+masqué aux lecteurs d'écran : c'est un bonus décoratif.
 
 ## CV téléchargeable
 
@@ -237,6 +277,15 @@ plusieurs largeurs (`nom-400w.webp`, `nom-800w.webp`...), listées dans les
 `srcset`. Aucun script de génération n'est inclus : pour ajouter une image,
 créer soi-même les variantes avant de les déposer. Le portrait du hero est
 chargé en priorité, toutes les autres images en différé (`loading="lazy"`).
+
+## Crédits
+
+- **Bourdonnement d'abeille** (`audio/bee-buzzing.mp3`) : effet sonore de
+  [freesound_community](https://pixabay.com/users/freesound_community-46691455/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6254)
+  sur [Pixabay](https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6254).
+  Le texte d'attribution d'origine est conservé dans `audio/LICENSE.txt`.
+- **Inter** (`fonts/inter/`) : police sous licence SIL OFL, texte de la
+  licence dans `fonts/inter/LICENSE.txt`.
 
 ## Accessibilité (WCAG)
 

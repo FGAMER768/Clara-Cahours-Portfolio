@@ -211,7 +211,9 @@
     "path.sinnaya.date": "Novembre 2025 – juillet 2026",
     "easteregg.label": "Trophée débloqué",
     "easteregg.name": "Esprit curieux",
-    "easteregg.text": "Code secret trouvé. Les meilleurs niveaux cachent toujours quelque chose."
+    "easteregg.text": "Code secret trouvé. Les meilleurs niveaux cachent toujours quelque chose.",
+    "easteregg.beez.name": "Retour à la ruche",
+    "easteregg.beez.text": "Les 5 abeilles sont rentrées à la ruche. Beez peut reprendre sa mission."
   },
   "en": {
     "meta.title": "Clara Cahours de Virgile - Portfolio",
@@ -425,6 +427,8 @@
     "path.sinnaya.date": "November 2025 – July 2026",
     "easteregg.label": "Trophy unlocked",
     "easteregg.name": "Curious mind",
-    "easteregg.text": "Secret code found. The best levels always hide something."
+    "easteregg.text": "Secret code found. The best levels always hide something.",
+    "easteregg.beez.name": "Back to the hive",
+    "easteregg.beez.text": "All 5 bees are back at the hive. Beez can get back to work."
   }
 }

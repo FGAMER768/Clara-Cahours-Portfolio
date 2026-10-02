@@ -1,0 +1,189 @@
+/*
+  Easter egg Beez (voir scripts/beez-egg.js).
+
+  Le compteur utilise les tokens du site (thème clair / sombre
+  automatique). L'abeille est une illustration : ses couleurs sont
+  volontairement fixes et déclarées ici, en variables, plutôt que
+  dans tokens.css (elles ne doivent pas changer avec le thème).
+*/
+
+/* Zone de touche du repère de la frise : le point fait 14 px, trop
+   petit au doigt. On l'agrandit sans rien changer à son apparence. */
+.timeline__marker[data-beez-trigger]::after {
+  content: "";
+  position: absolute;
+  inset: -0.9rem;
+  border-radius: 50%;
+}
+
+/* Au-dessus de la navbar (100), sous le trophée (900) et la lightbox
+   (1000). Ne capte jamais les clics : seules les abeilles le font. */
+.beez-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.beez-bee {
+  --bee-yellow: #F2C230;
+  --bee-yellow-light: #F7D45A;
+  --bee-black: #211E28;
+  --bee-wing: #CFE3F1;
+  --bee-blush: #B58BD6;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(3.5rem, 9vw, 4.75rem);
+  aspect-ratio: 80 / 56;
+  pointer-events: auto;
+  touch-action: manipulation;
+  cursor: pointer;
+  will-change: transform;
+}
+
+/* Zone de touche élargie autour de l'abeille. */
+.beez-bee::after {
+  content: "";
+  position: absolute;
+  inset: -0.6rem;
+}
+
+.beez-bee__sprite {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Le dessin regarde vers la droite : on le retourne quand l'abeille
+   vole vers la gauche. */
+.beez-bee__sprite--left {
+  transform: scaleX(-1);
+}
+
+.beez-bee svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.beez-bee__yellow { fill: var(--bee-yellow); }
+.beez-bee__yellow-light { fill: var(--bee-yellow-light); }
+.beez-bee__black { fill: var(--bee-black); }
+.beez-bee__white { fill: #FFFFFF; }
+.beez-bee__blush { fill: var(--bee-blush); opacity: 0.85; }
+
+.beez-bee__wing {
+  fill: var(--bee-wing);
+  fill-opacity: 0.9;
+  stroke: var(--bee-black);
+  stroke-opacity: 0.25;
+  stroke-width: 0.8;
+}
+
+.beez-bee__legs,
+.beez-bee__antennae,
+.beez-bee__smile {
+  fill: none;
+  stroke: var(--bee-black);
+  stroke-linecap: round;
+}
+
+.beez-bee__legs { stroke-width: 2; }
+.beez-bee__antennae { stroke-width: 2.4; }
+.beez-bee__smile { stroke-width: 1.4; }
+
+/* Battement d'ailes : les deux ailes pivotent autour de leur base. */
+.beez-bee__wing {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: beez-flap 140ms ease-in-out infinite alternate;
+}
+
+.beez-bee__wing--back {
+  animation-delay: -70ms;
+}
+
+@keyframes beez-flap {
+  from { transform: rotate(-10deg) scaleY(1); }
+  to { transform: rotate(8deg) scaleY(0.6); }
+}
+
+/* Abeille attrapée : elle gonfle et disparaît. L'animation est sur le
+   <svg> pour ne pas se mélanger avec le retournement du sprite ni avec
+   le déplacement (transform posé en JS sur .beez-bee). */
+.beez-bee--caught {
+  pointer-events: none;
+}
+
+.beez-bee--caught svg {
+  animation: beez-pop 300ms var(--ease-standard) forwards;
+}
+
+@keyframes beez-pop {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(1.7); opacity: 0; }
+}
+
+/* Compteur : sous la navbar, à droite. */
+.beez-hud {
+  position: fixed;
+  top: 5.25rem;
+  right: var(--space-4);
+  z-index: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-paper-raised);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-soft);
+  font-size: var(--step-sm);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  transition: opacity 300ms var(--ease-standard),
+    transform 300ms var(--ease-standard);
+  pointer-events: none;
+}
+
+.beez-hud--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.beez-hud__icon svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: var(--color-secondary);
+  stroke: var(--color-accent-strong);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.beez-hud--pulse .beez-hud__count {
+  animation: beez-count-pulse 260ms var(--ease-standard);
+}
+
+@keyframes beez-count-pulse {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beez-bee__wing,
+  .beez-hud--pulse .beez-hud__count {
+    animation: none;
+  }
+
+  .beez-hud {
+    transform: none;
+    transition: opacity 0.001ms;
+  }
+}
