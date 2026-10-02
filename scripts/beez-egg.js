@@ -254,7 +254,7 @@
       pulseHud();
 
       if (window.claraPortfolioEgg) {
-        window.claraPortfolioEgg.playTone(520, 0, 0.1, 0.07, 980);
+        window.claraPortfolioEgg.playTone(520, 0, 0.14, 0.45, 980);
       }
 
       bee.el.classList.add("beez-bee--caught");

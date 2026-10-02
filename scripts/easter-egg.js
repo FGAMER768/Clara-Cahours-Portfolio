@@ -27,6 +27,11 @@
   var TOAST_DURATION = 6000; // durée d'affichage du trophée (ms)
   var EXIT_DURATION = 300;   // doit correspondre à la transition dans easter-egg.css
 
+  // Volume général des sons synthétisés (pop, carillon), pour les deux
+  // easter eggs : 1 = réglage par défaut, 0 = muet. Au-delà de 1,3 environ,
+  // le son risque de saturer. Le bourdonnement a le sien (beez-egg.js).
+  var SFX_VOLUME = 1;
+
   var TROPHY_ICON =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" ' +
     'stroke-linecap="round" stroke-linejoin="round">' +
@@ -75,6 +80,7 @@
         return;
       }
       try {
+        var peak = volume * SFX_VOLUME;
         var start = ctx.currentTime + startDelay;
         var oscillator = ctx.createOscillator();
         var gain = ctx.createGain();
@@ -86,7 +92,7 @@
         }
 
         gain.gain.setValueAtTime(0, start);
-        gain.gain.linearRampToValueAtTime(volume, start + 0.01);
+        gain.gain.linearRampToValueAtTime(peak, start + 0.01);
         gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
 
         oscillator.connect(gain);
@@ -101,9 +107,9 @@
 
     function playChime() {
       // Mi5, La5, Mi6 : une arpège qui monte, façon « succès débloqué ».
-      playTone(659, 0, 0.18, 0.06);
-      playTone(880, 0.09, 0.18, 0.07);
-      playTone(1319, 0.18, 0.42, 0.07);
+      playTone(659, 0, 0.18, 0.32);
+      playTone(880, 0.09, 0.18, 0.35);
+      playTone(1319, 0.18, 0.42, 0.4);
     }
 
     /* ---------- Trophée ---------- */

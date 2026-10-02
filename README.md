@@ -159,7 +159,9 @@ l'écran, avec un petit carillon (Web Audio, aucun fichier audio) :
 
 Il disparaît seul après 6 secondes, ou au clic, et peut être redéclenché
 à volonté. Réglages en tête de `scripts/easter-egg.js` (séquence, nombre
-de taps, durées). Le texte est dans `data/i18n.json` (clés `easteregg.*`),
+de taps, durées). `SFX_VOLUME`, au même endroit, règle le volume de tous
+les sons synthétisés (carillon du trophée et « pop » des abeilles) ; le
+volume de chaque note se règle dans `playChime()`. Le texte est dans `data/i18n.json` (clés `easteregg.*`),
 les couleurs viennent uniquement de `tokens.css`. Avec
 `prefers-reduced-motion`, le trophée apparaît sans glissement ni rebond.
 
@@ -180,8 +182,9 @@ Audio, comme le carillon). À la capture de la cinquième, un bourdonnement
 (`audio/bee-buzzing.mp3`, 2,6 s) se joue juste avant l'apparition du
 trophée. Le fichier n'est chargé qu'au lâcher des abeilles, pas au
 chargement de la page, et son chemin est calculé à partir de
-l'emplacement de `beez-egg.js` (`BUZZ_PATH`). Le volume se règle avec
-`BUZZ_VOLUME` en tête du script. Si le fichier est absent ou si le
+l'emplacement de `beez-egg.js` (`BUZZ_PATH`). Le volume du
+bourdonnement se règle avec `BUZZ_VOLUME` en tête du script, celui du
+« pop » dans l'appel à `playTone` de `catchBee()`. Si le fichier est absent ou si le
 navigateur refuse la lecture, le jeu continue sans le bourdonnement.
 
 `beez-egg.js` s'appuie sur `easter-egg.js`, qui doit donc être chargé
