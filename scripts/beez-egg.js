@@ -73,9 +73,16 @@
     '<path class="beez-bee__smile" d="M61 37q2.5 2 5 .2"/>' +
     "</svg>";
 
-  var HEX_SVG =
+  // Nid d'abeilles : cinq alvéoles (une par abeille), accolées. Elles
+  // s'habillent des tokens du site (voir .beez-hud__icon dans
+  // beez-egg.css), donc suivent le thème clair / sombre.
+  var HONEYCOMB_SVG =
     '<svg viewBox="0 0 24 24" focusable="false">' +
-    '<polygon points="12,2 20.66,7 20.66,17 12,22 3.34,17 3.34,7"/>' +
+    '<polygon points="8.50,4.93 12.00,6.95 12.00,10.99 8.50,13.01 5.00,10.99 5.00,6.95"/>' +
+    '<polygon points="15.50,4.93 19.00,6.95 19.00,10.99 15.50,13.01 12.00,10.99 12.00,6.95"/>' +
+    '<polygon points="5.00,10.99 8.50,13.01 8.50,17.05 5.00,19.07 1.50,17.05 1.50,13.01"/>' +
+    '<polygon points="12.00,10.99 15.50,13.01 15.50,17.05 12.00,19.07 8.50,17.05 8.50,13.01"/>' +
+    '<polygon points="19.00,10.99 22.50,13.01 22.50,17.05 19.00,19.07 15.50,17.05 15.50,13.01"/>' +
     "</svg>";
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -143,7 +150,7 @@
       hud = document.createElement("div");
       hud.className = "beez-hud";
       hud.setAttribute("aria-hidden", "true");
-      hud.innerHTML = '<span class="beez-hud__icon">' + HEX_SVG + '</span><span class="beez-hud__count"></span>';
+      hud.innerHTML = '<span class="beez-hud__icon">' + HONEYCOMB_SVG + '</span><span class="beez-hud__count"></span>';
       hudCount = hud.querySelector(".beez-hud__count");
       renderHud();
       document.body.appendChild(hud);
