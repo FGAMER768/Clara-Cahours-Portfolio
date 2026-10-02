@@ -1,0 +1,107 @@
+/*
+  Easter egg : toast « trophée débloqué » (voir scripts/easter-egg.js).
+
+  Aucune couleur en dur : tout vient de tokens.css, donc le thème
+  sombre fonctionne sans règle supplémentaire. Contrastes visés :
+  texte courant et icône au-dessus de 4,5:1 dans les deux thèmes
+  (accent-strong sur papier / sur ocre doux, encre sur papier).
+*/
+
+/* Au-dessus de la navbar (100) et du lien d'évitement (200),
+   sous la lightbox (1000). Ne capte jamais les clics hors du trophée. */
+.trophy-region {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 900;
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--space-4) calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+  pointer-events: none;
+}
+
+.trophy-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: min(100%, 25rem);
+  padding: var(--space-3) var(--space-5) var(--space-3) var(--space-4);
+  background-color: var(--color-paper-raised);
+  color: var(--color-ink);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-raised);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 300ms var(--ease-standard),
+    transform 300ms var(--ease-standard);
+}
+
+.trophy-toast--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.trophy-toast__icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid var(--color-secondary);
+  border-radius: 50%;
+  background-color: var(--color-secondary-soft);
+  color: var(--color-accent-strong);
+}
+
+.trophy-toast__icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Le seul mouvement « décoratif » : le trophée fait un petit rebond
+   à l'apparition. Neutralisé par la règle prefers-reduced-motion de
+   base.css (durée ramenée à ~0). */
+.trophy-toast--visible .trophy-toast__icon {
+  animation: trophy-pop 520ms var(--ease-standard) 120ms both;
+}
+
+@keyframes trophy-pop {
+  0% { transform: scale(0.6); }
+  60% { transform: scale(1.14); }
+  100% { transform: scale(1); }
+}
+
+.trophy-toast__label {
+  font-size: var(--step-xs);
+  font-weight: 700;
+  color: var(--color-accent-strong);
+}
+
+.trophy-toast__name {
+  margin-top: 0.125rem;
+  font-size: var(--step-md);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+}
+
+.trophy-toast__text {
+  margin-top: var(--space-1);
+  font-size: var(--step-sm);
+  line-height: 1.4;
+  color: var(--color-ink-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trophy-toast {
+    transform: none;
+    transition: opacity 0.001ms;
+  }
+
+  .trophy-toast--visible .trophy-toast__icon {
+    animation: none;
+  }
+}

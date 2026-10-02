@@ -57,6 +57,7 @@ scripts/
   hero-ring.js              Met en pause l'anneau animé du hero hors écran
   ripple.js                 Effet « goutte d'eau » au tap (voir plus bas)
   showcase.js               Sons de survol des jaquettes (voir plus bas)
+  easter-egg.js             Trophée caché (voir « Easter egg »)
 styles/
   fonts.css                 @font-face d'Inter (chargé avant tokens.css)
   tokens.css                Couleurs, typo, espacements, rayons (variables)
@@ -73,6 +74,7 @@ styles/
   project-page.css          Fiches projet (lien de retour, dégagement navbar)
   footer.css                Pied de page et section contact
   ripple.css                Style de l'effet « goutte d'eau » (voir plus bas)
+  easter-egg.css            Style du trophée caché
 vercel.json                 Facultatif : force le nom du CV au téléchargement
                             (voir « CV téléchargeable »)
 .gitignore                  Exclut l'archive Clara-s-Website.zip et
@@ -128,7 +130,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(209 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
+(212 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -140,6 +142,21 @@ Ce texte HTML ne sert que de repli si le JSON n'est pas chargé ou si la clé
 est absente. Au premier passage, la langue est déduite du navigateur
 (anglais si `en`, français sinon). Le chemin du JSON est calculé à partir de
 l'emplacement de `i18n.js`, ce qui fonctionne aussi depuis `pages/`.
+
+### Easter egg (trophée caché)
+
+Sur l'accueil uniquement, un trophée « débloqué » s'affiche en bas de
+l'écran, avec un petit carillon (Web Audio, aucun fichier audio) :
+
+- **Clavier** : le Konami code, ↑ ↑ ↓ ↓ ← → ← → B A.
+- **Tactile / souris** : 5 clics ou taps en moins de 2 secondes sur le
+  portrait du hero.
+
+Il disparaît seul après 6 secondes, ou au clic, et peut être redéclenché
+à volonté. Réglages en tête de `scripts/easter-egg.js` (séquence, nombre
+de taps, durées). Le texte est dans `data/i18n.json` (clés `easteregg.*`),
+les couleurs viennent uniquement de `tokens.css`. Avec
+`prefers-reduced-motion`, le trophée apparaît sans glissement ni rebond.
 
 ## CV téléchargeable
 

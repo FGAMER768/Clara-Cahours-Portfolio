@@ -208,7 +208,10 @@
     "path.lisaa.date": "Septembre 2024",
     "path.glory.date": "Novembre 2024",
     "path.mecha.date": "Avril 2025",
-    "path.sinnaya.date": "Novembre 2025 – juillet 2026"
+    "path.sinnaya.date": "Novembre 2025 – juillet 2026",
+    "easteregg.label": "Trophée débloqué",
+    "easteregg.name": "Esprit curieux",
+    "easteregg.text": "Code secret trouvé. Les meilleurs niveaux cachent toujours quelque chose."
   },
   "en": {
     "meta.title": "Clara Cahours de Virgile - Portfolio",
@@ -419,6 +422,9 @@
     "path.lisaa.date": "September 2024",
     "path.glory.date": "November 2024",
     "path.mecha.date": "April 2025",
-    "path.sinnaya.date": "November 2025 – July 2026"
+    "path.sinnaya.date": "November 2025 – July 2026",
+    "easteregg.label": "Trophy unlocked",
+    "easteregg.name": "Curious mind",
+    "easteregg.text": "Secret code found. The best levels always hide something."
   }
 }
