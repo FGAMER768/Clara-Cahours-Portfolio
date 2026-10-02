@@ -2,6 +2,11 @@
 
 Site en ligne : https://claracahours.vercel.app/
 
+Liens de Clara :
+- GitHub : https://github.com/claracah
+- LinkedIn : https://www.linkedin.com/in/clara-cahours-de-virgile-9b3173386/
+- CV : https://claracahours.vercel.app/documents/CV-Clara-Cahours-de-Virgile.pdf
+
 Site statique en HTML / CSS / JS vanilla. Aucun framework, aucun build,
 rien à installer. La police Inter est hébergée dans le dépôt (`fonts/`) :
 l'affichage du site ne dépend d'aucun domaine externe. Seules les vidéos
