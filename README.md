@@ -1,5 +1,7 @@
 # Portfolio Clara Cahours de Virgile
 
+Site en ligne : https://claracahours.vercel.app/
+
 Site statique en HTML / CSS / JS vanilla. Aucun framework, aucun build,
 rien à installer. La police Inter est hébergée dans le dépôt (`fonts/`) :
 l'affichage du site ne dépend d'aucun domaine externe. Seules les vidéos
