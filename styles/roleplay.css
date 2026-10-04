@@ -189,6 +189,23 @@
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-secondary) 70%, black);
 }
 
+/* Carte très étroite en rem (texte agrandi à 150-200 %, ou écran minuscule) :
+   la photo passe au-dessus des champs au lieu de les écraser. */
+@container (max-width: 16rem) {
+  .id-card__body {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+
+  .id-card__photo {
+    width: 7.5rem;
+  }
+
+  .id-card__field dd.id-card__name {
+    font-size: var(--step-base);
+  }
+}
+
 /* Photo fantôme : reprise atténuée du portrait, comme sur les cartes
    sécurisées. Affichée seulement si la carte est assez large. */
 .id-card__ghost {
