@@ -235,11 +235,13 @@ lightbox), `Échap`, ou clic / tap n'importe où.
 **Changer le dessin.** Générer un nouveau texte (par exemple sur
 asciiart.eu/image-to-ascii) et le coller dans la constante `ART` en tête de
 `scripts/ascii-egg.js`, à la place de l'ancien. La taille de police se calcule
-toute seule pour que le dessin tienne dans l'écran, quelle que soit sa taille.
+toute seule pour que le dessin tienne dans l'écran, quelle que soit sa taille
+(le dessin actuel fait 200 colonnes sur 108 lignes ; sur téléphone, un pincement
+des doigts permet de zoomer pour voir le détail).
 Le texte collé ne doit pas contenir d'accent grave (`` ` ``) ni la séquence
 `${`. Les nuances (caractères denses plus foncés) supposent la rampe
 standard ` .:-=+*#%@` (`RAMP` dans le script) ; un caractère hors de cette
-liste s'affiche à pleine intensité.
+liste (comme `)`, `[`, `]`, `}`, `<`, `>`) s'affiche à pleine intensité.
 
 **Couleurs.** Le dessin est sombre sur clair, y compris en thème sombre :
 les caractères denses (`@`, `#`) sont les zones sombres de la photo, et
@@ -255,7 +257,7 @@ feuille sont donc des variables propres à l'easter egg (`--ascii-*`, dans
 vitesse du dessin, taille maximale).
 
 **Accessibilité.** Le dessin est une image décorative (`role="img"` avec un
-libellé : les 5 500 caractères ne sont pas lus). À l'ouverture, le focus va
+libellé : les quelque 21 600 caractères ne sont pas lus). À l'ouverture, le focus va
 sur la fenêtre elle-même (sans anneau visible, pour ne pas en afficher un à
 un utilisateur à la souris ou au doigt) ; `Tab` mène à la croix, qui reçoit
 alors son anneau de focus. Le focus revient à sa place à la fermeture. Avec

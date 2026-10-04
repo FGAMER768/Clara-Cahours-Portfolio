@@ -3,8 +3,8 @@
   (voir scripts/ascii-egg.js).
 
   Comme l'abeille de beez-egg.css, c'est une illustration : le dessin
-  est sombre sur clair (les caractères denses sont les zones sombres,
-  par exemple les cheveux). Afficher le même dessin clair sur sombre en
+  est sombre sur clair (les caractères denses sont les zones sombres :
+  contours, ombres). Afficher le même dessin clair sur sombre en
   thème sombre en ferait un négatif. Les couleurs de la feuille sont
   donc des variables propres à l'easter egg, qui ne changent PAS avec
   le thème. Le reste (rayons, ombre, espacements) vient de tokens.css.
