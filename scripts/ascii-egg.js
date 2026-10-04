@@ -4,10 +4,12 @@
   s'affiche à la fin du dessin (ou à la fermeture si on est pressé).
 
   Déclencheurs :
-  - Clavier : taper le mot « ascii » sur la page.
-  - Tactile / souris : 5 clics ou taps en moins de 2 secondes sur la
-    mention de copyright du pied de page (attribut data-ascii-trigger
-    sur le <p> concerné dans index.html).
+  - Clavier : taper le mot « clara » sur la page.
+  - Tactile / souris : 5 clics ou taps en moins de 2 secondes sur le nom
+    « Clara » de la barre de navigation, toujours visible en haut de
+    l'écran (attribut data-ascii-trigger sur son <span> dans index.html).
+    Sur mobile, ce nom occupe toute la largeur libre de la barre : la
+    zone de tap est large.
 
   Fermeture : bouton ×, Échap, ou clic / tap sur le fond (ignoré juste après
   l'ouverture et pendant un spam de taps : voir CLOSE_GRACE). Le focus arrive
@@ -31,15 +33,15 @@
 (function () {
   "use strict";
 
-  var WORD = ["a", "s", "c", "i", "i"];
-  var TAPS_REQUIRED = 5;      // taps sur le copyright...
+  var WORD = ["c", "l", "a", "r", "a"];
+  var TAPS_REQUIRED = 5;      // taps sur le nom de la barre...
   var TAPS_WINDOW = 2000;     // ... dans cette fenêtre de temps (ms)
   var LINE_DELAY = 18;        // délai entre deux lignes du dessin (ms)
   var START_DELAY = 150;      // attente avant la première ligne (ms)
   var LINE_FADE = 120;        // durée d'apparition d'une ligne (ms)
   var MAX_FONT = 16;          // taille de police maximale sur grand écran (px)
 
-  // Anti-fermeture accidentelle : quand on « spamme » le copyright, les
+  // Anti-fermeture accidentelle : quand on « spamme » le nom de la barre, les
   // taps qui suivent le 5e tombent sur le fond du portrait. Ils ne doivent
   // pas le refermer : un tap sur le fond est ignoré pendant CLOSE_GRACE
   // après l'ouverture, puis tant que les taps se suivent à moins de
@@ -409,7 +411,7 @@
       }
     }
 
-    /* ---------- Déclencheur 1 : taper « ascii » ---------- */
+    /* ---------- Déclencheur 1 : taper « clara » ---------- */
 
     var recentKeys = [];
 
@@ -435,7 +437,7 @@
       }
     });
 
-    /* ---------- Déclencheur 2 : taps sur le copyright ---------- */
+    /* ---------- Déclencheur 2 : taps sur le nom de la barre de navigation ---------- */
 
     var trigger = document.querySelector("[data-ascii-trigger]");
     var taps = [];

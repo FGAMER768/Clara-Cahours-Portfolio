@@ -163,7 +163,7 @@ l'écran, avec un petit carillon (Web Audio, aucun fichier audio) :
   portrait du hero.
 
 Les éléments des trois easter eggs (trophée, portrait, abeilles, compteur,
-repère de la frise, copyright du pied de page) n'ont ni surbrillance bleue au tap ni sélection de
+repère de la frise, nom de la barre de navigation) n'ont ni surbrillance bleue au tap ni sélection de
 texte : `base.css` ne le fait que pour les liens et les boutons, ces
 éléments ont donc leurs propres règles dans `easter-egg.css` et
 `beez-egg.css` / `ascii-egg.css`.
@@ -224,19 +224,21 @@ en plein écran et se dessine de haut en bas, ligne après ligne. Un troisième
 trophée (« Portrait en code ») s'affiche à la fin du dessin, ou à la
 fermeture si on l'a fermé avant la fin.
 
-- **Clavier** : taper le mot `ascii` sur la page.
-- **Tactile / souris** : 5 clics ou taps en moins de 2 secondes sur la
-  mention de copyright du pied de page (attribut `data-ascii-trigger` sur
-  son `<p>` dans `index.html`).
+- **Clavier** : taper le mot `clara` sur la page.
+- **Tactile / souris** : 5 clics ou taps en moins de 2 secondes sur le nom
+  « Clara » de la barre de navigation (attribut `data-ascii-trigger` sur
+  son `<span>` dans `index.html`). La barre est toujours visible en haut de
+  l'écran, donc le déclencheur est accessible où qu'on soit sur la page ; sur
+  mobile, le nom occupe toute la largeur libre de la barre et sa zone de tap
+  fait 44 px de haut (`styles/ascii-egg.css`, sans changer la mise en page).
 
 Fermeture : croix en haut à droite (même apparence que celle de la
 lightbox), `Échap`, ou clic / tap sur le fond. Ces deux premiers ferment
 toujours tout de suite. Le tap sur le fond, lui, est ignoré pendant 0,8 s
 après l'ouverture et tant que les taps se suivent à moins de 0,5 s : sans
-ça, quand on « spamme » le copyright sur mobile, les taps qui suivent le
+ça, quand on « spamme » le nom de la barre sur mobile, les taps qui suivent le
 5e refermaient aussitôt le portrait (réglages `CLOSE_GRACE` et
-`CLOSE_BURST` dans `scripts/ascii-egg.js`). La zone de tap du copyright est
-agrandie en hauteur (`styles/ascii-egg.css`) sans changer la mise en page.
+`CLOSE_BURST` dans `scripts/ascii-egg.js`).
 
 **Changer le dessin.** Générer un nouveau texte (par exemple sur
 asciiart.eu/image-to-ascii) et le coller dans la constante `ART` en tête de
