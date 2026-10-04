@@ -1,0 +1,345 @@
+/*
+  Easter egg ASCII : le portrait de Clara, fait de caractères, s'affiche
+  en plein écran et se dessine ligne par ligne. Un troisième trophée
+  s'affiche à la fin du dessin (ou à la fermeture si on est pressé).
+
+  Déclencheurs :
+  - Clavier : taper le mot « ascii » sur la page.
+  - Tactile / souris : 5 clics ou taps en moins de 2 secondes sur la
+    mention de copyright du pied de page (attribut data-ascii-trigger
+    sur le <p> concerné dans index.html).
+
+  Fermeture : bouton ×, Échap, ou clic / tap n'importe où. Le focus arrive
+  sur la fenêtre elle-même ; Tab le mène à la croix (anneau visible).
+
+  S'appuie sur scripts/easter-egg.js (à charger avant) pour le trophée
+  et le carillon : window.claraPortfolioEgg.
+
+  Pour changer le dessin : générer un nouveau texte (par exemple sur
+  asciiart.eu/image-to-ascii) et le coller dans ART ci-dessous, à la
+  place de l'ancien. Aucune autre modification : la taille de police
+  s'ajuste toute seule à l'écran. Attention : le texte collé ne doit
+  contenir ni accent grave (`) ni la séquence ${ (le reste, y compris
+  les antislashs, est accepté grâce à String.raw).
+
+  Accessibilité : le dessin est une image décorative (role="img" avec
+  un libellé, les 5 500 caractères ne sont pas lus). Le focus va sur
+  la fenêtre (Tab mène à la croix) et revient à sa place ensuite. Avec
+  prefers-reduced-motion, le portrait apparaît d'un coup.
+*/
+(function () {
+  "use strict";
+
+  var WORD = ["a", "s", "c", "i", "i"];
+  var TAPS_REQUIRED = 5;      // taps sur le copyright...
+  var TAPS_WINDOW = 2000;     // ... dans cette fenêtre de temps (ms)
+  var LINE_DELAY = 30;        // délai entre deux lignes du dessin (ms)
+  var START_DELAY = 150;      // attente avant la première ligne (ms)
+  var LINE_FADE = 120;        // durée d'apparition d'une ligne (ms)
+  var MAX_FONT = 16;          // taille de police maximale sur grand écran (px)
+
+  // Du plus clair au plus dense : sert uniquement à nuancer la teinte de
+  // chaque caractère (voir ascii-egg.css), pour que le visage ressorte.
+  // Un caractère absent de cette liste s'affiche à pleine intensité.
+  var RAMP = " .:-=+*#%@";
+
+  // Portrait en ASCII (zones sombres = caractères denses : @ # %).
+  var ART = String.raw`
+-**-++=-------------------------------------==----------==-------++=+*=**+*+++-----==+**##-*=++*@-:=
+-**-++==+==-===----------------------------=+*=----+=++=+=-+*-==-+*=+*=**=++=+-----==+*+*#=**%+*%-:-
+-**-+*==#*++=*=++=-------=+++--==--+*=------+*=----+=++=++-++-++-=+=++=+*=**=+-:--===+*++*=+*%+*#-:-
+-**-+*==**++-*=++**=-----=+*+=-=+--+*=------+*=----+==+=++:++-=+==+=+*=++=++=+=:++==+**+=**+*%+**-::
+-**=+*=+****=#=+**#+-----=+++=-=+--+*-------=++----+==+=++:++==*+=+==*=+*+=*+++=+*==*-++=*#=*#***-::
+-**:+*==*+*+-*+=*##+-----=++*+-=+--+*-------=*+:---*==+==+-=+=-++=++=+++**++=++-+*++=-++-##=*#***:::
+:*#:=*==**++:**=*##*:::::-++*+:=+--+*-------=++:===+==+=++:=+=-+==++-+=+**+*+=+-=*+*--+*-##=*##**-::
+:**-=*==**++:**-*#**---*+-+++*-=+--+*-:::--:=++-=++++++=++-==+:++=+*-+=++*+*+-+==*+-::+*:**=*#%**=+=
+:**:=+=-**+*:+#=*#**-:-**-++=*-=+--+*-::::::-+*#%%##%##*++====:++-**-++====+*-++=*+-::=*:+*=**%**-=+
+.+*:=+=-**++:+*=*#*+=::**-++-*=-+=-+*-:----+**%@@@@@%%%%%#*===-++-+*==+====**-=+=*+-::=*:=*++*#**=-=
+.+*-=+=-**=+-+#=*#*++::+*-++-*+-+=-++-=+###*#*%@@@@@%%%%%%##++=++-+*=======++==++*+-::=*-=*+**#**+-=
+.+*-=+=-**++-+#=*#*++::+*-++-*+-+=-+**#####*%##%%#*****###%###*++-++==+==+=++*=+++*=::-*==*+****++:=
+.=*==+=-**=+-=#++#*++-:+*-++-**-+***####%%*%%#%#*+++===+++++*#%%#++++=+==++-+*=+-=+=::-+=-#*#**#**:+
+:=*==+=:#*=+==#++*++*-:+*-++-++***#####%#*#%#%%#+=========++++*%@%#*+=++=++-+*=+=-++:::+=-**%**#**:=
+-=*==++:**=+=-#++*++*=:++:+++****#####%###%%%%#+=========++++++*#@@%*=++=++-+*+++:++:::++:*##**#**-=
+-=*==+=:**=+=:**+*=+*=:++:=+****#*#######%%#%#+==========+++++++*#@@#+++=++=++==+-+=-::+*:*##**#+*==
+=-*+-+=.**-*=:**+*=+*=:++=*****#*###%###%%#%#+++=========++++++++*%@#*++=+*==+--+=+=-::+*:**#**#+*+=
+=-*+-++:**-*+:**+*=**+:=+***+*#*#######%%#%#*++**##*++==++++++++**#%%#*+==++=+=-++++-::+*:+*#***+*+-
++-*+-++:+*-*+:**+*=+*+:=****#****####%%#%%#+====+++*##**+++++++++*#@%#**+*+++*+:=+*+-::**:=***+*+++-
++-*+-*=.+*-*+:**=*==*+=+*+*****#####%##%%#*+*****##*****+++++++++*#@@#*+==++-++:=+*+=::+*:=*##+*=+*-
++-*+-++:+*-**:*#=*++++=+**#*****###%#%@@######*%%@%##*+====+***##*#@@##++=++-+*-+**+=::+*:=*##+*=+*-
+*-*+=*+.=*:+*:+*=*+=+++***+****#%%#%@@@#*+===+++***#*+==--=+*##%%%%@@##++==+-+*=+=*++::+*:-*##+*-=*-
+*-+=-++.=*:++.+*-+==++**+****#*##@@@@@#+=======++**++===---=#%%##*#@@%#*+=++-+*+*+**+::++::*##++==*-
+*:+=:++.=*:++:+#-++=+**####***#%%%@@@#+=----=========------=+%@@%%#%@%##+-++==**#++*+::++-:*#+=++=*=
+*:*+-++:=*-=+:=*-=++**#####*###@@@%%#*==-----===+++++=----==+*%%%@%@@%%#*==+=-**#++*+::++-:*#+-++-*=
+*:**-++:=*-=+-=*-++##%#%%####%@@%%%#*+========+++***+=+**++++*###@@@@%%#*==*+:**#++*+-:=+-:+*=:++-*+
+*:++-++:-*--+-=+-+**#%%##%%#%#%@@%##*+======+*****+===+++*###***#%@@@%%%#==++.+*#++*+-:=+-:+*=:==-*+
+*:++-++--*--+--+++######%%#%@@%%%%#**+=====++++++======+*#%##**+*#@@@@%%#*=**:=**+=**=:=+-.=*=:-=-**
+#:++-++--*=:+=-++*##%%%%%%%@@@@%%#*+++======+***+====++++**##***+*%@@@%%%#+++:=**++*+=:=+-.-*+:-=-+*
+#-+*-++--*=:+=-++%%%%%%%%%@@@@%%%#*+++=====+++====++*####*********%@@@%%%#**+--**=++*=:=+-.-**.-=-+*
+#-=+-++-:*=:+=:*+%%@%%%%%@@%%%%%%#*++++============+***####*******@@@@%%%%**+=-++-=+*+:-+=:-**:-+==*
+*-=+-++=:+=:+=-++#%@@#%%%@%%##%%%#*++++=====---====+***###%#****#%@@@@#%@%%#*=:++-=+++:-+=::+*::==-+
+*=-+--+=:++.+=-**#%##%%%@%%#*#%#%%#*++++==-------===++******+**##%@@@@##%@@%#+:++-=+++:-+=::+*-:++-+
+*=-+-=+=:++.++-*++*#####%###*#%#####*+++===-------====++*******#@@@@@%%#%%@@#*:++==+++--+=.:+*-:++-+
+*=:+-=+=:++.++:++*##*#*%%*##*#%#######**++====-====+++++******#@@@@@%%#%%%%%%*:=++-=++=-+=.:+*=:++-*
+***+*+++++*+++=+***##*###*##*######**#****+++++++++**********%@@@@@@%%%@%%%%%*-=++-=++=:+=.:+++:++-*
+**#+**++#+*#++++**###*##**#%*####**************************#@@@@@@@@%%%%%#@@%++++*+=*+++++==+++=+++*
+*=***#++#+**++**####**#*##%###*#*******++***************#%@@@@@%@@@@@%@%%@@%*+**+*+=*++#++*#+*+#++*+
+*=++**+*#+**+**#%%%#+#**####*#*******++++++******####%@@@@@@@@@%@@@@@@@%%%##+++#++*=*++*++#%+++%+=+*
+*+++**++*+**+*#%%%##*###%##*#******+++++++*****####%%@@@@@@@@@@@@@@%@%%##**%+++#++*=+++*++##+++#+=++
+**++**++*++**#%@%%##*###%#**#*****+++++++++****#####%@@@@@@@@@%@@%%%%%%**+*%+++*+**++*+*++#*+++*+=++
+**+++*+**+**#%@%###**###**+******+++++++++++***#####%@@@@@@@#%%@%%%%##%**+*%++**++***##***#+++**+=++
+**+++*++*+**###*******%*+****+++++++++++++++*****###%@@@@@@%%%%#**###%#*#++#++**++*++***+=#+++**+=++
+**==+++++=**=======*++%**++*++++++++++++++++*******#%@@@@@%%%%******##*+#++#++**+++*+**+++*+++**+=++
+++=---=*+-*+=======*++%++++*+++++++++++++++++++++***#%%%%%%####***+#%*++===+==+++++*+**+*+*++=*+++++
+------==#=+*======+#+=#*++*++==++=====++++++++++++**###%####%##****+*%+++==========++**+*++++=++++++
+-----===*%=*+==++++*===++=*=+=========++++++++++++***##%%#%#***++++++##+===========*+****+++++*+++++
+---=====+%+=++===++*=====+==+=========++++++++++++++*****##**+++++++++#+=============+***++++=++++++
+----====+#*-=++====#=========+=========++++++===+++++++*++++=++++=====+%==============+**+++++*+++++
+--=======+#-==+*===++-========+========+++========+++++++++==++========#*==============++*++++**++++
+-========+%===++*+==#==--=====++========++=================+============#===============**++++**++++
+--========#*==+++**+=*+========++========++++=++========================+*==============+*++++**++++
+==========*%+=+++++*+==+*+====+*+==========++*+==========================%+==============+++++**+++*
+==========+@+++++===*=======++=======================================-====#==============++++***++**
+==========+%*++======+=--===================-===================-------===**==============+++***+++*
+`;
+
+  var TROPHY = {
+    label: { key: "easteregg.label", fallback: "Trophée débloqué" },
+    name: { key: "easteregg.ascii.name", fallback: "Portrait en code" },
+    text: {
+      key: "easteregg.ascii.text",
+      fallback: "Même un portrait peut se cacher dans le code."
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var lines = ART.split("\n").filter(function (line) {
+      return line.trim() !== "";
+    });
+
+    var overlay = null;
+    var sheet = null;
+    var pre = null;
+    var closeButton = null;
+    var lastFocused = null;
+    var trophyTimer = null;
+    var trophyPending = false;
+
+    var reducedMotion = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function isOpen() {
+      return overlay !== null && !overlay.hidden;
+    }
+
+    // Découpe une ligne en séries de caractères de même densité, chacune
+    // dans un <span> : moins de nœuds qu'un span par caractère.
+    function appendRuns(line, text) {
+      var start = 0;
+      var level = null;
+      for (var i = 0; i <= text.length; i++) {
+        var found = i < text.length ? RAMP.indexOf(text.charAt(i)) : -2;
+        var current = found === -1 ? RAMP.length - 1 : found;
+        if (i === text.length || (level !== null && current !== level)) {
+          var run = document.createElement("span");
+          run.className = "ascii-egg__run ascii-egg__run--" + level;
+          run.textContent = text.slice(start, i);
+          line.appendChild(run);
+          start = i;
+        }
+        level = i < text.length ? current : null;
+      }
+    }
+
+    /* ---------- Construction (une seule fois, au premier déclenchement) ---------- */
+
+    function build() {
+      overlay = document.createElement("div");
+      overlay.className = "ascii-egg";
+      overlay.hidden = true;
+      overlay.setAttribute("role", "dialog");
+      overlay.setAttribute("aria-modal", "true");
+      // Le focus arrive sur la fenêtre elle-même (sans anneau visible) ;
+      // la croix ne reçoit son anneau qu'au clavier, avec Tab.
+      overlay.tabIndex = -1;
+      overlay.setAttribute("aria-label", "Portrait de Clara en ASCII");
+      overlay.setAttribute("data-i18n-attr", "aria-label:easteregg.ascii.label");
+      overlay.style.setProperty("--ascii-line-delay", LINE_DELAY + "ms");
+      overlay.style.setProperty("--ascii-start-delay", START_DELAY + "ms");
+      overlay.style.setProperty("--ascii-line-fade", LINE_FADE + "ms");
+
+      sheet = document.createElement("div");
+      sheet.className = "ascii-egg__sheet";
+
+      pre = document.createElement("pre");
+      pre.className = "ascii-egg__art";
+      pre.setAttribute("role", "img");
+      pre.setAttribute("aria-label", "Portrait de Clara en ASCII");
+      pre.setAttribute("data-i18n-attr", "aria-label:easteregg.ascii.label");
+
+      lines.forEach(function (text, index) {
+        var line = document.createElement("span");
+        line.className = "ascii-egg__line";
+        line.style.setProperty("--i", index);
+        appendRuns(line, text);
+        pre.appendChild(line);
+      });
+
+      // Le bouton est un enfant direct de la fenêtre (pas de la feuille) :
+      // il reste dans l'angle de l'écran, sans jamais recouvrir le dessin.
+      closeButton = document.createElement("button");
+      closeButton.className = "ascii-egg__close";
+      closeButton.type = "button";
+      closeButton.setAttribute("aria-label", "Fermer");
+      closeButton.setAttribute("data-i18n-attr", "aria-label:lightbox.close");
+      closeButton.innerHTML =
+        '<svg aria-hidden="true" focusable="false"><use href="icons/sprite.svg#icon-close"></use></svg>';
+
+      sheet.appendChild(pre);
+      overlay.appendChild(sheet);
+      overlay.appendChild(closeButton);
+      document.body.appendChild(overlay);
+
+      // Libellés injectés en JS : on rejoue la traduction (voir README).
+      if (window.claraPortfolioI18n && window.claraPortfolioI18n.refresh) {
+        window.claraPortfolioI18n.refresh();
+      }
+
+      overlay.addEventListener("click", close);
+    }
+
+    /* ---------- Taille de police : le dessin tient toujours à l'écran ---------- */
+
+    function px(value) {
+      return parseFloat(value) || 0;
+    }
+
+    function fit() {
+      if (!isOpen()) {
+        return;
+      }
+      pre.style.fontSize = "10px";
+      var overlayStyle = window.getComputedStyle(overlay);
+      var sheetStyle = window.getComputedStyle(sheet);
+      var availableWidth = overlay.clientWidth -
+        px(overlayStyle.paddingLeft) - px(overlayStyle.paddingRight) -
+        px(sheetStyle.paddingLeft) - px(sheetStyle.paddingRight);
+      var availableHeight = overlay.clientHeight -
+        px(overlayStyle.paddingTop) - px(overlayStyle.paddingBottom) -
+        px(sheetStyle.paddingTop) - px(sheetStyle.paddingBottom);
+      var scale = Math.min(availableWidth / pre.offsetWidth, availableHeight / pre.offsetHeight);
+      var size = Math.max(2, Math.min(10 * scale, MAX_FONT));
+      pre.style.fontSize = size.toFixed(2) + "px";
+    }
+
+    /* ---------- Trophée ---------- */
+
+    function giveTrophy() {
+      window.clearTimeout(trophyTimer);
+      if (!trophyPending) {
+        return;
+      }
+      trophyPending = false;
+      if (window.claraPortfolioEgg && window.claraPortfolioEgg.unlock) {
+        window.claraPortfolioEgg.unlock(TROPHY);
+      }
+    }
+
+    /* ---------- Ouverture / fermeture ---------- */
+
+    function onKeydown(event) {
+      if (event.key === "Escape") {
+        close();
+      } else if (event.key === "Tab") {
+        // Un seul élément focalisable dans la boîte de dialogue.
+        event.preventDefault();
+        closeButton.focus();
+      }
+    }
+
+    function open() {
+      if (isOpen()) {
+        return;
+      }
+      // Pas par-dessus la lightbox des galeries.
+      if (document.querySelector('.lightbox[aria-hidden="false"]')) {
+        return;
+      }
+      if (!overlay) {
+        build();
+      }
+      lastFocused = document.activeElement;
+      overlay.hidden = false;
+      document.body.style.overflow = "hidden";
+      fit();
+      overlay.focus({ preventScroll: true });
+      document.addEventListener("keydown", onKeydown);
+      window.addEventListener("resize", fit);
+
+      trophyPending = true;
+      var drawDuration = reducedMotion
+        ? 0
+        : START_DELAY + lines.length * LINE_DELAY + LINE_FADE;
+      trophyTimer = window.setTimeout(giveTrophy, drawDuration + 300);
+    }
+
+    function close() {
+      if (!isOpen()) {
+        return;
+      }
+      overlay.hidden = true;
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKeydown);
+      window.removeEventListener("resize", fit);
+      // Fermé avant la fin du dessin : le trophée est quand même donné.
+      giveTrophy();
+      if (lastFocused && typeof lastFocused.focus === "function") {
+        lastFocused.focus({ preventScroll: true });
+      }
+    }
+
+    /* ---------- Déclencheur 1 : taper « ascii » ---------- */
+
+    var recentKeys = [];
+
+    document.addEventListener("keydown", function (event) {
+      if (isOpen() || event.repeat || event.ctrlKey || event.metaKey || event.altKey) {
+        return;
+      }
+      var target = event.target;
+      if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) {
+        return;
+      }
+      if (event.key.length !== 1) {
+        return;
+      }
+
+      recentKeys.push(event.key.toLowerCase());
+      if (recentKeys.length > WORD.length) {
+        recentKeys.shift();
+      }
+      if (recentKeys.join("") === WORD.join("")) {
+        recentKeys = [];
+        open();
+      }
+    });
+
+    /* ---------- Déclencheur 2 : taps sur le copyright ---------- */
+
+    var trigger = document.querySelector("[data-ascii-trigger]");
+    var taps = [];
+
+    if (trigger) {
+      trigger.addEventListener("click", function () {
+        var now = Date.now();
+        taps.push(now);
+        taps = taps.filter(function (time) {
+          return now - time <= TAPS_WINDOW;
+        });
+        if (taps.length >= TAPS_REQUIRED) {
+          taps = [];
+          open();
+        }
+      });
+    }
+  });
+})();

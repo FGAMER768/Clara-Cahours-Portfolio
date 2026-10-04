@@ -2,11 +2,6 @@
 
 Site en ligne : https://claracahours.vercel.app/
 
-Liens de Clara :
-- GitHub : https://github.com/claracah
-- LinkedIn : https://www.linkedin.com/in/clara-cahours-de-virgile-9b3173386/
-- CV : https://claracahours.vercel.app/documents/CV-Clara-Cahours-de-Virgile.pdf
-
 Site statique en HTML / CSS / JS vanilla. Aucun framework, aucun build,
 rien à installer. La police Inter est hébergée dans le dépôt (`fonts/`) :
 l'affichage du site ne dépend d'aucun domaine externe. Seules les vidéos
@@ -69,6 +64,7 @@ scripts/
   showcase.js               Sons de survol des jaquettes (voir plus bas)
   easter-egg.js             Trophée caché (voir « Easter egg »)
   beez-egg.js               Abeilles à rattraper (voir « Easter egg Beez »)
+  ascii-egg.js              Portrait en ASCII (voir « Easter egg ASCII »)
 styles/
   fonts.css                 @font-face d'Inter (chargé avant tokens.css)
   tokens.css                Couleurs, typo, espacements, rayons (variables)
@@ -87,6 +83,7 @@ styles/
   ripple.css                Style de l'effet « goutte d'eau » (voir plus bas)
   easter-egg.css            Style du trophée caché
   beez-egg.css              Style des abeilles et de leur compteur
+  ascii-egg.css             Style du portrait ASCII en plein écran
 vercel.json                 Facultatif : force le nom du CV au téléchargement
                             (voir « CV téléchargeable »)
 .gitignore                  Exclut l'archive Clara-s-Website.zip et
@@ -165,11 +162,11 @@ l'écran, avec un petit carillon (Web Audio, aucun fichier audio) :
 - **Tactile / souris** : 5 clics ou taps en moins de 2 secondes sur le
   portrait du hero.
 
-Les éléments des deux easter eggs (trophée, portrait, abeilles, compteur,
-repère de la frise) n'ont ni surbrillance bleue au tap ni sélection de
+Les éléments des trois easter eggs (trophée, portrait, abeilles, compteur,
+repère de la frise, copyright du pied de page) n'ont ni surbrillance bleue au tap ni sélection de
 texte : `base.css` ne le fait que pour les liens et les boutons, ces
 éléments ont donc leurs propres règles dans `easter-egg.css` et
-`beez-egg.css`.
+`beez-egg.css` / `ascii-egg.css`.
 
 Il disparaît seul après 6 secondes, ou au clic, et peut être redéclenché
 à volonté. Réglages en tête de `scripts/easter-egg.js` (séquence, nombre
@@ -219,6 +216,51 @@ les tokens habituels. Avec `prefers-reduced-motion`, les abeilles ne
 volent pas : elles se posent à l'écran, sans battement d'ailes, et
 restent attrapables pendant 20 secondes. Le jeu est au pointeur et
 masqué aux lecteurs d'écran : c'est un bonus décoratif.
+
+### Easter egg ASCII (portrait en caractères)
+
+Sur l'accueil uniquement. Le portrait de Clara, fait de caractères, s'affiche
+en plein écran et se dessine de haut en bas, ligne après ligne. Un troisième
+trophée (« Portrait en code ») s'affiche à la fin du dessin, ou à la
+fermeture si on l'a fermé avant la fin.
+
+- **Clavier** : taper le mot `ascii` sur la page.
+- **Tactile / souris** : 5 clics ou taps en moins de 2 secondes sur la
+  mention de copyright du pied de page (attribut `data-ascii-trigger` sur
+  son `<p>` dans `index.html`).
+
+Fermeture : croix en haut à droite (même apparence que celle de la
+lightbox), `Échap`, ou clic / tap n'importe où.
+
+**Changer le dessin.** Générer un nouveau texte (par exemple sur
+asciiart.eu/image-to-ascii) et le coller dans la constante `ART` en tête de
+`scripts/ascii-egg.js`, à la place de l'ancien. La taille de police se calcule
+toute seule pour que le dessin tienne dans l'écran, quelle que soit sa taille.
+Le texte collé ne doit pas contenir d'accent grave (`` ` ``) ni la séquence
+`${`. Les nuances (caractères denses plus foncés) supposent la rampe
+standard ` .:-=+*#%@` (`RAMP` dans le script) ; un caractère hors de cette
+liste s'affiche à pleine intensité.
+
+**Couleurs.** Le dessin est sombre sur clair, y compris en thème sombre :
+les caractères denses (`@`, `#`) sont les zones sombres de la photo, et
+l'inverse en ferait un négatif. Comme pour l'abeille, les couleurs de la
+feuille sont donc des variables propres à l'easter egg (`--ascii-*`, dans
+`styles/ascii-egg.css`) et ne changent pas avec le thème. Les nuances d'encre
+(`.ascii-egg__run--1` à `--9`) se règlent dans le même fichier. Le reste
+(rayons, ombre) vient de `tokens.css`. Le texte est dans `data/i18n.json`
+(clés `easteregg.ascii.*`).
+
+`ascii-egg.js` s'appuie sur `easter-egg.js`, qui doit être chargé avant lui
+(trophée et carillon). Réglages en tête du script (mots, nombre de taps,
+vitesse du dessin, taille maximale).
+
+**Accessibilité.** Le dessin est une image décorative (`role="img"` avec un
+libellé : les 5 500 caractères ne sont pas lus). À l'ouverture, le focus va
+sur la fenêtre elle-même (sans anneau visible, pour ne pas en afficher un à
+un utilisateur à la souris ou au doigt) ; `Tab` mène à la croix, qui reçoit
+alors son anneau de focus. Le focus revient à sa place à la fermeture. Avec
+`prefers-reduced-motion`, le portrait apparaît d'un coup. L'easter egg ne
+s'ouvre pas par-dessus la lightbox des galeries.
 
 ## CV téléchargeable
 

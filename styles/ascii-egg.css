@@ -1,0 +1,166 @@
+/*
+  Easter egg ASCII : portrait en caractères, en plein écran
+  (voir scripts/ascii-egg.js).
+
+  Comme l'abeille de beez-egg.css, c'est une illustration : le dessin
+  est sombre sur clair (les caractères denses sont les zones sombres,
+  par exemple les cheveux). Afficher le même dessin clair sur sombre en
+  thème sombre en ferait un négatif. Les couleurs de la feuille sont
+  donc des variables propres à l'easter egg, qui ne changent PAS avec
+  le thème. Le reste (rayons, ombre, espacements) vient de tokens.css.
+
+  Empilement : au-dessus de la navbar (100), des abeilles (800) et sous
+  le trophée (900), pour que celui-ci s'affiche par-dessus le portrait.
+*/
+
+.ascii-egg {
+  --ascii-paper: #faf7f3;
+  --ascii-ink: #211e28;
+  --ascii-scrim: rgba(18, 16, 24, 0.9);
+
+  position: fixed;
+  inset: 0;
+  z-index: 850;
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+  background-color: var(--ascii-scrim);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+  animation: ascii-fade 250ms var(--ease-standard) both;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ascii-egg[hidden] {
+  display: none;
+}
+
+/* La fenêtre reçoit le focus à l'ouverture : pas d'anneau sur tout l'écran. */
+.ascii-egg:focus {
+  outline: none;
+}
+
+.ascii-egg__sheet {
+  padding: clamp(0.75rem, 3vw, 1.5rem);
+  background-color: var(--ascii-paper);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-raised);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Le dessin : la police est calculée par le script pour tenir à
+   l'écran. Les ligatures sont coupées (« -- », « == » resteraient
+   sinon fusionnés dans certaines polices de code). */
+.ascii-egg__art {
+  margin: 0;
+  width: max-content;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 6px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  white-space: pre;
+  color: var(--ascii-ink);
+  font-variant-ligatures: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Le dessin se révèle de haut en bas, une ligne après l'autre. */
+.ascii-egg__line {
+  display: block;
+  opacity: 0;
+  animation: ascii-line-in var(--ascii-line-fade, 120ms) linear forwards;
+  animation-delay: calc(var(--ascii-start-delay, 150ms) + var(--i) * var(--ascii-line-delay, 30ms));
+}
+
+/* Nuances d'encre : plus le caractère est dense, plus il est foncé
+   (0 = espace, 9 = « @ »). Le contenu du texte ne change pas, seule la
+   teinte varie, ce qui rend le visage lisible. */
+.ascii-egg__run--1 { color: rgba(33, 30, 40, 0.05); }
+.ascii-egg__run--2 { color: rgba(33, 30, 40, 0.08); }
+.ascii-egg__run--3 { color: rgba(33, 30, 40, 0.12); }
+.ascii-egg__run--4 { color: rgba(33, 30, 40, 0.2); }
+.ascii-egg__run--5 { color: rgba(33, 30, 40, 0.32); }
+.ascii-egg__run--6 { color: rgba(33, 30, 40, 0.5); }
+.ascii-egg__run--7 { color: rgba(33, 30, 40, 0.75); }
+.ascii-egg__run--8 { color: rgba(33, 30, 40, 0.92); }
+.ascii-egg__run--9 { color: var(--ascii-ink); }
+
+/* Bouton de fermeture : même apparence que celui de la lightbox
+   (pastille sombre translucide, croix blanche), dans l'angle de l'écran,
+   en tenant compte de l'encoche des téléphones. */
+.ascii-egg__close {
+  position: absolute;
+  top: calc(var(--space-4) + env(safe-area-inset-top, 0px));
+  right: calc(var(--space-4) + env(safe-area-inset-right, 0px));
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0;
+  color: #ffffff;
+  background-color: rgba(30, 25, 38, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.ascii-egg__close svg {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ascii-egg__close:hover {
+    background-color: rgba(30, 25, 38, 0.85);
+  }
+}
+
+/* Anneau de focus clair : visible sur le fond sombre de la fenêtre,
+   quel que soit le thème du site. */
+.ascii-egg__close:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+/* Le déclencheur tactile (copyright du pied de page) : ni surbrillance
+   au tap, ni sélection de texte, ni zoom au double-tap. */
+[data-ascii-trigger] {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+@keyframes ascii-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ascii-line-in {
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ascii-egg {
+    animation: none;
+  }
+
+  .ascii-egg__line {
+    opacity: 1;
+    animation: none;
+  }
+
+  .ascii-egg__close {
+    transition: none;
+  }
+}
