@@ -9,9 +9,6 @@
   donc le thème clair/sombre fonctionne sans règle supplémentaire.
   Les couleurs propres à chaque personnage viennent de sa photo.
 
-  Le cadrage de la photo est réglé par carte via trois variables
-  (--crop-w, --crop-x, --crop-y) : la jaquette contient le nom du
-  personnage en incrustation, on ne montre ici que la partie illustrée.
 */
 
 .roleplay-ids {
@@ -25,6 +22,7 @@
 }
 
 .id-card {
+  container-type: inline-size;
   width: 100%;
   max-width: 34rem;
   display: flex;
@@ -41,6 +39,10 @@
 }
 
 .id-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
   padding: var(--space-3) var(--space-4);
   background-color: var(--color-accent-soft);
   border-bottom: 2px solid var(--color-secondary);
@@ -54,47 +56,42 @@
 }
 
 .id-card__body {
+  position: relative;
   display: grid;
   grid-template-columns: clamp(6.5rem, 32%, 9.5rem) minmax(0, 1fr);
   gap: var(--space-4);
   align-items: center;
-  padding: var(--space-4);
+  padding: var(--space-5) var(--space-4);
+  /* Fond guilloché très discret, comme sur les papiers d'identité. */
+  background-image: repeating-radial-gradient(
+    circle at 85% 110%,
+    transparent 0 0.45rem,
+    color-mix(in srgb, var(--color-accent) 9%, transparent) 0.45rem 0.5rem
+  );
 }
 
-/* Photo d'identité : cadre 3/4, image recadrée par positionnement
-   absolu plutôt que par object-fit, pour pouvoir écarter le nom
-   incrusté dans la jaquette. */
+/* Photo d'identité : la jaquette est affichée en entier (même ratio
+   2/3 que l'image source), donc aucun recadrage ni zoom. */
 .id-card__photo {
-  position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 2 / 3;
   overflow: hidden;
   border-radius: var(--radius-sm);
   background-color: var(--color-accent-soft);
-  box-shadow: 0 0 0 1px var(--color-border);
+  box-shadow:
+    0 0 0 1px var(--color-border),
+    0 0 0 4px var(--color-paper-raised),
+    0 0 0 5px var(--color-border);
 }
 
 .id-card__photo img {
-  position: absolute;
-  max-width: none;
-  height: auto;
-  width: var(--crop-w, 100%);
-  left: var(--crop-x, 0);
-  top: var(--crop-y, 0);
-}
-
-.id-card--rdr {
-  --crop-w: 210%;
-  --crop-x: -55.7%;
-  --crop-y: -41.4%;
-}
-
-.id-card--gta {
-  --crop-w: 180%;
-  --crop-x: -2.1%;
-  --crop-y: -44.4%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .id-card__fields {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -177,4 +174,58 @@
   .id-card:focus-visible .id-card__footer svg {
     transform: none;
   }
+}
+
+/* Puce de carte : purement décorative. */
+.id-card__chip {
+  flex: none;
+  width: 1.75rem;
+  height: 1.3rem;
+  border-radius: 0.3rem;
+  background:
+    linear-gradient(var(--color-secondary-soft), var(--color-secondary-soft)) center / 100% 1px no-repeat,
+    linear-gradient(90deg, transparent calc(50% - 0.5px), var(--color-secondary-soft) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+    linear-gradient(135deg, var(--color-secondary), color-mix(in srgb, var(--color-secondary) 60%, white));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-secondary) 70%, black);
+}
+
+/* Photo fantôme : reprise atténuée du portrait, comme sur les cartes
+   sécurisées. Affichée seulement si la carte est assez large. */
+.id-card__ghost {
+  display: none;
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  width: 5.5rem;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  opacity: 0.16;
+  filter: grayscale(1);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 20%, transparent 72%);
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 72%);
+  pointer-events: none;
+}
+
+@container (min-width: 30rem) {
+  .id-card__ghost {
+    display: block;
+  }
+}
+
+/* Bande lisible par machine : uniquement le nom du personnage, complété
+   par des chevrons. Décorative (aria-hidden), rognée si trop étroite. */
+.id-card__mrz {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-secondary-soft);
+  border-top: 1px solid var(--color-border);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--color-ink-muted);
+  -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent);
+  mask-image: linear-gradient(90deg, #000 85%, transparent);
+  user-select: none;
 }
