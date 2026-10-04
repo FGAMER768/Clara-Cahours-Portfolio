@@ -9,7 +9,8 @@
     mention de copyright du pied de page (attribut data-ascii-trigger
     sur le <p> concerné dans index.html).
 
-  Fermeture : bouton ×, Échap, ou clic / tap n'importe où. Le focus arrive
+  Fermeture : bouton ×, Échap, ou clic / tap sur le fond (ignoré juste après
+  l'ouverture et pendant un spam de taps : voir CLOSE_GRACE). Le focus arrive
   sur la fenêtre elle-même ; Tab le mène à la croix (anneau visible).
 
   S'appuie sur scripts/easter-egg.js (à charger avant) pour le trophée
@@ -37,6 +38,15 @@
   var START_DELAY = 150;      // attente avant la première ligne (ms)
   var LINE_FADE = 120;        // durée d'apparition d'une ligne (ms)
   var MAX_FONT = 16;          // taille de police maximale sur grand écran (px)
+
+  // Anti-fermeture accidentelle : quand on « spamme » le copyright, les
+  // taps qui suivent le 5e tombent sur le fond du portrait. Ils ne doivent
+  // pas le refermer : un tap sur le fond est ignoré pendant CLOSE_GRACE
+  // après l'ouverture, puis tant que les taps se suivent à moins de
+  // CLOSE_BURST les uns des autres. La croix et Échap ferment toujours
+  // tout de suite.
+  var CLOSE_GRACE = 800;      // ms après l'ouverture
+  var CLOSE_BURST = 500;      // ms entre deux taps pour compter comme un spam
 
   // Du plus clair au plus dense : sert uniquement à nuancer la teinte de
   // chaque caractère (voir ascii-egg.css), pour que le visage ressorte.
@@ -179,6 +189,8 @@
     var trophyTimer = null;
     var trophyPending = false;
     var filled = false;
+    var openedAt = 0;
+    var lastOverlayTap = 0;
 
     var reducedMotion = window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -252,7 +264,19 @@
         window.claraPortfolioI18n.refresh();
       }
 
-      overlay.addEventListener("click", close);
+      overlay.addEventListener("click", function (event) {
+        // La croix ferme toujours, immédiatement.
+        if (closeButton.contains(event.target)) {
+          close();
+          return;
+        }
+        var now = Date.now();
+        var accidental = now - openedAt < CLOSE_GRACE || now - lastOverlayTap < CLOSE_BURST;
+        lastOverlayTap = now;
+        if (!accidental) {
+          close();
+        }
+      });
     }
 
     // Les ~11 000 petits éléments du dessin sont construits après
@@ -346,6 +370,8 @@
         build();
       }
       lastFocused = document.activeElement;
+      openedAt = Date.now();
+      lastOverlayTap = openedAt;
       overlay.hidden = false;
       document.body.style.overflow = "hidden";
       overlay.focus({ preventScroll: true });

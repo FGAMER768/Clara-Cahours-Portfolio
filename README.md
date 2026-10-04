@@ -230,7 +230,13 @@ fermeture si on l'a fermé avant la fin.
   son `<p>` dans `index.html`).
 
 Fermeture : croix en haut à droite (même apparence que celle de la
-lightbox), `Échap`, ou clic / tap n'importe où.
+lightbox), `Échap`, ou clic / tap sur le fond. Ces deux premiers ferment
+toujours tout de suite. Le tap sur le fond, lui, est ignoré pendant 0,8 s
+après l'ouverture et tant que les taps se suivent à moins de 0,5 s : sans
+ça, quand on « spamme » le copyright sur mobile, les taps qui suivent le
+5e refermaient aussitôt le portrait (réglages `CLOSE_GRACE` et
+`CLOSE_BURST` dans `scripts/ascii-egg.js`). La zone de tap du copyright est
+agrandie en hauteur (`styles/ascii-egg.css`) sans changer la mise en page.
 
 **Changer le dessin.** Générer un nouveau texte (par exemple sur
 asciiart.eu/image-to-ascii) et le coller dans la constante `ART` en tête de
