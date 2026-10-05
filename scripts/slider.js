@@ -54,30 +54,44 @@
       return slider.querySelectorAll(".media-slider__slide");
     }
 
-    // Position de scroll de la Nème slide, lue directement dans le DOM
-    // (offsetLeft) plutôt que recalculée en multipliant un "pas" par un
-    // index : ça reste juste même si les slides n'ont pas exactement la
-    // même largeur (arrondis du navigateur, dernière slide partielle...),
-    // et ça tombe toujours exactement sur le point d'alignement
-    // scroll-snap de la slide visée au lieu d'une position arithmétique
-    // qui peut légèrement le manquer.
+    // Position de scroll de la Nème slide, mesurée PAR RAPPORT AU VIEWPORT
+    // (et non avec offsetLeft). offsetLeft se calcule depuis le premier
+    // ancêtre positionné, qui ici est <body> : il inclut donc tout le
+    // décalage du slider dans la page (marges du container, bouton
+    // "précédent", etc.). Résultat : les positions étaient fausses d'une
+    // valeur constante, le compteur retardait de plusieurs slides et un
+    // clic sur "suivant" pouvait en sauter une. getBoundingClientRect()
+    // relatif au viewport, auquel on rajoute le scroll courant, donne
+    // exactement la valeur de scrollLeft qui aligne cette slide sur le
+    // bord gauche (point d'alignement scroll-snap).
     function getSlideOffset(index) {
       var slides = getSlides();
       var target = slides[Math.max(0, Math.min(index, slides.length - 1))];
-      return target ? target.offsetLeft : 0;
+      if (!target) {
+        return 0;
+      }
+      return (
+        target.getBoundingClientRect().left -
+        viewport.getBoundingClientRect().left +
+        viewport.scrollLeft
+      );
     }
 
-    // Index de la slide actuellement la plus proche du bord gauche du
-    // viewport, déduit de la position de scroll réelle plutôt que d'une
-    // division approximative scrollLeft / step (qui peut dériver d'une
-    // unité selon les arrondis, faisant passer une slide au clic).
-    function getCurrentIndex() {
+    function getMaxScroll() {
+      return Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+    }
+
+    // Index de la slide alignée sur le bord gauche du viewport (la plus
+    // proche de la position de scroll réelle). C'est cet index, la
+    // position RÉELLE, qui sert à naviguer : depuis la butée droite,
+    // "précédent" doit partir de là et non du compteur affiché.
+    function getPositionIndex() {
       var slides = getSlides();
       var scrollLeft = viewport.scrollLeft;
       var closestIndex = 0;
       var closestDistance = Infinity;
       slides.forEach(function (slide, index) {
-        var distance = Math.abs(slide.offsetLeft - scrollLeft);
+        var distance = Math.abs(getSlideOffset(index) - scrollLeft);
         if (distance < closestDistance) {
           closestDistance = distance;
           closestIndex = index;
@@ -86,11 +100,29 @@
       return closestIndex;
     }
 
+    // Index AFFICHÉ dans le compteur. Comme plusieurs slides sont visibles
+    // à la fois (2 sur ordinateur), les dernières ne peuvent jamais
+    // atteindre le bord gauche : tout à droite, la slide alignée à gauche
+    // est l'avant-dernière. On affiche alors la dernière ("9 / 9"), ce
+    // que la personne attend en butée droite.
+    function getDisplayIndex() {
+      var slides = getSlides();
+      var maxScroll = getMaxScroll();
+      if (maxScroll > 1 && viewport.scrollLeft >= maxScroll - 1) {
+        return slides.length - 1;
+      }
+      return getPositionIndex();
+    }
+
     function updateControls() {
       var slides = getSlides();
 
       if (!slides.length) {
+        // Toutes les images ont échoué : on masque le slider ET son
+        // compteur (display:grid du CSS l'emporte sur l'attribut hidden).
         slider.hidden = true;
+        slider.style.display = "none";
+        status.hidden = true;
         return;
       }
 
@@ -102,24 +134,29 @@
         return;
       }
 
-      var maxScroll = viewport.scrollWidth - viewport.clientWidth;
-
-      // Tant que le viewport n'a pas encore de vraie largeur (images pas
-      // chargées, police pas prête, etc.), maxScroll peut valoir 0 ou
-      // négatif : on ne fige alors PAS les boutons sur "disabled", on
-      // attend simplement le prochain passage (resize/load/observer)
-      // pour ne jamais bloquer le slider dans un état figé.
-      if (maxScroll <= 0 && slides.length > 1) {
+      // Viewport pas encore affiché (largeur nulle) : on ne fige PAS les
+      // boutons sur "disabled", on attend le prochain passage
+      // (resize/load/observer) pour ne jamais bloquer le slider.
+      if (viewport.clientWidth === 0) {
         previousButton.disabled = viewport.scrollLeft <= 1;
         nextButton.disabled = false;
         status.textContent = "1 / " + slides.length;
         return;
       }
 
-      var currentSlide = getCurrentIndex();
+      var maxScroll = getMaxScroll();
+
+      // Toutes les slides tiennent dans le viewport : rien à faire défiler.
+      if (maxScroll <= 1) {
+        previousButton.disabled = true;
+        nextButton.disabled = true;
+        status.textContent = "1 / " + slides.length;
+        return;
+      }
+
       previousButton.disabled = viewport.scrollLeft <= 1;
       nextButton.disabled = viewport.scrollLeft >= maxScroll - 1;
-      status.textContent = Math.min(currentSlide + 1, slides.length) + " / " + slides.length;
+      status.textContent = Math.min(getDisplayIndex() + 1, slides.length) + " / " + slides.length;
     }
 
     function moveSlider(direction) {
@@ -127,12 +164,11 @@
       if (!slides.length) {
         return;
       }
-      var targetIndex = getCurrentIndex() + direction;
-      var maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      var targetIndex = getPositionIndex() + direction;
       var targetOffset = getSlideOffset(targetIndex);
 
       viewport.scrollTo({
-        left: Math.max(0, Math.min(targetOffset, maxScroll)),
+        left: Math.max(0, Math.min(targetOffset, getMaxScroll())),
         behavior: "smooth"
       });
     }
@@ -161,6 +197,15 @@
         updateControls();
       });
       resizeObserver.observe(viewport);
+    }
+
+    // Une slide retirée (image en erreur) change la largeur défilable sans
+    // changer la taille du viewport : le ResizeObserver ne la voit pas.
+    if ("MutationObserver" in window) {
+      var track = slider.querySelector(".media-slider__track");
+      if (track) {
+        new MutationObserver(updateControls).observe(track, { childList: true });
+      }
     }
 
     updateControls();
