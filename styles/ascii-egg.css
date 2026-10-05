@@ -103,8 +103,10 @@
    surbrillance au tap, ni sélection de texte, ni zoom au double-tap.
    Le texte ne fait qu'une ligne (20 px) : sa zone de tap est agrandie en
    hauteur. La marge négative compense exactement le remplissage, donc la
-   barre de navigation ne bouge pas. */
-[data-ascii-trigger] {
+   barre de navigation ne bouge pas. Appliqué seulement quand l'easter egg
+   est actif (classe posée par le script) : désactivé, le nom « Clara » se
+   comporte comme n'importe quel texte. */
+.ascii-egg-on [data-ascii-trigger] {
   padding-block: var(--space-3);
   margin-block: calc(-1 * var(--space-3));
   -webkit-tap-highlight-color: transparent;

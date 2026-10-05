@@ -64,7 +64,7 @@ scripts/
   showcase.js               Sons de survol des jaquettes (voir plus bas)
   easter-egg.js             Trophée caché (voir « Easter egg »)
   beez-egg.js               Abeilles à rattraper (voir « Easter egg Beez »)
-  ascii-egg.js              Portrait en ASCII (voir « Easter egg ASCII »)
+  ascii-egg.js              Portrait en ASCII, DÉSACTIVÉ (voir « Easter egg ASCII »)
 styles/
   fonts.css                 @font-face d'Inter (chargé avant tokens.css)
   tokens.css                Couleurs, typo, espacements, rayons (variables)
@@ -83,7 +83,7 @@ styles/
   ripple.css                Style de l'effet « goutte d'eau » (voir plus bas)
   easter-egg.css            Style du trophée caché
   beez-egg.css              Style des abeilles et de leur compteur
-  ascii-egg.css             Style du portrait ASCII en plein écran
+  ascii-egg.css             Style du portrait ASCII (inactif tant que l'easter egg est désactivé)
 vercel.json                 Facultatif : force le nom du CV au téléchargement
                             (voir « CV téléchargeable »)
 .gitignore                  Exclut l'archive Clara-s-Website.zip et
@@ -219,13 +219,33 @@ masqué aux lecteurs d'écran : c'est un bonus décoratif.
 
 ### Easter egg ASCII (portrait en caractères)
 
+> **ÉTAT ACTUEL : DÉSACTIVÉ.** Le code est complet et fonctionnel, mais les
+> deux déclencheurs (clavier et tactile) sont coupés : rien ne peut ouvrir le
+> portrait, aucun écouteur n'est posé sur la page, et le nom « Clara » de la
+> barre de navigation se comporte comme un texte ordinaire.
+>
+> **Pour le réactiver** : dans `scripts/ascii-egg.js`, remplacer
+> `var ENABLED = false;` par `var ENABLED = true;`. C'est tout : le clavier, le
+> tactile, le trophée, les textes (`data/i18n.json`) et les styles
+> reviennent tels quels. Aucune autre modification, ni dans `index.html` ni
+> ailleurs.
+>
+> **Pour le retirer complètement de la page** (par exemple pour ne plus
+> charger ses ~17 Ko compressés) : supprimer ou commenter, dans `index.html`,
+> la ligne `<link rel="stylesheet" href="styles/ascii-egg.css" />` et la
+> ligne `<script src="scripts/ascii-egg.js"></script>`. Les fichiers peuvent
+> rester dans le projet. L'attribut `data-ascii-trigger` sur le nom « Clara »
+> et les clés `easteregg.ascii.*` du JSON sont alors inertes. Pour le
+> remettre, remettre les deux lignes et passer `ENABLED` à `true`.
+
 Sur l'accueil uniquement. Le portrait de Clara, fait de caractères, s'affiche
 en plein écran et se dessine de haut en bas, ligne après ligne. Un troisième
 trophée (« Portrait en code ») s'affiche à la fin du dessin, ou à la
 fermeture si on l'a fermé avant la fin.
 
-- **Clavier** : taper le mot `clara` sur la page.
-- **Tactile / souris** : 5 clics ou taps en moins de 2 secondes sur le nom
+- **Clavier** : taper le mot `clara` sur la page (inactif tant que `ENABLED = false`).
+- **Tactile / souris** (inactif tant que `ENABLED = false`) : 5 clics ou taps
+  en moins de 2 secondes sur le nom
   « Clara » de la barre de navigation (attribut `data-ascii-trigger` sur
   son `<span>` dans `index.html`). La barre est toujours visible en haut de
   l'écran, donc le déclencheur est accessible où qu'on soit sur la page ; sur

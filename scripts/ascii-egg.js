@@ -3,7 +3,13 @@
   en plein écran et se dessine ligne par ligne. Un troisième trophée
   s'affiche à la fin du dessin (ou à la fermeture si on est pressé).
 
-  Déclencheurs :
+  ÉTAT ACTUEL : DÉSACTIVÉ. Le code est entier et fonctionnel, mais les
+  deux déclencheurs ci-dessous sont coupés (voir ENABLED, juste après ce
+  commentaire) : rien ne peut ouvrir le portrait, ni au clavier ni au
+  toucher, et aucun écouteur n'est posé sur la page.
+  POUR LE RÉACTIVER : mettre  var ENABLED = true;  Rien d'autre à faire.
+
+  Déclencheurs (actifs seulement si ENABLED = true) :
   - Clavier : taper le mot « clara » sur la page.
   - Tactile / souris : 5 clics ou taps en moins de 2 secondes sur le nom
     « Clara » de la barre de navigation, toujours visible en haut de
@@ -40,6 +46,10 @@
 */
 (function () {
   "use strict";
+
+  // INTERRUPTEUR GÉNÉRAL de l'easter egg. false = désactivé (état actuel),
+  // true = les déclencheurs clavier et tactile fonctionnent.
+  var ENABLED = false;
 
   var WORD = ["c", "l", "a", "r", "a"];
   var TAPS_REQUIRED = 5;      // taps sur le nom de la barre...
@@ -196,6 +206,14 @@
   };
 
   document.addEventListener("DOMContentLoaded", function () {
+    if (!ENABLED) {
+      return;
+    }
+
+    // Les styles propres au déclencheur tactile (voir ascii-egg.css) ne
+    // s'appliquent que lorsque l'easter egg est actif.
+    document.documentElement.classList.add("ascii-egg-on");
+
     var lines = ART.split("\n").filter(function (line) {
       return line.trim() !== "";
     });
