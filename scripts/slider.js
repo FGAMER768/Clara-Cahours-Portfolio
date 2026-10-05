@@ -100,18 +100,52 @@
       return closestIndex;
     }
 
-    // Index AFFICHÉ dans le compteur. Comme plusieurs slides sont visibles
-    // à la fois (2 sur ordinateur), les dernières ne peuvent jamais
-    // atteindre le bord gauche : tout à droite, la slide alignée à gauche
-    // est l'avant-dernière. On affiche alors la dernière ("9 / 9"), ce
-    // que la personne attend en butée droite.
-    function getDisplayIndex() {
+    // Nombre de slides entièrement visibles en même temps : 2 sur
+    // ordinateur, 1 sur mobile. On le déduit de la géométrie réelle
+    // (largeur du viewport, largeur d'une slide, écart entre slides)
+    // plutôt que de le coder en dur, pour suivre les media queries.
+    function getVisibleCount() {
       var slides = getSlides();
-      var maxScroll = getMaxScroll();
-      if (maxScroll > 1 && viewport.scrollLeft >= maxScroll - 1) {
-        return slides.length - 1;
+      if (slides.length < 2) {
+        return 1;
       }
-      return getPositionIndex();
+      var slideWidth = slides[0].getBoundingClientRect().width;
+      var stride = getSlideOffset(1) - getSlideOffset(0);
+      if (stride <= 0 || slideWidth <= 0) {
+        return 1;
+      }
+      var gap = stride - slideWidth;
+      // 2 px de tolérance pour les arrondis de sous-pixels.
+      return Math.max(1, Math.floor((viewport.clientWidth + gap + 2) / stride));
+    }
+
+    // Plage de slides affichée dans le compteur, en index 0-based
+    // { first, last }. Comme plusieurs slides sont visibles à la fois,
+    // on montre la plage entière ("1-2 / 9") plutôt que la seule slide de
+    // gauche : "7 / 9" ne disait pas laquelle des deux on regardait, et
+    // tout à droite le compteur restait bloqué avant le total. En butée
+    // droite la plage se termine toujours sur la dernière slide.
+    function getVisibleRange() {
+      var total = getSlides().length;
+      var count = getVisibleCount();
+      var maxScroll = getMaxScroll();
+      var first;
+      if (maxScroll > 1 && viewport.scrollLeft >= maxScroll - 1) {
+        first = Math.max(0, total - count);
+      } else {
+        first = getPositionIndex();
+      }
+      return { first: first, last: Math.min(first + count - 1, total - 1) };
+    }
+
+    function formatStatus() {
+      var total = getSlides().length;
+      var range = getVisibleRange();
+      var label =
+        range.first === range.last
+          ? String(range.first + 1)
+          : (range.first + 1) + "-" + (range.last + 1);
+      return label + " / " + total;
     }
 
     function updateControls() {
@@ -150,13 +184,13 @@
       if (maxScroll <= 1) {
         previousButton.disabled = true;
         nextButton.disabled = true;
-        status.textContent = "1 / " + slides.length;
+        status.textContent = formatStatus();
         return;
       }
 
       previousButton.disabled = viewport.scrollLeft <= 1;
       nextButton.disabled = viewport.scrollLeft >= maxScroll - 1;
-      status.textContent = Math.min(getDisplayIndex() + 1, slides.length) + " / " + slides.length;
+      status.textContent = formatStatus();
     }
 
     function moveSlider(direction) {

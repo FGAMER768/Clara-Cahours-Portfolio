@@ -57,6 +57,8 @@ scripts/
   i18n.js                   Charge data/i18n.json, bascule FR / EN
   navbar.js                 Menu mobile, mise en évidence du lien actif
   slider.js                 Carrousels d'images des fiches projet, avec compteur
+                            (plage « 1-2 / 9 » sur ordinateur où 2 slides sont
+                            visibles, « 3 / 9 » sur mobile)
   lightbox.js               Visionneuse plein écran (sliders et galerie) :
                             flèches, clavier, swipe sur mobile
   hero-ring.js              Met en pause l'anneau animé du hero hors écran
