@@ -245,7 +245,8 @@ asciiart.eu/image-to-ascii) et le coller dans la constante `ART` en tête de
 `scripts/ascii-egg.js`, à la place de l'ancien. La taille de police se calcule
 toute seule pour que le dessin tienne dans l'écran, quelle que soit sa taille
 (le dessin actuel fait 200 colonnes sur 108 lignes ; sur téléphone, un pincement
-des doigts permet de zoomer pour voir le détail).
+des doigts permet de zoomer : le canvas est tracé à haute résolution pour rester
+net).
 Le texte collé ne doit pas contenir d'accent grave (`` ` ``) ni la séquence
 `${`. Les nuances (caractères denses plus foncés) supposent la rampe
 standard ` .:-=+*#%@` (`RAMP` dans le script) ; un caractère hors de cette
@@ -256,15 +257,32 @@ les caractères denses (`@`, `#`) sont les zones sombres de la photo, et
 l'inverse en ferait un négatif. Comme pour l'abeille, les couleurs de la
 feuille sont donc des variables propres à l'easter egg (`--ascii-*`, dans
 `styles/ascii-egg.css`) et ne changent pas avec le thème. Les nuances d'encre
-(`.ascii-egg__run--1` à `--9`) se règlent dans le même fichier. Le reste
-(rayons, ombre) vient de `tokens.css`. Le texte est dans `data/i18n.json`
+(caractères denses plus foncés) se règlent dans `scripts/ascii-egg.js`
+(`ALPHA`, dans le même ordre que `RAMP`). Le reste (rayons, ombre) vient de
+`tokens.css`. Le texte est dans `data/i18n.json`
 (clés `easteregg.ascii.*`).
 
 `ascii-egg.js` s'appuie sur `easter-egg.js`, qui doit être chargé avant lui
 (trophée et carillon). Réglages en tête du script (mots, nombre de taps,
 vitesse du dessin, taille maximale).
 
-**Accessibilité.** Le dessin est une image décorative (`role="img"` avec un
+**Performances.** Le dessin est un seul `<canvas>`, pas un élément HTML par
+caractère. Une première version construisait ~11 000 `<span>` (22 000 nœuds) :
+environ 0,7 s de travail du processeur à l'ouverture sur ordinateur, plus d'une
+seconde sur téléphone, et seulement 13 à 26 images/s pendant l'apparition.
+Le canvas ne crée que 5 nœuds, les lignes sont tracées au fil des images (le
+tracé *est* l'animation : 1 à 5 lignes par image, quelques millisecondes) et
+sa mémoire est libérée à la fermeture. Le fond de la fenêtre n'utilise pas
+`backdrop-filter` (flou) : c'était la partie la plus coûteuse à afficher sur
+téléphone ; un fond presque opaque suffit. Mesures (Chromium, processeur
+ralenti ×4 pour simuler un téléphone milieu de gamme) : ~39 images/s pendant le
+dessin au lieu de ~13. La seule tâche longue restante est le carillon du
+trophée, créé à froid au moment où il se déclenche (code de `easter-egg.js`,
+commun à tous les trophées). Réglages : `LINE_DELAY`, `SHARPNESS` (netteté),
+`MAX_PIXELS` (mémoire maximale du canvas) en tête de `scripts/ascii-egg.js`.
+
+**Accessibilité.** Le dessin est une image décorative (`role="img"` sur le
+canvas, avec un
 libellé : les quelque 21 600 caractères ne sont pas lus). À l'ouverture, le focus va
 sur la fenêtre elle-même (sans anneau visible, pour ne pas en afficher un à
 un utilisateur à la souris ou au doigt) ; `Tab` mène à la croix, qui reçoit

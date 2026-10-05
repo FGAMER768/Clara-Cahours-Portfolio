@@ -18,12 +18,20 @@
   S'appuie sur scripts/easter-egg.js (à charger avant) pour le trophée
   et le carillon : window.claraPortfolioEgg.
 
+  Rendu : UN SEUL <canvas>, pas un élément HTML par caractère. Une version
+  précédente construisait ~11 000 <span> (22 000 nœuds) : environ 0,7 s de
+  travail du processeur à l'ouverture sur ordinateur, plus d'une seconde
+  sur téléphone. Le canvas ne crée aucun nœud, et le dessin lui-même est
+  l'animation : les lignes sont tracées au fil des images (2 ou 3 par
+  image), donc aucun gros bloc de calcul. La mémoire du canvas est
+  libérée à la fermeture.
+
   Pour changer le dessin : générer un nouveau texte (par exemple sur
   asciiart.eu/image-to-ascii) et le coller dans ART ci-dessous, à la
-  place de l'ancien. Aucune autre modification : la taille de police
-  s'ajuste toute seule à l'écran. Attention : le texte collé ne doit
-  contenir ni accent grave (`) ni la séquence ${ (le reste, y compris
-  les antislashs, est accepté grâce à String.raw).
+  place de l'ancien. Aucune autre modification : la taille s'ajuste toute
+  seule à l'écran. Attention : le texte collé ne doit contenir ni accent
+  grave (`) ni la séquence ${ (le reste, y compris les antislashs, est
+  accepté grâce à String.raw).
 
   Accessibilité : le dessin est une image décorative (role="img" avec
   un libellé, les quelque 21 600 caractères ne sont pas lus). Le focus va sur
@@ -38,7 +46,6 @@
   var TAPS_WINDOW = 2000;     // ... dans cette fenêtre de temps (ms)
   var LINE_DELAY = 18;        // délai entre deux lignes du dessin (ms)
   var START_DELAY = 150;      // attente avant la première ligne (ms)
-  var LINE_FADE = 120;        // durée d'apparition d'une ligne (ms)
   var MAX_FONT = 16;          // taille de police maximale sur grand écran (px)
 
   // Anti-fermeture accidentelle : quand on « spamme » le nom de la barre, les
@@ -50,12 +57,22 @@
   var CLOSE_GRACE = 800;      // ms après l'ouverture
   var CLOSE_BURST = 500;      // ms entre deux taps pour compter comme un spam
 
-  // Du plus clair au plus dense : sert uniquement à nuancer la teinte de
-  // chaque caractère (voir ascii-egg.css), pour que le visage ressorte.
-  // Un caractère absent de cette liste s'affiche à pleine intensité : c'est
-  // voulu pour ) ( [ ] } < >, que le convertisseur emploie pour les contours
-  // et les zones les plus sombres du portrait.
+  // Du plus clair au plus dense : sert à nuancer la teinte de chaque
+  // caractère (ALPHA, même ordre), pour que le visage ressorte. Un caractère
+  // absent de cette liste est tracé à pleine intensité : c'est voulu pour
+  // ) ( [ ] } < >, que le convertisseur emploie pour les contours et les
+  // zones les plus sombres du portrait.
   var RAMP = " .:-=+*#%@";
+  var ALPHA = [0, 0.05, 0.08, 0.12, 0.2, 0.32, 0.5, 0.75, 0.92, 1];
+
+  var FONT_FAMILY = 'ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace';
+  var LINE_HEIGHT = 1.2;      // interligne, en multiple de la taille de police
+
+  // Netteté : le canvas est tracé à SHARPNESS fois la densité de l'écran, pour
+  // rester lisible quand on zoome avec deux doigts. MAX_PIXELS borne la
+  // mémoire (4 octets par pixel : 4 millions de pixels = 16 Mo).
+  var SHARPNESS = 2;
+  var MAX_PIXELS = 4000000;
 
   // Portrait en ASCII, 200 colonnes (zones sombres = caractères denses).
   var ART = String.raw`
@@ -185,14 +202,21 @@
 
     var overlay = null;
     var sheet = null;
-    var pre = null;
+    var canvas = null;
+    var ctx = null;
     var closeButton = null;
     var lastFocused = null;
     var trophyTimer = null;
     var trophyPending = false;
-    var filled = false;
     var openedAt = 0;
     var lastOverlayTap = 0;
+
+    var rows = null;        // lignes découpées en séries de même teinte
+    var cols = 0;
+    var size = null;        // dimensions courantes du dessin
+    var drawn = 0;          // nombre de lignes déjà tracées
+    var frameId = null;
+    var resizeTimer = null;
 
     var reducedMotion = window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -201,26 +225,34 @@
       return overlay !== null && !overlay.hidden;
     }
 
-    // Découpe une ligne en séries de caractères de même densité, chacune
-    // dans un <span> : moins de nœuds qu'un span par caractère.
-    function appendRuns(line, text) {
-      var start = 0;
-      var level = null;
-      for (var i = 0; i <= text.length; i++) {
-        var found = i < text.length ? RAMP.indexOf(text.charAt(i)) : -2;
-        var current = found === -1 ? RAMP.length - 1 : found;
-        if (i === text.length || (level !== null && current !== level)) {
-          var run = document.createElement("span");
-          run.className = "ascii-egg__run ascii-egg__run--" + level;
-          run.textContent = text.slice(start, i);
-          line.appendChild(run);
-          start = i;
+    /* ---------- Préparation (une seule fois, au premier déclenchement) ---------- */
+
+    // Découpe chaque ligne en séries de caractères de même teinte : un seul
+    // appel de dessin par série. Les espaces ne sont pas tracés.
+    function prepareRows() {
+      rows = lines.map(function (text) {
+        var runs = [];
+        var start = 0;
+        var level = null;
+        for (var i = 0; i <= text.length; i++) {
+          var found = i < text.length ? RAMP.indexOf(text.charAt(i)) : -2;
+          var current = found === -1 ? RAMP.length - 1 : found;
+          if (i === text.length || (level !== null && current !== level)) {
+            if (level > 0) {
+              runs.push({ x: start, text: text.slice(start, i), alpha: ALPHA[level] });
+            }
+            start = i;
+          }
+          level = i < text.length ? current : null;
         }
-        level = i < text.length ? current : null;
-      }
+        return runs;
+      });
+      cols = lines.reduce(function (max, text) {
+        return Math.max(max, text.length);
+      }, 0);
     }
 
-    /* ---------- Construction (une seule fois, au premier déclenchement) ---------- */
+    /* ---------- Construction de la fenêtre ---------- */
 
     function build() {
       overlay = document.createElement("div");
@@ -233,18 +265,16 @@
       overlay.tabIndex = -1;
       overlay.setAttribute("aria-label", "Portrait de Clara en ASCII");
       overlay.setAttribute("data-i18n-attr", "aria-label:easteregg.ascii.label");
-      overlay.style.setProperty("--ascii-line-delay", LINE_DELAY + "ms");
-      overlay.style.setProperty("--ascii-start-delay", START_DELAY + "ms");
-      overlay.style.setProperty("--ascii-line-fade", LINE_FADE + "ms");
 
       sheet = document.createElement("div");
       sheet.className = "ascii-egg__sheet";
 
-      pre = document.createElement("pre");
-      pre.className = "ascii-egg__art";
-      pre.setAttribute("role", "img");
-      pre.setAttribute("aria-label", "Portrait de Clara en ASCII");
-      pre.setAttribute("data-i18n-attr", "aria-label:easteregg.ascii.label");
+      canvas = document.createElement("canvas");
+      canvas.className = "ascii-egg__canvas";
+      canvas.setAttribute("role", "img");
+      canvas.setAttribute("aria-label", "Portrait de Clara en ASCII");
+      canvas.setAttribute("data-i18n-attr", "aria-label:easteregg.ascii.label");
+      ctx = canvas.getContext("2d");
 
       // Le bouton est un enfant direct de la fenêtre (pas de la feuille) :
       // il reste dans l'angle de l'écran, sans jamais recouvrir le dessin.
@@ -256,7 +286,7 @@
       closeButton.innerHTML =
         '<svg aria-hidden="true" focusable="false"><use href="icons/sprite.svg#icon-close"></use></svg>';
 
-      sheet.appendChild(pre);
+      sheet.appendChild(canvas);
       overlay.appendChild(sheet);
       overlay.appendChild(closeButton);
       document.body.appendChild(overlay);
@@ -281,47 +311,17 @@
       });
     }
 
-    // Les ~11 000 petits éléments du dessin sont construits après
-    // l'affichage du fond et de la croix, pour que l'ouverture reste
-    // instantanée même sur un téléphone modeste.
-    function fillLines() {
-      if (filled) {
-        return;
-      }
-      var fragment = document.createDocumentFragment();
-      lines.forEach(function (text, index) {
-        var line = document.createElement("span");
-        line.className = "ascii-egg__line";
-        line.style.setProperty("--i", index);
-        appendRuns(line, text);
-        fragment.appendChild(line);
-      });
-      pre.appendChild(fragment);
-      filled = true;
-    }
-
-    // Démarre (ou redémarre) le dessin : taille, apparition, trophée.
-    function startDrawing() {
-      sheet.style.visibility = "";
-      fit();
-      var drawDuration = reducedMotion
-        ? 0
-        : START_DELAY + lines.length * LINE_DELAY + LINE_FADE;
-      window.clearTimeout(trophyTimer);
-      trophyTimer = window.setTimeout(giveTrophy, drawDuration + 300);
-    }
-
-    /* ---------- Taille de police : le dessin tient toujours à l'écran ---------- */
+    /* ---------- Dimensions : le dessin tient toujours à l'écran ---------- */
 
     function px(value) {
       return parseFloat(value) || 0;
     }
 
-    function fit() {
-      if (!isOpen()) {
-        return;
-      }
-      pre.style.fontSize = "10px";
+    // Calcule la taille du dessin (en pixels CSS et en pixels réels du canvas).
+    // Les positions sont calculées avec la largeur de caractère mesurée à la
+    // taille réellement utilisée : aucune dérive d'une série à l'autre, même
+    // si la police arrondit ses avances à petite taille.
+    function measure() {
       var overlayStyle = window.getComputedStyle(overlay);
       var sheetStyle = window.getComputedStyle(sheet);
       var availableWidth = overlay.clientWidth -
@@ -330,9 +330,71 @@
       var availableHeight = overlay.clientHeight -
         px(overlayStyle.paddingTop) - px(overlayStyle.paddingBottom) -
         px(sheetStyle.paddingTop) - px(sheetStyle.paddingBottom);
-      var scale = Math.min(availableWidth / pre.offsetWidth, availableHeight / pre.offsetHeight);
-      var size = Math.max(2, Math.min(10 * scale, MAX_FONT));
-      pre.style.fontSize = size.toFixed(2) + "px";
+
+      ctx.font = "100px " + FONT_FAMILY;
+      var advance = ctx.measureText("M").width / 100;
+      // 0,985 : petite marge pour l'arrondi de la police à la taille finale.
+      var scale = Math.min(
+        availableWidth / (cols * advance),
+        availableHeight / (rows.length * LINE_HEIGHT)
+      ) * 0.985;
+      var fontSize = Math.max(2, Math.min(scale, MAX_FONT));
+
+      var cssWidth = cols * advance * fontSize;
+      var cssHeight = rows.length * LINE_HEIGHT * fontSize;
+      var ratio = Math.max(1, Math.min(
+        (window.devicePixelRatio || 1) * SHARPNESS,
+        Math.sqrt(MAX_PIXELS / (cssWidth * cssHeight))
+      ));
+
+      var deviceFont = fontSize * ratio;
+      ctx.font = deviceFont + "px " + FONT_FAMILY;
+      var cell = ctx.measureText("M").width;
+      var lineHeight = deviceFont * LINE_HEIGHT;
+
+      return {
+        ratio: ratio,
+        deviceFont: deviceFont,
+        cell: cell,
+        lineHeight: lineHeight,
+        width: Math.ceil(cols * cell),
+        height: Math.ceil(rows.length * lineHeight)
+      };
+    }
+
+    // Applique les dimensions au canvas. Redimensionner un canvas efface son
+    // contenu et réinitialise son contexte : on repose donc la police etc.
+    function applySize(next) {
+      size = next;
+      canvas.width = size.width;
+      canvas.height = size.height;
+      canvas.style.width = (size.width / size.ratio) + "px";
+      canvas.style.height = (size.height / size.ratio) + "px";
+
+      var ink = window.getComputedStyle(overlay).getPropertyValue("--ascii-ink").trim();
+      ctx.font = size.deviceFont + "px " + FONT_FAMILY;
+      ctx.textBaseline = "top";
+      ctx.fillStyle = ink || "#211e28";
+      // Pas de ligatures ni de crénage (« -- », « == » resteraient fusionnés
+      // dans certaines polices), et un tracé plus rapide.
+      if ("fontKerning" in ctx) {
+        ctx.fontKerning = "none";
+      }
+      if ("textRendering" in ctx) {
+        ctx.textRendering = "optimizeSpeed";
+      }
+    }
+
+    function drawRows(from, to) {
+      for (var y = from; y < to; y++) {
+        var runs = rows[y];
+        var top = y * size.lineHeight;
+        for (var i = 0; i < runs.length; i++) {
+          ctx.globalAlpha = runs[i].alpha;
+          ctx.fillText(runs[i].text, runs[i].x * size.cell, top);
+        }
+      }
+      ctx.globalAlpha = 1;
     }
 
     /* ---------- Trophée ---------- */
@@ -346,6 +408,68 @@
       if (window.claraPortfolioEgg && window.claraPortfolioEgg.unlock) {
         window.claraPortfolioEgg.unlock(TROPHY);
       }
+    }
+
+    /* ---------- Dessin ---------- */
+
+    function stopDrawing() {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+        frameId = null;
+      }
+      window.clearTimeout(resizeTimer);
+    }
+
+    function startDrawing() {
+      sheet.style.visibility = "";
+      stopDrawing();
+      applySize(measure());
+      drawn = 0;
+
+      if (reducedMotion) {
+        drawRows(0, rows.length);
+        drawn = rows.length;
+        trophyTimer = window.setTimeout(giveTrophy, 300);
+        return;
+      }
+
+      // Les lignes sont tracées au rythme de LINE_DELAY, au fil des images :
+      // quelques lignes par image, jamais de long calcul d'un seul bloc.
+      var startAt = window.performance.now() + START_DELAY;
+      function frame(now) {
+        frameId = null;
+        if (!isOpen()) {
+          return;
+        }
+        var target = Math.min(rows.length, Math.max(0, Math.floor((now - startAt) / LINE_DELAY) + 1));
+        if (target > drawn) {
+          drawRows(drawn, target);
+          drawn = target;
+        }
+        if (drawn < rows.length) {
+          frameId = window.requestAnimationFrame(frame);
+        } else {
+          trophyTimer = window.setTimeout(giveTrophy, 300);
+        }
+      }
+      frameId = window.requestAnimationFrame(frame);
+    }
+
+    // Rotation de l'écran, redimensionnement : on recalcule la taille et on
+    // retrace ce qui était déjà dessiné (le dessin en cours continue ensuite).
+    function onResize() {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(function () {
+        if (!isOpen() || !size) {
+          return;
+        }
+        var next = measure();
+        if (next.width === size.width && next.height === size.height) {
+          return;
+        }
+        applySize(next);
+        drawRows(0, drawn);
+      }, 150);
     }
 
     /* ---------- Ouverture / fermeture ---------- */
@@ -378,32 +502,36 @@
       document.body.style.overflow = "hidden";
       overlay.focus({ preventScroll: true });
       document.addEventListener("keydown", onKeydown);
-      window.addEventListener("resize", fit);
+      window.addEventListener("resize", onResize);
 
       trophyPending = true;
-      if (filled) {
-        startDrawing();
-      } else {
-        // Feuille cachée le temps de la construction, pour ne pas montrer
-        // un rectangle vide.
-        sheet.style.visibility = "hidden";
-        window.setTimeout(function () {
-          fillLines();
-          if (isOpen()) {
-            startDrawing();
-          }
-        }, 40);
-      }
+      // Feuille cachée le temps de la préparation, pour ne pas montrer un
+      // rectangle vide. Le fond et la croix, eux, apparaissent tout de suite.
+      sheet.style.visibility = "hidden";
+      window.setTimeout(function () {
+        if (!rows) {
+          prepareRows();
+        }
+        if (isOpen()) {
+          startDrawing();
+        }
+      }, 40);
     }
 
     function close() {
       if (!isOpen()) {
         return;
       }
+      stopDrawing();
       overlay.hidden = true;
       document.body.style.overflow = "";
       document.removeEventListener("keydown", onKeydown);
-      window.removeEventListener("resize", fit);
+      window.removeEventListener("resize", onResize);
+      // Libère la mémoire du dessin : il sera retracé à la prochaine ouverture.
+      canvas.width = 0;
+      canvas.height = 0;
+      size = null;
+      drawn = 0;
       // Fermé avant la fin du dessin : le trophée est quand même donné.
       giveTrophy();
       if (lastFocused && typeof lastFocused.focus === "function") {

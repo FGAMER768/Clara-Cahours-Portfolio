@@ -16,7 +16,7 @@
 .ascii-egg {
   --ascii-paper: #faf7f3;
   --ascii-ink: #211e28;
-  --ascii-scrim: rgba(18, 16, 24, 0.9);
+  --ascii-scrim: rgba(18, 16, 24, 0.97);
 
   position: fixed;
   inset: 0;
@@ -25,8 +25,6 @@
   place-items: center;
   padding: var(--space-4);
   background-color: var(--ascii-scrim);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   cursor: pointer;
   animation: ascii-fade 250ms var(--ease-standard) both;
   -webkit-tap-highlight-color: transparent;
@@ -51,43 +49,14 @@
   -webkit-touch-callout: none;
 }
 
-/* Le dessin : la police est calculée par le script pour tenir à
-   l'écran. Les ligatures sont coupées (« -- », « == » resteraient
-   sinon fusionnés dans certaines polices de code). */
-.ascii-egg__art {
-  margin: 0;
-  width: max-content;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
-  font-size: 6px;
-  line-height: 1.2;
-  letter-spacing: 0;
-  white-space: pre;
-  color: var(--ascii-ink);
-  font-variant-ligatures: none;
-  -webkit-text-size-adjust: none;
-  text-size-adjust: none;
-}
-
-/* Le dessin se révèle de haut en bas, une ligne après l'autre. */
-.ascii-egg__line {
+/* Le dessin : un <canvas> dont la taille est calculée par le script pour
+   tenir à l'écran. Les nuances d'encre (caractères denses plus foncés) sont
+   dans le script (ALPHA), pas ici. Pas de flou sur le fond de la fenêtre :
+   un fond presque opaque suffit, et le flou était la partie la plus
+   coûteuse à afficher sur un téléphone. */
+.ascii-egg__canvas {
   display: block;
-  opacity: 0;
-  animation: ascii-line-in var(--ascii-line-fade, 120ms) linear forwards;
-  animation-delay: calc(var(--ascii-start-delay, 150ms) + var(--i) * var(--ascii-line-delay, 30ms));
 }
-
-/* Nuances d'encre : plus le caractère est dense, plus il est foncé
-   (0 = espace, 9 = « @ »). Le contenu du texte ne change pas, seule la
-   teinte varie, ce qui rend le visage lisible. */
-.ascii-egg__run--1 { color: rgba(33, 30, 40, 0.05); }
-.ascii-egg__run--2 { color: rgba(33, 30, 40, 0.08); }
-.ascii-egg__run--3 { color: rgba(33, 30, 40, 0.12); }
-.ascii-egg__run--4 { color: rgba(33, 30, 40, 0.2); }
-.ascii-egg__run--5 { color: rgba(33, 30, 40, 0.32); }
-.ascii-egg__run--6 { color: rgba(33, 30, 40, 0.5); }
-.ascii-egg__run--7 { color: rgba(33, 30, 40, 0.75); }
-.ascii-egg__run--8 { color: rgba(33, 30, 40, 0.92); }
-.ascii-egg__run--9 { color: var(--ascii-ink); }
 
 /* Bouton de fermeture : même apparence que celui de la lightbox
    (pastille sombre translucide, croix blanche), dans l'angle de l'écran,
@@ -106,8 +75,6 @@
   background-color: rgba(30, 25, 38, 0.55);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: var(--radius-pill);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
@@ -152,17 +119,8 @@
   to { opacity: 1; }
 }
 
-@keyframes ascii-line-in {
-  to { opacity: 1; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ascii-egg {
-    animation: none;
-  }
-
-  .ascii-egg__line {
-    opacity: 1;
     animation: none;
   }
 
