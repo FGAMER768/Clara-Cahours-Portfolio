@@ -1,6 +1,8 @@
 (function () {
   "use strict";
 
+  var sliderCount = 0;
+
   document.querySelectorAll("[data-slider]").forEach(function (slider) {
     // Toute la mise en place d'UN slider est protégée individuellement :
     // une erreur inattendue sur un slider ne doit jamais empêcher les
@@ -46,6 +48,22 @@
       // Pas bloquant : le slider reste pleinement utilisable sans son
       // indicateur "X / N", on évite juste qu'écrire dedans plante.
       status = { textContent: "" };
+    }
+
+    // Nom accessible de la région : le titre du bloc qui contient le slider
+    // (ex. "Game concept"). Sans cela, tous les sliders portaient le même
+    // libellé générique ("Carrousel des cartes personnages"), faux pour un
+    // aperçu de gameplay et ambigu quand plusieurs sliders cohabitent sur
+    // une page. aria-labelledby l'emporte sur aria-label, qui reste en
+    // secours si le slider n'a pas de titre. Le texte du titre étant déjà
+    // traduit par i18n, le nom suit le changement de langue.
+    var block = slider.closest(".project-card__block");
+    var blockHeading = block && block.querySelector(".project-card__block-heading");
+    if (blockHeading) {
+      if (!blockHeading.id) {
+        blockHeading.id = "slider-heading-" + (++sliderCount);
+      }
+      viewport.setAttribute("aria-labelledby", blockHeading.id);
     }
 
     // Les slides dont l'image ne charge pas se retirent elles-mêmes (onerror),
