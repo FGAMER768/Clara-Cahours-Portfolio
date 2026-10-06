@@ -86,6 +86,9 @@ styles/
   easter-egg.css            Style du trophée caché
   beez-egg.css              Style des abeilles et de leur compteur
   ascii-egg.css             Style du portrait ASCII (inactif tant que l'easter egg est désactivé)
+robots.txt                  Autorise l'indexation et indique le sitemap
+sitemap.xml                 Liste des 10 pages (accueil + 9 fiches) pour les
+                            moteurs de recherche (voir « Référencement »)
 vercel.json                 Facultatif : force le nom du CV au téléchargement
                             (voir « CV téléchargeable »)
 .gitignore                  Exclut l'archive Clara-s-Website.zip et
@@ -382,6 +385,20 @@ ou sur X affiche un titre, une description et une image.
 - Les réseaux gardent l'aperçu en cache : après une modification, forcer la
   mise à jour avec le Sharing Debugger de Facebook ou le Post Inspector de
   LinkedIn.
+
+## Référencement
+
+`robots.txt` autorise l'indexation de tout le site et pointe vers
+`sitemap.xml`, qui liste l'accueil et les 9 fiches. Les adresses y sont
+**absolues** (`https://claracahours.vercel.app/...`) et identiques aux
+`og:url` des pages.
+
+- Nouvelle fiche projet : ajouter son adresse dans `sitemap.xml`.
+- Changement de domaine : remplacer `claracahours.vercel.app` dans
+  `robots.txt`, `sitemap.xml` et les 10 pages (voir aussi « Aperçu de
+  partage »).
+- Une fois le site en ligne, déclarer `sitemap.xml` dans la Google Search
+  Console accélère l'indexation.
 
 ## Images
 
