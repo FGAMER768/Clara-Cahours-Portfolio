@@ -400,6 +400,10 @@ ou sur X affiche un titre, une description et une image.
 - Changement de domaine : remplacer `claracahours.vercel.app` dans
   `robots.txt`, `sitemap.xml` et les 10 pages (voir aussi « Aperçu de
   partage »).
+- L'accueil contient un bloc JSON-LD `Person` (nom, métier, image, LinkedIn)
+  dans son `<head>`. Si le métier, la description ou le lien LinkedIn
+  changent, penser à le mettre à jour. L'adresse e-mail n'y figure pas
+  volontairement (collecte par des robots).
 - Une fois le site en ligne, déclarer `sitemap.xml` dans la Google Search
   Console accélère l'indexation.
 
