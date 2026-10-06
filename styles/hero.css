@@ -2,8 +2,8 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-top: clamp(7rem, 14vw, 9rem);
-  padding-bottom: clamp(5rem, 10vw, 8rem);
+  padding-top: clamp(6rem, 11vw, 8rem);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
   padding-inline: var(--space-5);
   display: flex;
   flex-direction: column;
@@ -271,7 +271,58 @@
    chaque couche l'opacité de repos qu'elle aurait dans un cycle "calme"
    (ex: hero-ring-shimmer à son minimum, 0.25, plutôt qu'à son pic à 0.9),
    pour un rendu statique intentionnel plutôt qu'un instantané aléatoire. */
+/* Aperçu des projets sous les boutons : 4 jaquettes cliquables, pour qu'un
+   visiteur voie du travail avant même d'avoir défilé. Sur un écran court,
+   la rangée dépasse du bas : elle sert alors d'invitation à défiler. */
+.hero__preview {
+  list-style: none;
+  margin: var(--space-5) 0 0;
+  padding: 0;
+  width: min(100%, 26rem);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.hero__preview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+  text-decoration: none;
+  font-size: var(--step-xs);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-ink-muted);
+}
+
+.hero__preview-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent-soft);
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.hero__preview-item:hover img,
+.hero__preview-item:focus-visible img {
+  transform: translateY(-4px);
+}
+
+.hero__preview-item:hover .hero__preview-name,
+.hero__preview-item:focus-visible .hero__preview-name {
+  color: var(--color-ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .hero__preview-item img {
+    transition: none;
+  }
+
   .hero__ring__layer--flow,
   .hero__ring__layer--flow-alt,
   .hero__ring__layer--shimmer,
