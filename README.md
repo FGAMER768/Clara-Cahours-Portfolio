@@ -144,7 +144,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(214 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
+(221 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -314,6 +314,24 @@ un utilisateur à la souris ou au doigt) ; `Tab` mène à la croix, qui reçoit
 alors son anneau de focus. Le focus revient à sa place à la fermeture. Avec
 `prefers-reduced-motion`, le portrait apparaît d'un coup. L'easter egg ne
 s'ouvre pas par-dessus la lightbox des galeries.
+
+## Accueil et fiches projet
+
+- **Aperçu des projets (hero)** : 4 jaquettes cliquables sous les boutons
+  (`.hero__preview` dans `index.html`), avec les mêmes clés i18n que la
+  vitrine. Pour changer de projet mis en avant, modifier ces 4 `<li>`.
+  Elles utilisent les jaquettes `-400w.webp` déjà chargées par la vitrine :
+  garder cette variante pour ne rien télécharger en plus.
+- **Hero compact** : sous 900 px de hauteur de fenêtre (portables), le
+  portrait, l'anneau et les marges sont réduits (bloc `@media (max-height:
+  900px)` de `hero.css`) pour que l'aperçu reste visible sans défiler.
+- **Vitrine (jaquettes)** : le titre et le genre sont affichés en
+  permanence ; la ligne de contexte (équipe, année) se déplie au survol ou
+  au focus clavier. Sur écran tactile, l'affichage est inchangé.
+- **Fiches projet** : l'en-tête (`<header class="project-card__header">` :
+  genre, titre en `<h1>`, ligne d'équipe) est placé **avant** la cover, qui
+  occupe sinon tout l'écran sur ordinateur. Une nouvelle fiche doit suivre
+  le même schéma.
 
 ## CV téléchargeable
 
