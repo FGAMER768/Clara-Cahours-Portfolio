@@ -404,6 +404,9 @@ ou sur X affiche un titre, une description et une image.
   dans son `<head>`. Si le métier, la description ou le lien LinkedIn
   changent, penser à le mettre à jour. L'adresse e-mail n'y figure pas
   volontairement (collecte par des robots).
+- La balise `google-site-verification` de l'accueil prouve à Google que le
+  site t'appartient (Search Console). La supprimer fait perdre l'accès aux
+  statistiques de recherche.
 - Une fois le site en ligne, déclarer `sitemap.xml` dans la Google Search
   Console accélère l'indexation.
 
