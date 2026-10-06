@@ -318,6 +318,41 @@
   color: var(--color-ink);
 }
 
+/* Fenêtres peu hautes (portables : une fenêtre de 1366x768 ne laisse qu'environ
+   650 px utiles). Le hero se compacte pour que l'aperçu des projets reste
+   visible sans défiler ; l'anneau est réduit dans la même proportion que le
+   portrait pour garder le même rendu. Les grands écrans ne sont pas touchés. */
+@media (min-width: 48rem) and (max-height: 900px) {
+  .hero {
+    padding-top: 6rem;
+  }
+
+  .hero__portrait-wrap {
+    margin-bottom: var(--space-5);
+  }
+
+  .hero__portrait {
+    width: 11rem;
+    height: 11rem;
+  }
+
+  .hero__ring {
+    width: min(42vw, 19.5rem);
+  }
+
+  .hero__name {
+    font-size: clamp(2.25rem, 4.5vw, 3rem);
+  }
+
+  .hero__tagline {
+    margin-top: var(--space-3);
+  }
+
+  .hero__actions {
+    margin-top: var(--space-5);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero__preview-item img {
     transition: none;
