@@ -52,7 +52,8 @@
   font-size: var(--step-xs);
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: var(--color-accent-strong);
+  /* Legerement assombri : accent-strong sur accent-soft ne faisait que 4,49:1 */
+  color: color-mix(in srgb, var(--color-accent-strong) 92%, black);
 }
 
 .id-card__body {

@@ -34,7 +34,7 @@
 }
 
 .contact-section__email:hover {
-  color: var(--color-secondary);
+  color: var(--color-secondary-text);
 }
 
 .contact-section__links {

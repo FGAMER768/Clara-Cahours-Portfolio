@@ -13,6 +13,9 @@
   /* Secondaire : ocre terracotta, touches ponctuelles */
   --color-secondary: #C98853;
   --color-secondary-soft: #F3E3D3;
+  /* Ocre pour le TEXTE (>= 4,5:1 sur le fond clair). --color-secondary reste
+     reserve aux decors : bordures, degrades, illustrations. */
+  --color-secondary-text: #9C5F28;
 
   /* Neutres, thème clair */
   --color-ink: #211E28;
@@ -77,6 +80,7 @@
 
   --color-secondary: #E0A167;
   --color-secondary-soft: #3A2A1E;
+  --color-secondary-text: #E0A167;
 
   --color-ink: #EFEAF4;
   --color-ink-muted: #B8AFC9;
@@ -98,6 +102,7 @@
 
     --color-secondary: #E0A167;
     --color-secondary-soft: #3A2A1E;
+    --color-secondary-text: #E0A167;
 
     --color-ink: #EFEAF4;
     --color-ink-muted: #B8AFC9;

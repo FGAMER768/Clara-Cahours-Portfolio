@@ -48,7 +48,7 @@
 .timeline__year {
   font-size: var(--step-sm);
   font-weight: 700;
-  color: var(--color-secondary);
+  color: var(--color-secondary-text);
 }
 
 .timeline__title {

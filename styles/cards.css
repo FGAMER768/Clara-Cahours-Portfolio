@@ -43,7 +43,7 @@
 
 .project-card__meta {
   font-size: var(--step-xs);
-  color: var(--color-secondary);
+  color: var(--color-secondary-text);
   font-weight: 700;
 }
 
@@ -97,7 +97,7 @@
 }
 
 .project-card__link:hover {
-  color: var(--color-secondary);
+  color: var(--color-secondary-text);
   border-color: var(--color-secondary);
 }
 
@@ -181,7 +181,7 @@
 }
 
 .mini-card__link:hover {
-  color: var(--color-secondary);
+  color: var(--color-secondary-text);
   border-color: var(--color-secondary);
 }
 
