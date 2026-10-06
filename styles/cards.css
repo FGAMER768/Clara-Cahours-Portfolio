@@ -11,6 +11,14 @@
   box-shadow: var(--shadow-soft);
 }
 
+/* En-tête de fiche (genre, titre, équipe) placé AU-DESSUS de la cover : sur un
+   écran d'ordinateur courant la cover (16:9 sur le conteneur plafonné, ~620 px)
+   remplit tout l'écran, et le titre se retrouvait sous la ligne de
+   flottaison. */
+.project-card__header {
+  padding: var(--space-6) var(--space-6) var(--space-5);
+}
+
 .project-card__media {
   aspect-ratio: 16 / 9;
   background-color: var(--color-accent-soft);
@@ -25,6 +33,12 @@
 
 .project-card__body {
   padding: var(--space-6);
+}
+
+/* Le texte d'introduction ouvre désormais le corps (l'en-tête est passé
+   au-dessus de la cover) : pas de marge supplémentaire en plus du padding. */
+.project-card__body > .project-card__text:first-child {
+  margin-top: 0;
 }
 
 .project-card__cover {

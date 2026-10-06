@@ -17,6 +17,10 @@
     padding-inline: var(--space-5);
   }
 
+  .project-card__header {
+    padding: var(--space-5) var(--space-5) var(--space-4);
+  }
+
   .project-card__body {
     padding: var(--space-5);
   }
