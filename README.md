@@ -377,6 +377,9 @@ ou sur X affiche un titre, une description et une image.
 - Exception à la règle des chemins relatifs : `og:url` et `og:image` doivent
   être des URL **absolues** (`https://claracahours.vercel.app/...`). Si le
   domaine change, remplacer `claracahours.vercel.app` dans les 10 pages.
+- Chaque page déclare aussi `<link rel="canonical">`, avec la même adresse
+  que `og:url` : elle indique aux moteurs de recherche l'adresse de
+  référence de la page (utile si le site est joint par plusieurs adresses).
 - Les images sont dans `images/og/`, une par page, nommée comme le fichier
   HTML (`sinnaya.jpg` pour `pages/sinnaya.html`, `home.jpg` pour l'accueil).
   Format 1200 × 630 px, JPEG, de préférence sous 300 Ko (au-delà, WhatsApp
