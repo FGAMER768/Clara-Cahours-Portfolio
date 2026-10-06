@@ -463,11 +463,20 @@ de bord Vercel, onglet **Analytics** du projet.
 - Les contrastes de texte (encre sur papier, accent sur fond clair et
   sombre) ont été choisis au-dessus du seuil AA pour le texte courant. Le
   bouton plein du CV atteint 5,2:1 en thème clair et 9,4:1 en thème sombre.
+- L'ocre a deux jetons : `--color-secondary` pour les **décors** (bordures,
+  dégradés, illustrations) et `--color-secondary-text` pour tout **texte**
+  (dates du parcours, méta des cartes, couleurs au survol). Le premier ne
+  passe pas le seuil AA sur fond clair (2,7:1), ne pas l'utiliser en texte.
+- Hiérarchie des titres : chaque fiche projet a un seul `<h1>` (son titre)
+  puis des `<h2>` pour ses blocs. Le style est porté par les classes
+  (`.project-card__title`, `.project-card__block-heading`), pas par la
+  balise : choisir le niveau selon la structure, sans toucher au CSS.
 - Les animations respectent `prefers-reduced-motion`.
 - Chaque image porte un texte alternatif descriptif, jamais vide sauf pour
   les éléments strictement décoratifs (marqueurs de la frise).
 - Le lien actif de la navbar est signalé par `aria-current`, le compteur
-  des sliders est annoncé (`aria-live`), la lightbox est une boîte de
+  des sliders est annoncé (`aria-live`), chaque carrousel est nommé par le
+  titre de son bloc (`aria-labelledby`, posé par `slider.js`), la lightbox est une boîte de
   dialogue modale (`role="dialog"`, `aria-modal`).
 - Les icônes décoratives sont masquées aux lecteurs d'écran
   (`aria-hidden`). Les liens LinkedIn annoncent qu'ils s'ouvrent dans un
