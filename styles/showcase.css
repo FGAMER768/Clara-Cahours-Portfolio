@@ -1,8 +1,10 @@
 /*
   Vitrine des projets façon bibliothèque de jeux (Steam / Xbox / PlayStation) :
-  une grille de jaquettes serrées, qui au survol se soulèvent, s'éclairent
-  d'un halo et révèlent un panneau d'infos (titre, rôle, année) par-dessus
-  la jaquette — comme une carte de jeu dans un launcher de console.
+  une grille de jaquettes serrées, qui au survol se soulèvent et s'éclairent
+  d'un halo, comme une carte de jeu dans un launcher de console. Le titre et
+  le genre restent affichés en permanence en bas de la jaquette (on doit
+  pouvoir identifier un projet sans avoir à le survoler) ; au survol, la
+  ligne de contexte (équipe, année) se déplie au-dessus.
   Chaque tuile ancre vers la fiche projet détaillée plus bas dans la page.
 */
 
@@ -61,18 +63,35 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  isolation: isolate;
   padding: var(--space-4);
+  /* Dégradé court : il ne sert qu'à assurer la lisibilité du titre et du
+     genre posés sur n'importe quelle jaquette, sans l'assombrir en entier. */
   background: linear-gradient(
     to top,
-    rgba(17, 14, 23, 0.92) 0%,
-    rgba(17, 14, 23, 0.55) 45%,
-    rgba(17, 14, 23, 0) 75%
+    rgba(17, 14, 23, 0.9) 0%,
+    rgba(17, 14, 23, 0.6) 28%,
+    rgba(17, 14, 23, 0) 56%
+  );
+}
+
+/* Couche de fond renforcée, révélée au survol / focus : la ligne de contexte
+   dépliée peut faire 4-5 lignes et passe alors sur la jaquette, il lui faut
+   un fond plus couvrant que le dégradé court du repos. */
+.showcase__overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    to top,
+    rgba(17, 14, 23, 0.94) 0%,
+    rgba(17, 14, 23, 0.82) 45%,
+    rgba(17, 14, 23, 0.4) 72%,
+    rgba(17, 14, 23, 0) 92%
   );
   opacity: 0;
-  transform: translateY(0.5rem);
-  transition:
-    opacity var(--duration-base) var(--ease-standard),
-    transform var(--duration-base) var(--ease-standard);
+  transition: opacity var(--duration-base) var(--ease-standard);
 }
 
 .showcase__meta {
@@ -81,6 +100,15 @@
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--color-secondary);
+  /* Repliée au repos, dépliée au survol / focus clavier. flex-end ancre le
+     titre en bas : la ligne se déplie vers le haut, sans faire sauter le
+     titre. */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height var(--duration-base) var(--ease-standard),
+    opacity var(--duration-base) var(--ease-standard);
 }
 
 .showcase__title {
@@ -94,6 +122,10 @@
   margin-top: var(--space-2);
   font-size: var(--step-xs);
   color: rgba(255, 255, 255, 0.75);
+  /* 2 lignes réservées : un genre qui passe à la ligne ne décale plus le
+     titre de sa tuile par rapport aux voisines. */
+  min-height: 2.8em;
+  min-height: 2lh;
 }
 
 /* États hover : montée de la carte, halo, overlay. Restreint aux
@@ -116,9 +148,13 @@
     filter: brightness(0.75);
   }
 
-  .showcase__tile:hover .showcase__overlay {
+  .showcase__tile:hover .showcase__meta {
+    max-height: 8rem;
     opacity: 1;
-    transform: translateY(0);
+  }
+
+  .showcase__tile:hover .showcase__overlay::before {
+    opacity: 1;
   }
 }
 
@@ -138,9 +174,13 @@
   filter: brightness(0.75);
 }
 
-.showcase__tile:focus-visible .showcase__overlay {
+.showcase__tile:focus-visible .showcase__meta {
+  max-height: 8rem;
   opacity: 1;
-  transform: translateY(0);
+}
+
+.showcase__tile:focus-visible .showcase__overlay::before {
+  opacity: 1;
 }
 
 .showcase__tile:focus-visible {
@@ -181,6 +221,8 @@
      tronque sur une seule ligne plutôt que de laisser le bloc de
      texte grossir et couvrir l'image. */
   .showcase__meta {
+    max-height: none;
+    opacity: 1;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
@@ -231,7 +273,8 @@
   .showcase__tile,
   .showcase__tile img,
   .showcase__tile::before,
-  .showcase__overlay {
+  .showcase__overlay::before,
+  .showcase__meta {
     transition: none;
   }
 
