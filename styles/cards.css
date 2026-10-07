@@ -73,6 +73,40 @@
   font-weight: 500;
 }
 
+/* <h1> composite : le titre de page porte le nom du projet ET sa precision
+   ("Sînnaya - Jeu narratif et d'énigmes"), pour rester descriptif dans les
+   resultats de recherche et pour les lecteurs d'ecran. Le rendu ne change pas :
+   la precision garde son style d'origine (.project-card__meta ou
+   .project-card__subtitle) et le " - " de liaison est masque
+   (.visually-hidden), il n'existe que pour la lecture du titre.
+   Chaque partie est un <span data-i18n> distinct : le script de traduction
+   remplace tout le contenu d'un element portant data-i18n.
+   - --genre-first : le genre s'affiche AU-DESSUS du nom (petit libelle) mais
+     reste APRES lui dans le DOM, donc dans l'ordre de lecture "Nom - Genre".
+   - --subtitle : la precision s'affiche sous le nom, dans l'ordre du DOM. */
+.project-card__title--genre-first,
+.project-card__title--subtitle {
+  display: flex;
+}
+
+.project-card__title--genre-first {
+  flex-direction: column-reverse;
+  margin-top: 0;
+}
+
+.project-card__title--subtitle {
+  flex-direction: column;
+}
+
+.project-card__title .project-card__meta,
+.project-card__title .project-card__subtitle {
+  line-height: var(--leading-normal);
+}
+
+.project-card__title--genre-first .project-card__meta {
+  margin-bottom: var(--space-2);
+}
+
 .project-card__text {
   margin-top: var(--space-4);
   max-width: var(--text-width);
