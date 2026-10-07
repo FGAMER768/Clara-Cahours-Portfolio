@@ -363,8 +363,11 @@ par les visiteurs change.
 - **Anciennes adresses `/pages/...`** : à l'origine, les fiches étaient dans
   un dossier `pages/` et indexées sous `/pages/sinnaya.html`. Deux règles
   `redirects` de `vercel.json` renvoient définitivement `/pages/xxx.html` et
-  `/pages/xxx` vers `/xxx`, en une seule étape. Les liens déjà postés
-  (LinkedIn, mails) et les résultats Google continuent ainsi de fonctionner.
+  `/pages/xxx` vers `/xxx`. Vercel applique `cleanUrls` avant ces règles :
+  `/pages/xxx.html` passe donc par deux redirections permanentes
+  (`/pages/xxx.html` -> `/pages/xxx` -> `/xxx`), ce que Google suit sans
+  difficulté. Les liens déjà postés (LinkedIn, mails) et les résultats
+  Google continuent ainsi de fonctionner.
   **Garder ces règles au moins un an** (idéalement pour toujours : elles ne
   coûtent rien).
 - **Dans le code**, les liens internes n'ont plus d'extension et restent
@@ -384,10 +387,11 @@ par les visiteurs change.
   `data`, `documents`, `fonts`, `icons`, `images`, `scripts`, `styles`) et
   `index`. Une fiche `images.html` serait en conflit avec le dossier
   `images/`, puisque les deux auraient l'adresse `/images`.
-- **Vérifier après un déploiement** : `curl -sI
-  https://claracahours.vercel.app/pages/sinnaya.html` doit répondre `308`
-  avec `location: /sinnaya`, et `curl -sI
-  https://claracahours.vercel.app/sinnaya` doit répondre `200`.
+- **Vérifier après un déploiement** : `curl -sIL
+  https://claracahours.vercel.app/pages/sinnaya.html` (le `L` suit les
+  redirections) doit enchaîner deux `308` (vers `/pages/sinnaya`, puis vers
+  `/sinnaya`) et finir par un `200`. `curl -sI
+  https://claracahours.vercel.app/sinnaya` doit répondre `200` directement.
 - **Tester en local** : l'ouverture directe du fichier (`file://`) et les
   serveurs de fichiers simples (`python -m http.server`) ne connaissent pas
   ces adresses : cliquer sur une fiche donnerait une erreur 404. Utiliser
