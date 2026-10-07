@@ -328,6 +328,12 @@ s'ouvre pas par-dessus la lightbox des galeries.
 - **Vitrine (jaquettes)** : le titre et le genre sont affichés en
   permanence ; la ligne de contexte (équipe, année) se déplie au survol ou
   au focus clavier. Sur écran tactile, l'affichage est inchangé.
+- **Frise du Parcours** : les 4 étapes qui sont des projets (Beez, Glory of
+  Gods, Mecha Crisis, Sînnaya) ont un titre cliquable vers leur fiche, avec
+  une flèche toujours visible (`.timeline__link`). Pour une nouvelle étape
+  qui est un projet, garder `data-i18n` sur le `<span>` **dans** le lien :
+  posé sur le `<h3>`, le script de traduction supprimerait le lien. Les
+  étapes scolaires restent de simples titres.
 - **Fiches projet** : l'en-tête (`<header class="project-card__header">` :
   genre, titre en `<h1>`, ligne d'équipe) est placé **avant** la cover, qui
   occupe sinon tout l'écran sur ordinateur. Une nouvelle fiche doit suivre
