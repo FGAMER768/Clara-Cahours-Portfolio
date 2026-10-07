@@ -8,7 +8,9 @@ l'affichage du site ne dépend d'aucun domaine externe. Seules les vidéos
 YouTube intégrées (chargées à l'approche de l'écran) en contactent un.
 Pensé pour un hébergement statique de type GitHub
 Pages : tous les chemins sont relatifs (jamais de `/` initial), le site
-peut donc vivre dans un sous-dossier.
+peut donc vivre dans un sous-dossier. Les adresses s'affichent sans
+`.html` (`/sinnaya`) : cela demande un hébergeur qui les gère, voir
+« Adresses sans `.html` ».
 
 ## Structure
 
@@ -17,17 +19,18 @@ index.html                  Page d'accueil, toutes les sections dans l'ordre :
                             hero, Qui suis-je, Parcours, Projets, Travaux
                             académiques, Personnages pour le jeu de rôle,
                             Productions visuelles, Contact
-pages/                      Une fiche par projet (thème, langue et navbar
-                            fonctionnent comme sur l'accueil)
-  sinnaya.html              Projets
-  glory-of-gods.html
-  mecha-crisis.html
-  beez-adventures.html
-  analyse-deconstruction.html   Travaux académiques
-  etude-de-cas.html
-  scenario.html
-  roleplay-gta5.html        Personnages pour le jeu de rôle
-  roleplay-rdr2.html
+                            Une fiche par projet, à la racine, à côté de
+                            index.html (thème, langue et navbar fonctionnent
+                            comme sur l'accueil) :
+sinnaya.html                Projets
+glory-of-gods.html
+mecha-crisis.html
+beez-adventures.html
+analyse-deconstruction.html Travaux académiques
+etude-de-cas.html
+scenario.html
+roleplay-gta5.html          Personnages pour le jeu de rôle
+roleplay-rdr2.html
 data/
   i18n.json                 Toutes les chaînes FR / EN, clé par clé
 documents/
@@ -89,8 +92,9 @@ styles/
 robots.txt                  Autorise l'indexation et indique le sitemap
 sitemap.xml                 Liste des 10 pages (accueil + 9 fiches) pour les
                             moteurs de recherche (voir « Référencement »)
-vercel.json                 Facultatif : force le nom du CV au téléchargement
-                            (voir « CV téléchargeable »)
+vercel.json                 Adresses sans .html et redirections des anciennes
+                            adresses (voir « Adresses sans .html »), nom du CV
+                            au téléchargement (voir « CV téléchargeable »)
 .gitignore                  Exclut l'archive Clara-s-Website.zip et
                             documents/scenario-sequence.pdf
 ```
@@ -155,7 +159,7 @@ Le JSON fait foi : au chargement, il remplace le texte écrit dans le HTML.
 Ce texte HTML ne sert que de repli si le JSON n'est pas chargé ou si la clé
 est absente. Au premier passage, la langue est déduite du navigateur
 (anglais si `en`, français sinon). Le chemin du JSON est calculé à partir de
-l'emplacement de `i18n.js`, ce qui fonctionne aussi depuis `pages/`.
+l'emplacement de `i18n.js`, ce qui fonctionne quel que soit le dossier de la page.
 
 ### Easter egg (trophée caché)
 
@@ -340,6 +344,66 @@ s'ouvre pas par-dessus la lightbox des galeries.
   le même schéma. Le genre (ou le sous-titre) est **dans** le `<h1>`, voir
   « Référencement ».
 
+## Adresses sans `.html`
+
+Le site s'affiche avec des adresses propres et courtes :
+`https://claracahours.vercel.app/` au lieu de `.../index.html`, et
+`https://claracahours.vercel.app/sinnaya` au lieu de
+`.../pages/sinnaya.html`. Les fichiers gardent leur extension dans le dépôt
+(`sinnaya.html`, à la racine, à côté de `index.html`) ; seule l'adresse vue
+par les visiteurs change.
+
+- **Côté Vercel** : `vercel.json` active `"cleanUrls": true`. Vercel sert
+  alors `sinnaya.html` à l'adresse `/sinnaya`, et redirige (code 308,
+  permanent) `/sinnaya.html` vers `/sinnaya` et `/index.html` vers `/`.
+- **`"trailingSlash": false`** renvoie `/sinnaya/` vers `/sinnaya`. Ce
+  réglage compte : avec un `/` final, les chemins relatifs
+  (`styles/base.css`...) pointeraient au mauvais endroit et la page
+  s'afficherait sans style.
+- **Anciennes adresses `/pages/...`** : à l'origine, les fiches étaient dans
+  un dossier `pages/` et indexées sous `/pages/sinnaya.html`. Deux règles
+  `redirects` de `vercel.json` renvoient définitivement `/pages/xxx.html` et
+  `/pages/xxx` vers `/xxx`, en une seule étape. Les liens déjà postés
+  (LinkedIn, mails) et les résultats Google continuent ainsi de fonctionner.
+  **Garder ces règles au moins un an** (idéalement pour toujours : elles ne
+  coûtent rien).
+- **Dans le code**, les liens internes n'ont plus d'extension et restent
+  relatifs : `sinnaya` depuis l'accueil, `./` et `./#projects` depuis une
+  fiche. Les fichiers CSS, scripts et images se chargent en `styles/...`,
+  `scripts/...`, `images/...` (plus de `../`), puisque tout est au même
+  niveau.
+- **`canonical`, `og:url` et `sitemap.xml`** utilisent tous la forme sans
+  `.html`. Les trois doivent rester identiques entre eux : si l'un garde
+  `.html`, les moteurs de recherche voient deux adresses pour une même page.
+- **Nouvelle fiche** `nom.html` : la placer à la racine (copier l'en-tête
+  d'une fiche existante pour garder les chemins `styles/...` et
+  `scripts/...`), la lier en `nom` (sans extension) depuis l'accueil, mettre
+  `https://claracahours.vercel.app/nom` dans son `canonical` et son
+  `og:url`, et ajouter la même adresse dans `sitemap.xml`.
+- **Noms interdits pour une fiche** : celui d'un dossier du site (`audio`,
+  `data`, `documents`, `fonts`, `icons`, `images`, `scripts`, `styles`) et
+  `index`. Une fiche `images.html` serait en conflit avec le dossier
+  `images/`, puisque les deux auraient l'adresse `/images`.
+- **Vérifier après un déploiement** : `curl -sI
+  https://claracahours.vercel.app/pages/sinnaya.html` doit répondre `308`
+  avec `location: /sinnaya`, et `curl -sI
+  https://claracahours.vercel.app/sinnaya` doit répondre `200`.
+- **Tester en local** : l'ouverture directe du fichier (`file://`) et les
+  serveurs de fichiers simples (`python -m http.server`) ne connaissent pas
+  ces adresses : cliquer sur une fiche donnerait une erreur 404. Utiliser
+  `npx serve` (gère les adresses sans extension d'office, mais pas les
+  redirections `/pages/...`) ou `npx vercel dev` (reproduit Vercel et lit
+  `vercel.json`).
+- **Autre hébergeur** : GitHub Pages sert aussi `/sinnaya` sans
+  configuration, mais ignore `vercel.json` : ni les anciennes adresses
+  `/pages/...` ni `.html` ne seraient redirigées. Sur un hébergeur qui ne
+  gère pas ces adresses, les liens sans extension renverraient une 404 : il
+  faudrait remettre `.html` dans les liens.
+- **Après la mise en ligne**, renvoyer `sitemap.xml` dans la Google Search
+  Console pour accélérer la prise en compte des nouvelles adresses. Les
+  anciennes y apparaissent quelque temps comme « Page avec redirection » :
+  c'est normal.
+
 ## CV téléchargeable
 
 Le CV est le fichier `documents/CV-Clara-Cahours-de-Virgile.pdf` (casse
@@ -375,17 +439,20 @@ Solution retenue : donner directement le bon nom au fichier
 Contrepartie : l'ancienne URL `documents/CV.pdf` n'existe plus, tout lien
 posté ailleurs (LinkedIn, mails) vers l'ancienne adresse est à mettre à jour.
 
-### `vercel.json` (facultatif)
+### `vercel.json`
 
-Le fichier `vercel.json` ajoute une ceinture et des bretelles : il fait
-envoyer par le serveur l'en-tête `Content-Disposition: attachment;
+Le fichier `vercel.json` contient aussi une règle pour le CV (en plus des
+adresses sans `.html`, voir plus haut) : elle fait envoyer par le serveur
+l'en-tête `Content-Disposition: attachment;
 filename="CV-Clara-Cahours-de-Virgile.pdf"`, que les navigateurs appliquent
 en priorité, avant `download` et avant le nom de l'URL. Le CV est alors
 téléchargé sous le bon nom même si quelqu'un ouvre directement l'adresse du
 PDF.
 
-- **Le site fonctionne très bien sans** : le nom du fichier suffit déjà.
-  Supprimer `vercel.json` ne casse rien.
+- **Ne pas supprimer `vercel.json`** : sans lui, les adresses sans `.html`
+  (`/sinnaya`) renvoient une 404 sur Vercel et les anciennes adresses
+  `/pages/...` ne sont plus redirigées. Seul le bloc `headers` (le nom du
+  CV) est facultatif : le nom du fichier suffit déjà à lui seul.
 - Il n'agit que sur Vercel (ou un hébergeur qui lit ce format). GitHub
   Pages ignore le fichier, car il ne permet pas de régler les en-têtes.
 - Si le fichier PDF est renommé, mettre à jour `source` et `filename` dans
@@ -403,10 +470,11 @@ ou sur X affiche un titre, une description et une image.
   être des URL **absolues** (`https://claracahours.vercel.app/...`). Si le
   domaine change, remplacer `claracahours.vercel.app` dans les 10 pages.
 - Chaque page déclare aussi `<link rel="canonical">`, avec la même adresse
-  que `og:url` : elle indique aux moteurs de recherche l'adresse de
-  référence de la page (utile si le site est joint par plusieurs adresses).
+  que `og:url` (sans `.html`) : elle indique aux moteurs de recherche
+  l'adresse de référence de la page (utile si le site est joint par
+  plusieurs adresses).
 - Les images sont dans `images/og/`, une par page, nommée comme le fichier
-  HTML (`sinnaya.jpg` pour `pages/sinnaya.html`, `home.jpg` pour l'accueil).
+  HTML (`sinnaya.jpg` pour `sinnaya.html`, `home.jpg` pour l'accueil).
   Format 1200 × 630 px, JPEG, de préférence sous 300 Ko (au-delà, WhatsApp
   peut ne pas afficher l'image). Pour en changer une, remplacer le fichier en
   gardant le nom et les dimensions.
@@ -421,7 +489,8 @@ ou sur X affiche un titre, une description et une image.
 **absolues** (`https://claracahours.vercel.app/...`) et identiques aux
 `og:url` des pages.
 
-- Nouvelle fiche projet : ajouter son adresse dans `sitemap.xml`.
+- Nouvelle fiche projet : ajouter son adresse dans `sitemap.xml`, sans
+  `.html` (voir « Adresses sans `.html` »).
 - **`<title>`** : format `Nom - ce qui est présenté | Clara Cahours de
   Virgile` (l'accueil garde `Clara Cahours de Virgile - Portfolio`). Le nom
   du projet vient en tête, la marque à la fin ; viser
@@ -487,7 +556,7 @@ de bord Vercel, onglet **Analytics** du projet.
   pur indique désormais un chemin propre au projet
   (`/<chemin-unique>/script.js`) à la place de `/_vercel/insights/`. Il
   faudrait alors le remplacer dans les 10 pages (`index.html` et
-  `pages/*.html`).
+  les 9 fiches).
 - **Limites** : un bloqueur de pub peut empêcher la mesure (les chiffres
   sont donc un minimum). Sur l'offre gratuite, pas d'événements
   personnalisés : on ne peut pas compter les easter eggs, seulement les

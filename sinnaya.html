@@ -9,8 +9,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Clara Cahours de Virgile" />
   <meta property="og:locale" content="fr_FR" />
-  <link rel="canonical" href="https://claracahours.vercel.app/pages/sinnaya.html" />
-  <meta property="og:url" content="https://claracahours.vercel.app/pages/sinnaya.html" />
+  <link rel="canonical" href="https://claracahours.vercel.app/sinnaya" />
+  <meta property="og:url" content="https://claracahours.vercel.app/sinnaya" />
   <meta property="og:title" content="Sînnaya - Game Design & Level Design | Clara Cahours de Virgile" />
   <meta property="og:description" content="Fiche projet : Sînnaya, jeu narratif et d'énigmes réalisé par Clara Cahours de Virgile." />
   <meta property="og:image" content="https://claracahours.vercel.app/images/og/sinnaya.jpg" />
@@ -21,32 +21,32 @@
 
   <!-- Favicon : SVG pour les navigateurs modernes (net à toute taille),
        .ico en repli pour les anciens, apple-touch-icon pour l'écran d'accueil iOS -->
-  <link rel="icon" href="../icons/favicon/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="../icons/favicon/favicon.ico" sizes="48x48" />
-  <link rel="icon" href="../icons/favicon/favicon-32.png" type="image/png" sizes="32x32" />
-  <link rel="apple-touch-icon" href="../icons/favicon/apple-touch-icon.png" />
+  <link rel="icon" href="icons/favicon/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="icons/favicon/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="icons/favicon/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="icons/favicon/apple-touch-icon.png" />
   <meta name="theme-color" content="#6F5D96" />
 
   <!-- Police Inter hébergée (voir styles/fonts.css). Le preload lance le
        téléchargement dès le <head>, sans attendre que le CSS soit lu ;
        crossorigin est obligatoire pour une police, même du même domaine. -->
-  <link rel="preload" href="../fonts/inter/Inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter/Inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
 
-  <link rel="stylesheet" href="../styles/fonts.css" />
-  <link rel="stylesheet" href="../styles/tokens.css" />
-  <link rel="stylesheet" href="../styles/base.css" />
+  <link rel="stylesheet" href="styles/fonts.css" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/base.css" />
   <!-- ripple.css doit rester AVANT navbar/gallery/lightbox.css : .ripple-host
        impose position: relative, et les boutons de la lightbox
        (position: absolute) doivent pouvoir le surcharger. -->
-  <link rel="stylesheet" href="../styles/ripple.css" />
-  <link rel="stylesheet" href="../styles/layout.css" />
-  <link rel="stylesheet" href="../styles/navbar.css" />
-  <link rel="stylesheet" href="../styles/hero.css" />
-  <link rel="stylesheet" href="../styles/cards.css" />
-  <link rel="stylesheet" href="../styles/gallery.css" />
-  <link rel="stylesheet" href="../styles/lightbox.css" />
-  <link rel="stylesheet" href="../styles/project-page.css" />
-  <link rel="stylesheet" href="../styles/footer.css" />
+  <link rel="stylesheet" href="styles/ripple.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/navbar.css" />
+  <link rel="stylesheet" href="styles/hero.css" />
+  <link rel="stylesheet" href="styles/cards.css" />
+  <link rel="stylesheet" href="styles/gallery.css" />
+  <link rel="stylesheet" href="styles/lightbox.css" />
+  <link rel="stylesheet" href="styles/project-page.css" />
+  <link rel="stylesheet" href="styles/footer.css" />
   <!-- Statistiques de visite (Vercel Web Analytics, voir README « Statistiques »).
        Sans cookie. Chemin absolu : le script est servi par Vercel à la racine
        du site, seulement une fois Analytics activé ; ailleurs, simple 404. -->
@@ -60,7 +60,7 @@
 
   <header>
     <nav class="navbar" data-i18n-attr="aria-label:nav.label" aria-label="Navigation principale">
-      <a class="navbar__brand" href="../index.html" style="color: inherit; text-decoration: none;">Clara</a>
+      <a class="navbar__brand" href="./" style="color: inherit; text-decoration: none;">Clara</a>
 
       <button class="navbar__icon-btn navbar__menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="nav-links" data-i18n-attr="aria-label:nav.menuOpen" aria-label="Ouvrir le menu">
         <span class="navbar__burger" aria-hidden="true">
@@ -71,17 +71,17 @@
       </button>
 
       <ul class="navbar__links" id="nav-links" data-nav-links data-open="false">
-        <li><a class="navbar__link" href="../index.html#about" data-i18n="nav.about">Qui suis-je</a></li>
-        <li><a class="navbar__link" href="../index.html#path" data-i18n="nav.path">Parcours</a></li>
-        <li><a class="navbar__link" href="../index.html#projects" data-i18n="nav.projects">Projets</a></li>
-        <li><a class="navbar__link" href="../index.html#gallery" data-i18n="nav.art">Productions visuelles</a></li>
-        <li><a class="navbar__link" href="../index.html#contact" data-i18n="nav.contact">Contact</a></li>
+        <li><a class="navbar__link" href="./#about" data-i18n="nav.about">Qui suis-je</a></li>
+        <li><a class="navbar__link" href="./#path" data-i18n="nav.path">Parcours</a></li>
+        <li><a class="navbar__link" href="./#projects" data-i18n="nav.projects">Projets</a></li>
+        <li><a class="navbar__link" href="./#gallery" data-i18n="nav.art">Productions visuelles</a></li>
+        <li><a class="navbar__link" href="./#contact" data-i18n="nav.contact">Contact</a></li>
       </ul>
 
       <div class="navbar__controls">
         <button class="navbar__icon-btn" data-theme-toggle aria-pressed="false" data-i18n-attr="aria-label:theme.toggle" aria-label="Changer le thème">
-          <svg class="icon-moon" aria-hidden="true"><use href="../icons/sprite.svg#icon-moon"></use></svg>
-          <svg class="icon-sun" aria-hidden="true"><use href="../icons/sprite.svg#icon-sun"></use></svg>
+          <svg class="icon-moon" aria-hidden="true"><use href="icons/sprite.svg#icon-moon"></use></svg>
+          <svg class="icon-sun" aria-hidden="true"><use href="icons/sprite.svg#icon-sun"></use></svg>
         </button>
 
         <div class="navbar__lang" role="group" data-i18n-attr="aria-label:lang.toggle" aria-label="Changer de langue">
@@ -94,8 +94,8 @@
 
   <main id="main-content">
     <section class="project-page container">
-      <a class="project-page__back" href="../index.html#projects" data-i18n="project.back">
-        <svg aria-hidden="true"><use href="../icons/sprite.svg#icon-chevron-left"></use></svg>
+      <a class="project-page__back" href="./#projects" data-i18n="project.back">
+        <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-left"></use></svg>
         Retour aux projets
       </a>
 
@@ -106,11 +106,11 @@
             <p class="project-card__team" data-i18n="project.sinnaya.team">Projet de troisième année, équipe de 9 personnes (3 game designers, 4 game artists, 2 tech artists)</p>
           </header>
           <div class="project-card__media">
-            <img src="../images/projects/sinnaya/cover.jpeg" srcset="../images/projects/sinnaya/responsive/cover-400w.webp 400w, ../images/projects/sinnaya/responsive/cover-800w.webp 800w, ../images/projects/sinnaya/responsive/cover-1280w.webp 1280w" sizes="(max-width: 72rem) 100vw, 1152px" alt="Illustration clé du jeu Sînnaya" loading="eager" fetchpriority="high" decoding="async" />
+            <img src="images/projects/sinnaya/cover.jpeg" srcset="images/projects/sinnaya/responsive/cover-400w.webp 400w, images/projects/sinnaya/responsive/cover-800w.webp 800w, images/projects/sinnaya/responsive/cover-1280w.webp 1280w" sizes="(max-width: 72rem) 100vw, 1152px" alt="Illustration clé du jeu Sînnaya" loading="eager" fetchpriority="high" decoding="async" />
           </div>
           <div class="project-card__body">
             <div class="project-card__cover">
-              <img src="../images/projects/sinnaya/jaquette.jpeg" srcset="../images/projects/sinnaya/responsive/jaquette-400w.webp 400w, ../images/projects/sinnaya/responsive/jaquette-426w.webp 426w" sizes="(max-width: 48rem) 60vw, 288px" alt="Jaquette du jeu Sînnaya" loading="lazy" decoding="async" />
+              <img src="images/projects/sinnaya/jaquette.jpeg" srcset="images/projects/sinnaya/responsive/jaquette-400w.webp 400w, images/projects/sinnaya/responsive/jaquette-426w.webp 426w" sizes="(max-width: 48rem) 60vw, 288px" alt="Jaquette du jeu Sînnaya" loading="lazy" decoding="async" />
             </div>
             <p class="project-card__text" data-i18n="project.sinnaya.text">
               À Babylone, en Mésopotamie, incarnez Sînnaya, disciple du Dieu de la Lune, traversant le temple d’Ishtar. Armée d’un sceptre lunaire révélant l’invisible, résolvez les énigmes laissées par la déesse disparue pour retrouver votre enfant perdu et empêcher la chute de Babylone.
@@ -149,11 +149,11 @@
     </div>
   </footer>
 
-  <script src="../scripts/theme.js"></script>
-  <script src="../scripts/i18n.js"></script>
-  <script src="../scripts/navbar.js"></script>
-  <script src="../scripts/slider.js"></script>
-  <script src="../scripts/lightbox.js"></script>
-  <script src="../scripts/ripple.js"></script>
+  <script src="scripts/theme.js"></script>
+  <script src="scripts/i18n.js"></script>
+  <script src="scripts/navbar.js"></script>
+  <script src="scripts/slider.js"></script>
+  <script src="scripts/lightbox.js"></script>
+  <script src="scripts/ripple.js"></script>
 </body>
 </html>

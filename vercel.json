@@ -1,4 +1,18 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/pages/:slug.html",
+      "destination": "/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/pages/:slug",
+      "destination": "/:slug",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/documents/CV-Clara-Cahours-de-Virgile.pdf",

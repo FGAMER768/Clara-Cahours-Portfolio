@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="meta.title.rdr">Grace Ackerman - Jeu de rôle sur RDR2 | Clara Cahours de Virgile</title>
+  <meta name="description" content="Fiche du personnage de jeu de rôle Grace Ackerman créé pour Red Dead Redemption II (RedM), par Clara Cahours de Virgile." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Clara Cahours de Virgile" />
+  <meta property="og:locale" content="fr_FR" />
+  <link rel="canonical" href="https://claracahours.vercel.app/roleplay-rdr2" />
+  <meta property="og:url" content="https://claracahours.vercel.app/roleplay-rdr2" />
+  <meta property="og:title" content="Grace Ackerman - Jeu de rôle sur RDR2 | Clara Cahours de Virgile" />
+  <meta property="og:description" content="Fiche du personnage de jeu de rôle Grace Ackerman créé pour Red Dead Redemption II (RedM), par Clara Cahours de Virgile." />
+  <meta property="og:image" content="https://claracahours.vercel.app/images/og/roleplay-rdr2.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Illustration du personnage Grace Ackerman, Les Trèfles Noirs" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon : SVG pour les navigateurs modernes (net à toute taille),
+       .ico en repli pour les anciens, apple-touch-icon pour l'écran d'accueil iOS -->
+  <link rel="icon" href="icons/favicon/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="icons/favicon/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="icons/favicon/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="icons/favicon/apple-touch-icon.png" />
+  <meta name="theme-color" content="#6F5D96" />
+
+  <!-- Police Inter hébergée (voir styles/fonts.css). Le preload lance le
+       téléchargement dès le <head>, sans attendre que le CSS soit lu ;
+       crossorigin est obligatoire pour une police, même du même domaine. -->
+  <link rel="preload" href="fonts/inter/Inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+
+  <link rel="stylesheet" href="styles/fonts.css" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <!-- ripple.css doit rester AVANT navbar/gallery/lightbox.css : .ripple-host
+       impose position: relative, et les boutons de la lightbox
+       (position: absolute) doivent pouvoir le surcharger. -->
+  <link rel="stylesheet" href="styles/ripple.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/navbar.css" />
+  <link rel="stylesheet" href="styles/hero.css" />
+  <link rel="stylesheet" href="styles/cards.css" />
+  <link rel="stylesheet" href="styles/gallery.css" />
+  <link rel="stylesheet" href="styles/lightbox.css" />
+  <link rel="stylesheet" href="styles/project-page.css" />
+  <link rel="stylesheet" href="styles/footer.css" />
+  <!-- Statistiques de visite (Vercel Web Analytics, voir README « Statistiques »).
+       Sans cookie. Chemin absolu : le script est servi par Vercel à la racine
+       du site, seulement une fois Analytics activé ; ailleurs, simple 404. -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content" data-i18n="nav.skip">Aller au contenu principal</a>
+
+  <header>
+    <nav class="navbar" data-i18n-attr="aria-label:nav.label" aria-label="Navigation principale">
+      <a class="navbar__brand" href="./" style="color: inherit; text-decoration: none;">Clara</a>
+
+      <button class="navbar__icon-btn navbar__menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="nav-links" data-i18n-attr="aria-label:nav.menuOpen" aria-label="Ouvrir le menu">
+        <span class="navbar__burger" aria-hidden="true">
+          <span class="navbar__burger-bar"></span>
+          <span class="navbar__burger-bar"></span>
+          <span class="navbar__burger-bar"></span>
+        </span>
+      </button>
+
+      <ul class="navbar__links" id="nav-links" data-nav-links data-open="false">
+        <li><a class="navbar__link" href="./#about" data-i18n="nav.about">Qui suis-je</a></li>
+        <li><a class="navbar__link" href="./#path" data-i18n="nav.path">Parcours</a></li>
+        <li><a class="navbar__link" href="./#projects" data-i18n="nav.projects">Projets</a></li>
+        <li><a class="navbar__link" href="./#gallery" data-i18n="nav.art">Productions visuelles</a></li>
+        <li><a class="navbar__link" href="./#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+
+      <div class="navbar__controls">
+        <button class="navbar__icon-btn" data-theme-toggle aria-pressed="false" data-i18n-attr="aria-label:theme.toggle" aria-label="Changer le thème">
+          <svg class="icon-moon" aria-hidden="true"><use href="icons/sprite.svg#icon-moon"></use></svg>
+          <svg class="icon-sun" aria-hidden="true"><use href="icons/sprite.svg#icon-sun"></use></svg>
+        </button>
+
+        <div class="navbar__lang" role="group" data-i18n-attr="aria-label:lang.toggle" aria-label="Changer de langue">
+          <button class="navbar__lang-btn" data-lang-btn="fr" aria-pressed="true">FR</button>
+          <button class="navbar__lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="project-page container">
+      <a class="project-page__back" href="./#roleplay" data-i18n="project.back">
+        <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-left"></use></svg>
+        Retour aux projets
+      </a>
+
+      <div class="project-grid">
+        <article class="project-card" id="project-roleplay-rdr2">
+          <header class="project-card__header">
+            <p class="project-card__meta" data-i18n="roleplay.rdr.year">Créé en 2025</p>
+            <h1 class="project-card__title project-card__title--subtitle"><span data-i18n="roleplay.rdr.page.title">Grace Ackerman - Les Trèfles Noirs</span><span class="visually-hidden"> - </span><span class="project-card__subtitle" data-i18n="roleplay.rdr.page.subtitle">Jeu de rôle sur serveur RedM</span></h1>
+          </header>
+          <div class="project-card__media">
+            <img src="images/projects/roleplay-rdr2/slide-01.png" srcset="images/projects/roleplay-rdr2/responsive/slide-01-400w.webp 400w, images/projects/roleplay-rdr2/responsive/slide-01-800w.webp 800w, images/projects/roleplay-rdr2/responsive/slide-01-960w.webp 960w" sizes="(max-width: 72rem) 100vw, 1152px" alt="Portrait du personnage Grace Ackerman incarné sur Red Dead Redemption II" loading="eager" fetchpriority="high" decoding="async" />
+          </div>
+          <div class="project-card__body">
+            <p class="project-card__text" data-i18n="roleplay.rdr.page.intro">
+              Née en 1859 dans la misère de Manchester et marquée par la perte tragique de sa mère, Grace Ackerman surmonte son infécondité en adoptant des orphelins pour former une famille criminelle : les Trèfles Noirs. Traquée sous le nom de « La Sorcière de Manchester », elle s'exile en Amérique pour lutter contre les inégalités et l'oppression gouvernementale. Pragmatique, autoritaire mais profondément loyale envers les siens, elle reste hantée par la peur de la pauvreté et un besoin maladif de contrôle.
+            </p>
+
+            <div class="project-card__block">
+              <h2 class="project-card__block-heading" data-i18n="roleplay.page.slidesHeading">Fiche de personnage</h2>
+              <div class="media-slider" data-slider style="--slider-ratio: 16 / 9;">
+                <button class="media-slider__button" type="button" data-slider-prev data-i18n-attr="aria-label:slider.previous" disabled>
+                  <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-left"></use></svg>
+                </button>
+                <div class="media-slider__viewport" data-slider-viewport tabindex="0" role="region" data-i18n-attr="aria-label:slider.region">
+                  <div class="media-slider__track">
+                    <figure class="media-slider__slide"><img src="images/projects/roleplay-rdr2/slide-01.png" srcset="images/projects/roleplay-rdr2/responsive/slide-01-400w.webp 400w, images/projects/roleplay-rdr2/responsive/slide-01-800w.webp 800w, images/projects/roleplay-rdr2/responsive/slide-01-960w.webp 960w" sizes="(max-width: 72rem) 92vw, 720px" alt="Slide 1 de la fiche du personnage sur Red Dead Redemption II" loading="lazy" decoding="async" onerror="this.closest('.media-slider__slide').remove()" /></figure>
+                    <figure class="media-slider__slide"><img src="images/projects/roleplay-rdr2/slide-02.png" srcset="images/projects/roleplay-rdr2/responsive/slide-02-400w.webp 400w, images/projects/roleplay-rdr2/responsive/slide-02-800w.webp 800w, images/projects/roleplay-rdr2/responsive/slide-02-960w.webp 960w" sizes="(max-width: 72rem) 92vw, 720px" alt="Slide 2 de la fiche du personnage sur Red Dead Redemption II" loading="lazy" decoding="async" onerror="this.closest('.media-slider__slide').remove()" /></figure>
+                    <figure class="media-slider__slide"><img src="images/projects/roleplay-rdr2/slide-03.png" srcset="images/projects/roleplay-rdr2/responsive/slide-03-400w.webp 400w, images/projects/roleplay-rdr2/responsive/slide-03-800w.webp 800w, images/projects/roleplay-rdr2/responsive/slide-03-960w.webp 960w" sizes="(max-width: 72rem) 92vw, 720px" alt="Slide 3 de la fiche du personnage sur Red Dead Redemption II" loading="lazy" decoding="async" onerror="this.closest('.media-slider__slide').remove()" /></figure>
+                    <figure class="media-slider__slide"><img src="images/projects/roleplay-rdr2/slide-04.png" srcset="images/projects/roleplay-rdr2/responsive/slide-04-400w.webp 400w, images/projects/roleplay-rdr2/responsive/slide-04-800w.webp 800w, images/projects/roleplay-rdr2/responsive/slide-04-960w.webp 960w" sizes="(max-width: 72rem) 92vw, 720px" alt="Slide 4 de la fiche du personnage sur Red Dead Redemption II" loading="lazy" decoding="async" onerror="this.closest('.media-slider__slide').remove()" /></figure>
+                    <figure class="media-slider__slide"><img src="images/projects/roleplay-rdr2/slide-05.png" srcset="images/projects/roleplay-rdr2/responsive/slide-05-400w.webp 400w, images/projects/roleplay-rdr2/responsive/slide-05-800w.webp 800w, images/projects/roleplay-rdr2/responsive/slide-05-960w.webp 960w" sizes="(max-width: 72rem) 92vw, 720px" alt="Slide 5 de la fiche du personnage sur Red Dead Redemption II" loading="lazy" decoding="async" onerror="this.closest('.media-slider__slide').remove()" /></figure>
+                    <figure class="media-slider__slide"><img src="images/projects/roleplay-rdr2/slide-06.png" srcset="images/projects/roleplay-rdr2/responsive/slide-06-400w.webp 400w, images/projects/roleplay-rdr2/responsive/slide-06-800w.webp 800w, images/projects/roleplay-rdr2/responsive/slide-06-960w.webp 960w" sizes="(max-width: 72rem) 92vw, 720px" alt="Slide 6 de la fiche du personnage sur Red Dead Redemption II" loading="lazy" decoding="async" onerror="this.closest('.media-slider__slide').remove()" /></figure>
+                    <figure class="media-slider__slide"><img src="images/projects/roleplay-rdr2/slide-07.png" srcset="images/projects/roleplay-rdr2/responsive/slide-07-400w.webp 400w, images/projects/roleplay-rdr2/responsive/slide-07-800w.webp 800w, images/projects/roleplay-rdr2/responsive/slide-07-960w.webp 960w" sizes="(max-width: 72rem) 92vw, 720px" alt="Slide 7 de la fiche du personnage sur Red Dead Redemption II" loading="lazy" decoding="async" onerror="this.closest('.media-slider__slide').remove()" /></figure>
+                  </div>
+                </div>
+                <button class="media-slider__button" type="button" data-slider-next data-i18n-attr="aria-label:slider.next">
+                  <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
+                </button>
+              </div>
+              <p class="media-slider__status" data-slider-status role="status" aria-live="polite">1 / 7</p>
+            </div>
+
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <div class="site-footer__inner">
+      <p>&copy; 2026 Clara Cahours de Virgile - <span data-i18n="footer.rights">Tous droits réservés</span></p>
+    </div>
+  </footer>
+
+  <script src="scripts/theme.js"></script>
+  <script src="scripts/i18n.js"></script>
+  <script src="scripts/navbar.js"></script>
+  <script src="scripts/slider.js"></script>
+  <script src="scripts/lightbox.js"></script>
+  <script src="scripts/ripple.js"></script>
+</body>
+</html>

@@ -14,7 +14,7 @@
   Le nom de famille reste « Inter » : --font-body (tokens.css) est inchangé.
   Licence SIL OFL 1.1, texte dans fonts/inter/LICENSE.txt.
   Le chemin est relatif à ce fichier (styles/ -> ../fonts/), donc valable
-  depuis l'accueil comme depuis pages/.
+  quelle que soit la page qui charge la feuille de style.
 */
 @font-face {
   font-family: "Inter";

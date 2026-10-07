@@ -9,8 +9,8 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Clara Cahours de Virgile" />
   <meta property="og:locale" content="fr_FR" />
-  <link rel="canonical" href="https://claracahours.vercel.app/pages/etude-de-cas.html" />
-  <meta property="og:url" content="https://claracahours.vercel.app/pages/etude-de-cas.html" />
+  <link rel="canonical" href="https://claracahours.vercel.app/etude-de-cas" />
+  <meta property="og:url" content="https://claracahours.vercel.app/etude-de-cas" />
   <meta property="og:title" content="Étude de cas VALORANT - Gestion de production | Clara Cahours de Virgile" />
   <meta property="og:description" content="Étude de cas de deuxième année en gestion de production, sur le jeu VALORANT de Riot Games, par Clara Cahours de Virgile." />
   <meta property="og:image" content="https://claracahours.vercel.app/images/og/etude-de-cas.jpg" />
@@ -21,32 +21,32 @@
 
   <!-- Favicon : SVG pour les navigateurs modernes (net à toute taille),
        .ico en repli pour les anciens, apple-touch-icon pour l'écran d'accueil iOS -->
-  <link rel="icon" href="../icons/favicon/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="../icons/favicon/favicon.ico" sizes="48x48" />
-  <link rel="icon" href="../icons/favicon/favicon-32.png" type="image/png" sizes="32x32" />
-  <link rel="apple-touch-icon" href="../icons/favicon/apple-touch-icon.png" />
+  <link rel="icon" href="icons/favicon/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="icons/favicon/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="icons/favicon/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="icons/favicon/apple-touch-icon.png" />
   <meta name="theme-color" content="#6F5D96" />
 
   <!-- Police Inter hébergée (voir styles/fonts.css). Le preload lance le
        téléchargement dès le <head>, sans attendre que le CSS soit lu ;
        crossorigin est obligatoire pour une police, même du même domaine. -->
-  <link rel="preload" href="../fonts/inter/Inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter/Inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
 
-  <link rel="stylesheet" href="../styles/fonts.css" />
-  <link rel="stylesheet" href="../styles/tokens.css" />
-  <link rel="stylesheet" href="../styles/base.css" />
+  <link rel="stylesheet" href="styles/fonts.css" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/base.css" />
   <!-- ripple.css doit rester AVANT navbar/gallery/lightbox.css : .ripple-host
        impose position: relative, et les boutons de la lightbox
        (position: absolute) doivent pouvoir le surcharger. -->
-  <link rel="stylesheet" href="../styles/ripple.css" />
-  <link rel="stylesheet" href="../styles/layout.css" />
-  <link rel="stylesheet" href="../styles/navbar.css" />
-  <link rel="stylesheet" href="../styles/hero.css" />
-  <link rel="stylesheet" href="../styles/cards.css" />
-  <link rel="stylesheet" href="../styles/gallery.css" />
-  <link rel="stylesheet" href="../styles/lightbox.css" />
-  <link rel="stylesheet" href="../styles/project-page.css" />
-  <link rel="stylesheet" href="../styles/footer.css" />
+  <link rel="stylesheet" href="styles/ripple.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/navbar.css" />
+  <link rel="stylesheet" href="styles/hero.css" />
+  <link rel="stylesheet" href="styles/cards.css" />
+  <link rel="stylesheet" href="styles/gallery.css" />
+  <link rel="stylesheet" href="styles/lightbox.css" />
+  <link rel="stylesheet" href="styles/project-page.css" />
+  <link rel="stylesheet" href="styles/footer.css" />
   <!-- Statistiques de visite (Vercel Web Analytics, voir README « Statistiques »).
        Sans cookie. Chemin absolu : le script est servi par Vercel à la racine
        du site, seulement une fois Analytics activé ; ailleurs, simple 404. -->
@@ -60,7 +60,7 @@
 
   <header>
     <nav class="navbar" data-i18n-attr="aria-label:nav.label" aria-label="Navigation principale">
-      <a class="navbar__brand" href="../index.html" style="color: inherit; text-decoration: none;">Clara</a>
+      <a class="navbar__brand" href="./" style="color: inherit; text-decoration: none;">Clara</a>
 
       <button class="navbar__icon-btn navbar__menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="nav-links" data-i18n-attr="aria-label:nav.menuOpen" aria-label="Ouvrir le menu">
         <span class="navbar__burger" aria-hidden="true">
@@ -71,17 +71,17 @@
       </button>
 
       <ul class="navbar__links" id="nav-links" data-nav-links data-open="false">
-        <li><a class="navbar__link" href="../index.html#about" data-i18n="nav.about">Qui suis-je</a></li>
-        <li><a class="navbar__link" href="../index.html#path" data-i18n="nav.path">Parcours</a></li>
-        <li><a class="navbar__link" href="../index.html#projects" data-i18n="nav.projects">Projets</a></li>
-        <li><a class="navbar__link" href="../index.html#gallery" data-i18n="nav.art">Productions visuelles</a></li>
-        <li><a class="navbar__link" href="../index.html#contact" data-i18n="nav.contact">Contact</a></li>
+        <li><a class="navbar__link" href="./#about" data-i18n="nav.about">Qui suis-je</a></li>
+        <li><a class="navbar__link" href="./#path" data-i18n="nav.path">Parcours</a></li>
+        <li><a class="navbar__link" href="./#projects" data-i18n="nav.projects">Projets</a></li>
+        <li><a class="navbar__link" href="./#gallery" data-i18n="nav.art">Productions visuelles</a></li>
+        <li><a class="navbar__link" href="./#contact" data-i18n="nav.contact">Contact</a></li>
       </ul>
 
       <div class="navbar__controls">
         <button class="navbar__icon-btn" data-theme-toggle aria-pressed="false" data-i18n-attr="aria-label:theme.toggle" aria-label="Changer le thème">
-          <svg class="icon-moon" aria-hidden="true"><use href="../icons/sprite.svg#icon-moon"></use></svg>
-          <svg class="icon-sun" aria-hidden="true"><use href="../icons/sprite.svg#icon-sun"></use></svg>
+          <svg class="icon-moon" aria-hidden="true"><use href="icons/sprite.svg#icon-moon"></use></svg>
+          <svg class="icon-sun" aria-hidden="true"><use href="icons/sprite.svg#icon-sun"></use></svg>
         </button>
 
         <div class="navbar__lang" role="group" data-i18n-attr="aria-label:lang.toggle" aria-label="Changer de langue">
@@ -94,8 +94,8 @@
 
   <main id="main-content">
     <section class="project-page container">
-      <a class="project-page__back" href="../index.html#projects" data-i18n="project.back">
-        <svg aria-hidden="true"><use href="../icons/sprite.svg#icon-chevron-left"></use></svg>
+      <a class="project-page__back" href="./#projects" data-i18n="project.back">
+        <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-left"></use></svg>
         Retour aux projets
       </a>
 
@@ -107,7 +107,7 @@
             <p class="project-card__subtitle" data-i18n="casestudy.page.subtitle">Rédaction d’une étude de cas complète et détaillée d’un jeu vidéo au choix</p>
           </header>
           <div class="project-card__media">
-            <img src="../images/projects/etude-de-cas-valorant/cover.jpg" srcset="../images/projects/etude-de-cas-valorant/responsive/cover-400w.webp 400w, ../images/projects/etude-de-cas-valorant/responsive/cover-800w.webp 800w, ../images/projects/etude-de-cas-valorant/responsive/cover-1600w.webp 1600w, ../images/projects/etude-de-cas-valorant/responsive/cover-1920w.webp 1920w" sizes="(max-width: 72rem) 100vw, 1152px" alt="Image de présentation de l'étude de cas VALORANT" loading="eager" fetchpriority="high" decoding="async" />
+            <img src="images/projects/etude-de-cas-valorant/cover.jpg" srcset="images/projects/etude-de-cas-valorant/responsive/cover-400w.webp 400w, images/projects/etude-de-cas-valorant/responsive/cover-800w.webp 800w, images/projects/etude-de-cas-valorant/responsive/cover-1600w.webp 1600w, images/projects/etude-de-cas-valorant/responsive/cover-1920w.webp 1920w" sizes="(max-width: 72rem) 100vw, 1152px" alt="Image de présentation de l'étude de cas VALORANT" loading="eager" fetchpriority="high" decoding="async" />
           </div>
           <div class="project-card__body">
             <p class="project-card__text" data-i18n="casestudy.page.intro">
@@ -128,7 +128,7 @@
 
             <a class="project-card__link" href="https://docs.google.com/document/d/1X0JQsKwGik8Om0V5AWhdPOmTxkM3jv76bs_ajS0sCtM/edit?tab=t.0" target="_blank" rel="noopener" data-i18n="casestudy.page.link">
               Lire l’étude de cas complète
-              <svg aria-hidden="true"><use href="../icons/sprite.svg#icon-chevron-right"></use></svg>
+              <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
             </a>
           </div>
         </article>
@@ -142,9 +142,9 @@
     </div>
   </footer>
 
-  <script src="../scripts/theme.js"></script>
-  <script src="../scripts/i18n.js"></script>
-  <script src="../scripts/navbar.js"></script>
-  <script src="../scripts/ripple.js"></script>
+  <script src="scripts/theme.js"></script>
+  <script src="scripts/i18n.js"></script>
+  <script src="scripts/navbar.js"></script>
+  <script src="scripts/ripple.js"></script>
 </body>
 </html>

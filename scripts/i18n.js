@@ -87,9 +87,9 @@
   }
 
   // Chemin du fichier de traductions calculé relativement à ce script
-  // (et non à la page HTML qui l'inclut) : index.html est à la racine,
-  // mais les fiches projet sont dans pages/, donc un chemin en dur
-  // ("data/i18n.json") casse silencieusement dès qu'on change de dossier.
+  // (et non à la page HTML qui l'inclut) : un chemin en dur
+  // ("data/i18n.json") casserait silencieusement si une page était un jour
+  // déplacée dans un sous-dossier.
   function getI18nDataUrl() {
     var scripts = document.getElementsByTagName("script");
     for (var i = 0; i < scripts.length; i++) {

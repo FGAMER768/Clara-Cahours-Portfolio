@@ -3,9 +3,8 @@
 
   // Chemin du sprite d'icônes, déduit de l'emplacement de CE script
   // plutôt que codé en dur en relatif ("../icons/..."). Ainsi
-  // lightbox.js fonctionne aussi bien inclus depuis la racine
-  // (index.html, "scripts/lightbox.js") que depuis pages/*.html
-  // ("../scripts/lightbox.js"), sans jamais pointer au mauvais endroit.
+  // lightbox.js fonctionne quel que soit le dossier de la page qui
+  // l'inclut, sans jamais pointer au mauvais endroit.
   var scriptEl = document.currentScript;
   var spritePath = "icons/sprite.svg";
   if (scriptEl && scriptEl.src) {
