@@ -61,6 +61,48 @@
   color: var(--color-ink-muted);
 }
 
+/* Étapes qui sont des projets : le titre est un lien vers la fiche, avec une
+   flèche TOUJOURS visible (pas seulement au survol : l'écran tactile n'en a
+   pas) pour signaler qu'on peut cliquer. Au survol / focus clavier, le titre
+   se colore, se souligne et la flèche avance légèrement. */
+.timeline__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: inherit;
+  text-decoration: none;
+}
+
+.timeline__arrow {
+  flex: none;
+  width: 1em;
+  height: 1em;
+  color: var(--color-accent-strong);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.timeline__link:hover,
+.timeline__link:focus-visible {
+  color: var(--color-accent-strong);
+}
+
+.timeline__link:hover span,
+.timeline__link:focus-visible span {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.timeline__link:hover .timeline__arrow,
+.timeline__link:focus-visible .timeline__arrow {
+  transform: translateX(0.25rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline__arrow {
+    transition: none;
+  }
+}
+
 /* À partir d'un certain gabarit, deux colonnes : la ligne centrale se
    déplace au milieu, chaque item se range à gauche ou à droite selon
    sa position (zigzag), avec un connecteur horizontal vers l'axe. */
