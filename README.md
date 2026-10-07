@@ -423,8 +423,8 @@ ou sur X affiche un titre, une description et une image.
 
 - Nouvelle fiche projet : ajouter son adresse dans `sitemap.xml`.
 - **`<title>`** : format `Nom - ce qui est présenté | Clara Cahours de
-  Virgile` (accueil : `Clara Cahours de Virgile - Game Designer |
-  Portfolio`). Le nom du projet vient en tête, la marque à la fin ; viser
+  Virgile` (l'accueil garde `Clara Cahours de Virgile - Portfolio`). Le nom
+  du projet vient en tête, la marque à la fin ; viser
   70 caractères au plus (Google tronque vers 60, la marque est la partie
   sacrifiée). Pour un projet, la précision est le domaine de travail réel
   décrit sur la fiche (pas un modèle copié). À modifier à **trois**
