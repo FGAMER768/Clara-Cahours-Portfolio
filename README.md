@@ -337,7 +337,8 @@ s'ouvre pas par-dessus la lightbox des galeries.
 - **Fiches projet** : l'en-tête (`<header class="project-card__header">` :
   genre, titre en `<h1>`, ligne d'équipe) est placé **avant** la cover, qui
   occupe sinon tout l'écran sur ordinateur. Une nouvelle fiche doit suivre
-  le même schéma.
+  le même schéma. Le genre (ou le sous-titre) est **dans** le `<h1>`, voir
+  « Référencement ».
 
 ## CV téléchargeable
 
@@ -421,6 +422,27 @@ ou sur X affiche un titre, une description et une image.
 `og:url` des pages.
 
 - Nouvelle fiche projet : ajouter son adresse dans `sitemap.xml`.
+- **`<title>`** : format `Nom - ce qui est présenté | Clara Cahours de
+  Virgile` (accueil : `Clara Cahours de Virgile - Game Designer |
+  Portfolio`). Le nom du projet vient en tête, la marque à la fin ; viser
+  70 caractères au plus (Google tronque vers 60, la marque est la partie
+  sacrifiée). Pour un projet, la précision est le domaine de travail réel
+  décrit sur la fiche (pas un modèle copié). À modifier à **trois**
+  endroits : le `<title>` et l'`og:title` de la page, et `meta.title.<fiche>`
+  dans `data/i18n.json` (FR **et** EN), sinon l'onglet reprend l'ancien
+  texte au changement de langue.
+- **`<h1>` des fiches** : un seul par page, descriptif. Sur les fiches de
+  projet et de jeu de rôle il se compose de deux `<span data-i18n>` (le nom,
+  puis le genre ou le sous-titre) séparés par un `" - "` masqué
+  (`.visually-hidden`), ce qui donne « Sînnaya - Jeu narratif et
+  d'énigmes » pour Google et les lecteurs d'écran sans rien changer à
+  l'affichage. Le genre reste au-dessus du nom
+  (`.project-card__title--genre-first`) ; le sous-titre reste dessous
+  (`.project-card__title--subtitle`). Les deux parties sont des `<span>`
+  distincts, car le script de traduction remplace tout le contenu d'un
+  élément portant `data-i18n`. Ne pas modifier `project.<projet>.title` /
+  `.subtitle` pour allonger le h1 : ces clés servent aussi à la vitrine et à
+  l'aperçu de l'accueil.
 - Changement de domaine : remplacer `claracahours.vercel.app` dans
   `robots.txt`, `sitemap.xml` et les 10 pages (voir aussi « Aperçu de
   partage »).
@@ -494,8 +516,8 @@ de bord Vercel, onglet **Analytics** du projet.
   dégradés, illustrations) et `--color-secondary-text` pour tout **texte**
   (dates du parcours, méta des cartes, couleurs au survol). Le premier ne
   passe pas le seuil AA sur fond clair (2,7:1), ne pas l'utiliser en texte.
-- Hiérarchie des titres : chaque fiche projet a un seul `<h1>` (son titre)
-  puis des `<h2>` pour ses blocs. Le style est porté par les classes
+- Hiérarchie des titres : chaque fiche projet a un seul `<h1>` (son titre
+  et sa précision, voir « Référencement ») puis des `<h2>` pour ses blocs. Le style est porté par les classes
   (`.project-card__title`, `.project-card__block-heading`), pas par la
   balise : choisir le niveau selon la structure, sans toucher au CSS.
 - Les animations respectent `prefers-reduced-motion`.
