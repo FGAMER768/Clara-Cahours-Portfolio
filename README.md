@@ -347,8 +347,10 @@ s'ouvre pas par-dessus la lightbox des galeries.
   (accueil et pages secondaires), dans `<div class="section-heading-row">`
   (`overview.css`). Les icônes (`icon-academic`, `icon-character`,
   `icon-artwork`) sont dans `sprite.svg`, au même trait que les autres, et
-  prennent le violet des liens. Pour en ajouter une : un `<symbol>` dans le
-  sprite, puis le même bloc autour du titre.
+  prennent le violet des liens. Au-dessus de 40 rem l'icône est calée sur la
+  1re ligne du titre ; en dessous (mobile), elle passe AU-DESSUS du titre pour
+  ne pas le comprimer. Pour en ajouter une : un `<symbol>` dans le sprite,
+  puis le même bloc autour du titre.
 - **Ligne de disponibilité** (`.hero__status`, sous l'accroche, sans cadre) : « À la
   recherche d'un stage en Game Design du 20 juin au 31 août 2027 » (clés
   `hero.status` et `hero.status.dates`, les dates en gras). Style dans

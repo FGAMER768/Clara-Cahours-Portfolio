@@ -167,7 +167,9 @@
 
 .section-heading-row {
   display: flex;
-  align-items: center;
+  /* Icône calée sur la 1re ligne du titre (centrée sur sa hauteur de ligne),
+     même si le titre passe sur plusieurs lignes. */
+  align-items: flex-start;
   gap: var(--space-3);
   margin-bottom: var(--space-6);
 }
@@ -180,5 +182,19 @@
   flex: none;
   width: 2rem;
   height: 2rem;
+  margin-top: calc((var(--step-2xl) * var(--leading-tight) - 2rem) / 2);
   color: var(--color-accent-strong);
+}
+
+/* Mobile : l'icône passe AU-DESSUS du titre. À côté, elle prend 2,75 rem de
+   largeur et fait passer « Personnages pour le jeu de rôle » sur 3 lignes. */
+@media (max-width: 40rem) {
+  .section-heading-row {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .section-heading-row__icon {
+    margin-top: 0;
+  }
 }
