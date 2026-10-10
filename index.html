@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title data-i18n="meta.title">Clara Cahours de Virgile - Game Designer | Portfolio</title>
-  <meta name="description" content="Portfolio de Clara Cahours de Virgile, game designer et artiste : projets de jeu, level design et productions visuelles." />
+  <meta name="description" content="Portfolio de Clara Cahours de Virgile, game designer : projets de jeu, level design, narrative design et productions visuelles." />
   <!-- Vérification de propriété Google Search Console (ne pas supprimer). -->
   <meta name="google-site-verification" content="sQbq31laAkCQXiJvwWRcc7HV72JAFRCDl9rLyoJNEFs" />
 
@@ -17,7 +17,7 @@
   <link rel="canonical" href="https://claracahours.vercel.app/" />
   <meta property="og:url" content="https://claracahours.vercel.app/" />
   <meta property="og:title" content="Clara Cahours de Virgile - Game Designer | Portfolio" />
-  <meta property="og:description" content="Portfolio de Clara Cahours de Virgile, game designer et artiste : projets de jeu, level design et productions visuelles." />
+  <meta property="og:description" content="Portfolio de Clara Cahours de Virgile, game designer : projets de jeu, level design, narrative design et productions visuelles." />
   <meta property="og:image" content="https://claracahours.vercel.app/images/og/home.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -32,7 +32,7 @@
     "@type": "Person",
     "name": "Clara Cahours de Virgile",
     "jobTitle": "Game Designer",
-    "description": "Game designer et artiste : projets de jeu, level design et productions visuelles.",
+    "description": "Game designer : projets de jeu, level design, narrative design et productions visuelles.",
     "url": "https://claracahours.vercel.app/",
     "image": "https://claracahours.vercel.app/images/og/home.jpg",
     "sameAs": [
@@ -75,10 +75,7 @@
   <link rel="stylesheet" href="styles/hero.css" />
   <link rel="stylesheet" href="styles/timeline.css" />
   <link rel="stylesheet" href="styles/cards.css" />
-  <link rel="stylesheet" href="styles/showcase.css" />
-  <link rel="stylesheet" href="styles/roleplay.css" />
-  <link rel="stylesheet" href="styles/gallery.css" />
-  <link rel="stylesheet" href="styles/lightbox.css" />
+  <link rel="stylesheet" href="styles/overview.css" />
   <link rel="stylesheet" href="styles/footer.css" />
   <link rel="stylesheet" href="styles/easter-egg.css" />
   <link rel="stylesheet" href="styles/beez-egg.css" />
@@ -150,7 +147,7 @@
         <span class="hero__name-last" data-i18n="hero.last">Cahours de Virgile</span>
       </h1>
       <p class="hero__tagline" data-i18n="hero.tagline">
-        Game Designer et artiste, avec une appétence pour la narration et le level design.
+        Game Designer, avec un intérêt pour le Level Design et le Narrative Design.
       </p>
       <div class="hero__actions">
         <a class="hero__cta" href="#projects" data-i18n="hero.cta">Voir les projets</a>
@@ -192,7 +189,13 @@
     <section id="about" class="about-section container">
       <h2 class="section-heading" data-i18n="about.heading">Qui suis-je</h2>
       <p class="about-section__body" data-i18n="about.body">
-        Je m’appelle Clara Cahours de Virgile, j’ai 20 ans et je suis actuellement en troisième année de bachelor Jeu Vidéo à LISAA. Après un bac STD2A obtenu en 2023, j’ai choisi le game design pour sa polyvalence dans la production de jeu. Aujourd’hui, je consolide et j’approfondis mes compétences graphiques et en 3D. Mon objectif : intégrer une équipe en stage pour m’inscrire durablement dans l’industrie du jeu vidéo et de l’animation 3D.
+        Je m’appelle Clara Cahours de Virgile et j’aspire à devenir Game Designer, avec un intérêt particulier pour le Level Design et le Narrative Design. J’aime concevoir des énigmes, construire des niveaux et imaginer des univers qui prennent vie à travers le jeu.
+      </p>
+      <p class="about-section__body" data-i18n="about.body2">
+        Titulaire d’un titre RNCP de niveau 6 en Game Design obtenu à LISAA, je poursuis actuellement une formation en Animation 3D & VFX à l’IIM pour compléter mes compétences en création visuelle.
+      </p>
+      <p class="about-section__body" data-i18n="about.body3">
+        Je recherche un stage en Game Design pour l’été 2027 afin de contribuer à un projet en équipe et de progresser auprès de professionnels.
       </p>
     </section>
 
@@ -276,43 +279,85 @@
         Sept projets menés en formation, du prototype de jeu de plateau au jeu vidéo narratif complet.
       </p>
 
-      <!-- Vitrine des jaquettes, façon bibliothèque de jeux : chaque tuile renvoie vers la fiche projet détaillée ci-dessous -->
-      <div class="showcase">
-        <a class="showcase__tile" href="sinnaya">
-          <img src="images/projects/sinnaya/jaquette.jpeg" srcset="images/projects/sinnaya/responsive/jaquette-400w.webp 400w, images/projects/sinnaya/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du jeu Sînnaya" loading="lazy" decoding="async" />
-          <div class="showcase__overlay">            <p class="showcase__meta" data-i18n="project.sinnaya.team">Projet de troisième année, équipe de 9 personnes (3 game designers, 4 game artists, 2 tech artists)</p>
-            <h3 class="showcase__title" data-i18n="project.sinnaya.title">Sînnaya</h3>
-            <p class="showcase__tag" data-i18n="project.sinnaya.subtitle">Jeu narratif et d’énigmes</p>
+      <!-- Aperçu des 4 projets : jaquette + rôle ; le titre et le bouton mènent à la fiche détaillée. -->
+      <div class="project-overview-list">
+        <article class="project-card project-overview" id="overview-sinnaya">
+          <a class="project-overview__cover" href="sinnaya" tabindex="-1" aria-hidden="true">
+            <img src="images/projects/sinnaya/jaquette.jpeg" srcset="images/projects/sinnaya/responsive/jaquette-400w.webp 400w, images/projects/sinnaya/responsive/jaquette-426w.webp 426w" sizes="(min-width: 64rem) 224px, (min-width: 40rem) 192px, 208px" alt="" loading="lazy" decoding="async" />
+          </a>
+          <div class="project-overview__body">
+            <p class="project-card__meta" data-i18n="project.sinnaya.subtitle">Jeu narratif et d’énigmes</p>
+            <h3 class="project-card__title project-overview__title"><a href="sinnaya"><span data-i18n="project.sinnaya.title">Sînnaya</span></a></h3>
+            <p class="project-card__team" data-i18n="project.sinnaya.team">Projet de troisième année, équipe de 9 personnes (3 game designers, 4 game artists, 2 tech artists)</p>
+            <p class="project-card__text" data-i18n="project.sinnaya.rookies">L’équipe a été candidate aux Rookies 2026 avec Sînnaya.</p>
+            <h4 class="project-card__role-heading" data-i18n="project.roleHeading">Mon rôle</h4>
+            <ul class="project-card__role-text project-card__role-list">
+              <li data-i18n="project.sinnaya.role.1">Plans sur papier du tutoriel et des deux salles d’énigmes.</li>
+              <li data-i18n="project.sinnaya.role.2">Blocking dans Unreal Engine avec des blocs modulaires de 1 m³, selon les métriques du jeu.</li>
+              <li data-i18n="project.sinnaya.role.3">Placement des énigmes, objets interactifs et indices.</li>
+              <li data-i18n="project.sinnaya.role.4">Travail sur le rythme et la progression : courbes de difficulté et d’intensité.</li>
+              <li data-i18n="project.sinnaya.role.5">Contribution au scénario, au worldbuilding et aux personnages.</li>
+              <li data-i18n="project.sinnaya.role.6">Sound design et direction du doublage : enregistrements, mixage et intégration dans Unreal Engine.</li>
+              <li data-i18n="project.sinnaya.role.7">Documentation : pipelines, sound list, Game Concept Document et GDD.</li>
+              <li data-i18n="project.sinnaya.role.8">Amélioration de l’UX après les playtests : guidage visuel, feedbacks sonores et ajustement des énigmes pour clarifier les interactions et la progression.</li>
+            </ul>
+            <a class="project-card__link" href="sinnaya">
+              <span data-i18n="project.card.view">Voir le projet</span>
+            </a>
           </div>
-        </a>
+        </article>
 
-        <a class="showcase__tile" href="glory-of-gods">
-          <img src="images/projects/glory-of-gods/jaquette.jpeg" srcset="images/projects/glory-of-gods/responsive/jaquette-400w.webp 400w, images/projects/glory-of-gods/responsive/jaquette-800w.webp 800w, images/projects/glory-of-gods/responsive/jaquette-1086w.webp 1086w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du jeu Glory of Gods" loading="lazy" decoding="async" />
-          <div class="showcase__overlay">            <p class="showcase__meta" data-i18n="project.glory.team">Prototype en 1 mois et demi, équipe de 5 élèves en Game Design</p>
-            <h3 class="showcase__title" data-i18n="project.glory.title">Glory of Gods</h3>
-            <p class="showcase__tag" data-i18n="project.glory.subtitle">Prototype d’un jeu de plateau MOBA</p>
+        <article class="project-card project-overview" id="overview-glory">
+          <a class="project-overview__cover" href="glory-of-gods" tabindex="-1" aria-hidden="true">
+            <img src="images/projects/glory-of-gods/jaquette.jpeg" srcset="images/projects/glory-of-gods/responsive/jaquette-400w.webp 400w, images/projects/glory-of-gods/responsive/jaquette-800w.webp 800w, images/projects/glory-of-gods/responsive/jaquette-1086w.webp 1086w" sizes="(min-width: 64rem) 224px, (min-width: 40rem) 192px, 208px" alt="" loading="lazy" decoding="async" />
+          </a>
+          <div class="project-overview__body">
+            <p class="project-card__meta" data-i18n="project.glory.subtitle">Prototype d’un jeu de plateau MOBA</p>
+            <h3 class="project-card__title project-overview__title"><a href="glory-of-gods"><span data-i18n="project.glory.title">Glory of Gods</span></a></h3>
+            <p class="project-card__team" data-i18n="project.glory.team">Prototype en 1 mois et demi, équipe de 5 élèves en Game Design</p>
+            <h4 class="project-card__role-heading" data-i18n="project.roleHeading">Mon rôle</h4>
+            <p class="project-card__role-text" data-i18n="project.glory.role">J’ai conçu l’ensemble des graphismes (plateau, tuiles de personnages, jetons, boîte, livret de règles), coécrit les mécaniques et les règles avec l’équipe, organisé le pipeline de production et la répartition des tâches, rédigé et mis en page le livret, mené les sessions de playtest et analysé les retours, puis travaillé le level design du plateau (aménagement, jungle, autels de prière, jetons).</p>
+            <a class="project-card__link" href="glory-of-gods">
+              <span data-i18n="project.card.view">Voir le projet</span>
+            </a>
           </div>
-        </a>
+        </article>
 
-        <a class="showcase__tile" href="mecha-crisis">
-          <img src="images/projects/mecha-crisis/jaquette.jpg" srcset="images/projects/mecha-crisis/responsive/jaquette-400w.webp 400w, images/projects/mecha-crisis/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du jeu Mecha Crisis" loading="lazy" decoding="async" />
-          <div class="showcase__overlay">            <p class="showcase__meta" data-i18n="project.mecha.team">Projet interfilière de deuxième année, équipe de 11 (4 Game Designers, 4 Game Artists, 3 Technical Artists)</p>
-            <h3 class="showcase__title" data-i18n="project.mecha.title">Mecha Crisis</h3>
-            <p class="showcase__tag" data-i18n="project.mecha.subtitle">Rail shooter en vue première personne</p>
+        <article class="project-card project-overview" id="overview-mecha">
+          <a class="project-overview__cover" href="mecha-crisis" tabindex="-1" aria-hidden="true">
+            <img src="images/projects/mecha-crisis/jaquette.jpg" srcset="images/projects/mecha-crisis/responsive/jaquette-400w.webp 400w, images/projects/mecha-crisis/responsive/jaquette-426w.webp 426w" sizes="(min-width: 64rem) 224px, (min-width: 40rem) 192px, 208px" alt="" loading="lazy" decoding="async" />
+          </a>
+          <div class="project-overview__body">
+            <p class="project-card__meta" data-i18n="project.mecha.subtitle">Rail shooter en vue première personne</p>
+            <h3 class="project-card__title project-overview__title"><a href="mecha-crisis"><span data-i18n="project.mecha.title">Mecha Crisis</span></a></h3>
+            <p class="project-card__team" data-i18n="project.mecha.team">Projet interfilière de deuxième année, équipe de 11 (4 Game Designers, 4 Game Artists, 3 Technical Artists)</p>
+            <h4 class="project-card__role-heading" data-i18n="project.roleHeading">Mon rôle</h4>
+            <p class="project-card__role-text" data-i18n="project.mecha.role">Mon apport principal a été le développement du jeu sur Unreal Engine. J’ai également contribué au pipeline, au Game Concept Document, à la mise en place et à l’équilibrage des mécaniques principales, au doublage, au world building, au storyboard, au scénario, au développement des personnages et aux tests QA.</p>
+            <a class="project-card__link" href="mecha-crisis">
+              <span data-i18n="project.card.view">Voir le projet</span>
+            </a>
           </div>
-        </a>
+        </article>
 
-        <a class="showcase__tile" href="beez-adventures">
-          <img src="images/projects/beez-adventures/jaquette.jpg" srcset="images/projects/beez-adventures/responsive/jaquette-400w.webp 400w, images/projects/beez-adventures/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du jeu Beez Adventures" loading="lazy" decoding="async" />
-          <div class="showcase__overlay">            <p class="showcase__meta" data-i18n="project.beez.team">Projet de fin de première année, équipe de 3 élèves en Game Design</p>
-            <h3 class="showcase__title" data-i18n="project.beez.title">Beez Adventures</h3>
-            <p class="showcase__tag" data-i18n="project.beez.subtitle">Niveau de plateforme</p>
+        <article class="project-card project-overview" id="overview-beez">
+          <a class="project-overview__cover" href="beez-adventures" tabindex="-1" aria-hidden="true">
+            <img src="images/projects/beez-adventures/jaquette.jpg" srcset="images/projects/beez-adventures/responsive/jaquette-400w.webp 400w, images/projects/beez-adventures/responsive/jaquette-426w.webp 426w" sizes="(min-width: 64rem) 224px, (min-width: 40rem) 192px, 208px" alt="" loading="lazy" decoding="async" />
+          </a>
+          <div class="project-overview__body">
+            <p class="project-card__meta" data-i18n="project.beez.subtitle">Niveau de plateforme</p>
+            <h3 class="project-card__title project-overview__title"><a href="beez-adventures"><span data-i18n="project.beez.title">Beez Adventures</span></a></h3>
+            <p class="project-card__team" data-i18n="project.beez.team">Projet de fin de première année, équipe de 3 élèves en Game Design</p>
+            <h4 class="project-card__role-heading" data-i18n="project.roleHeading">Mon rôle</h4>
+            <p class="project-card__role-text" data-i18n="project.beez.role">J’ai contribué au Game Concept, mis en place les mécaniques principales, conçu l’univers et la verticalité du level design, réalisé le blocking, des assets, le sound design et l’UI, puis mené les tests QA.</p>
+            <a class="project-card__link" href="beez-adventures">
+              <span data-i18n="project.card.view">Voir le projet</span>
+            </a>
           </div>
-        </a>
+        </article>
       </div>
 
       <!-- Petits exercices -->
-      <div class="project-card__block">
+      <div class="project-card__block" id="exercises">
         <div class="exercises-heading-row">
           <h3 class="mini-card__title" style="margin-top:0;" data-i18n="exercises.heading">Petits exercices</h3>
           <img src="icons/Unity/Unity_Light.svg" alt="Unity" loading="lazy" decoding="async" class="exercises-heading-row__logo exercises-heading-row__logo--light" />
@@ -322,26 +367,11 @@
           Quelques prototypes courts réalisés pour expérimenter des mécaniques ou des outils spécifiques.
         </p>
 
-        <div class="exercise-grid">
-          <article class="exercise-card">
-            <div class="project-card__video">
-              <iframe src="https://www.youtube-nocookie.com/embed/_YhQm7NsqNM" title="Expérimentation du vol sur Unity" data-video-id="unity-flight" loading="lazy" allowfullscreen></iframe>
-            </div>
-            <h4 class="exercise-card__title" data-i18n="exercises.flight.title">Expérimentation de vol</h4>
-            <p class="exercise-card__text" data-i18n="exercises.flight.text">
-              Prototype sur Unity visant à rendre le vol agréable à jouer.
-            </p>
-          </article>
-
-          <article class="exercise-card">
-            <div class="project-card__video">
-              <iframe src="https://www.youtube-nocookie.com/embed/ZI-NpfuYg5A" title="Rail Shooter sur splines Unity" data-video-id="unity-railshooter" loading="lazy" allowfullscreen></iframe>
-            </div>
-            <h4 class="exercise-card__title" data-i18n="exercises.rail.title">Rail Shooter sur splines</h4>
-            <p class="exercise-card__text" data-i18n="exercises.rail.text">
-              Level design vivant conçu uniquement à partir de splines sur Unity.
-            </p>
-          </article>
+        <div class="section-actions">
+          <a class="hero__cta" href="petits-exercices">
+            <span data-i18n="exercises.discover">Découvrir les petits exercices</span>
+            <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
+          </a>
         </div>
       </div>
     </section>
@@ -353,41 +383,10 @@
         Devoirs notés réalisés en parallèle des projets : analyse de jeu, étude de cas, scénario et bible d’univers.
       </p>
 
-      <div class="showcase" style="margin-top: var(--space-6);">
-        <a class="showcase__tile" href="analyse-deconstruction">
-          <img src="images/projects/analyse-deconstruction-jetpack-joyride/jaquette.jpg" srcset="images/projects/analyse-deconstruction-jetpack-joyride/responsive/jaquette-400w.webp 400w, images/projects/analyse-deconstruction-jetpack-joyride/responsive/jaquette-528w.webp 528w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du devoir Analyse et déconstruction" loading="lazy" decoding="async" />
-          <div class="showcase__overlay">
-            <p class="showcase__meta" data-i18n="project.analysis.team">Devoir de deuxième année</p>
-            <h3 class="showcase__title" data-i18n="project.analysis.title">Analyse et déconstruction</h3>
-            <p class="showcase__tag" data-i18n="project.analysis.text">Analyse en profondeur d’un jeu mobile</p>
-          </div>
-        </a>
-
-        <a class="showcase__tile" href="etude-de-cas">
-          <img src="images/projects/etude-de-cas-valorant/jaquette.jpg" srcset="images/projects/etude-de-cas-valorant/responsive/jaquette-400w.webp 400w, images/projects/etude-de-cas-valorant/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du devoir Étude de cas VALORANT" loading="lazy" decoding="async" />
-          <div class="showcase__overlay">
-            <p class="showcase__meta" data-i18n="project.casestudy.team">Devoir de deuxième année, gestion de production</p>
-            <h3 class="showcase__title" data-i18n="project.casestudy.title">Étude de cas</h3>
-            <p class="showcase__tag" data-i18n="project.casestudy.text">Étude de cas complète d’un jeu vidéo au choix</p>
-          </div>
-        </a>
-
-        <a class="showcase__tile" href="scenario">
-          <img src="images/projects/scenario/jaquette.jpg" srcset="images/projects/scenario/responsive/jaquette-400w.webp 400w, images/projects/scenario/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du devoir Scénario" loading="lazy" decoding="async" />
-          <div class="showcase__overlay">
-            <p class="showcase__meta" data-i18n="project.scenario.team">Devoir de première année, en binôme</p>
-            <h3 class="showcase__title" data-i18n="project.scenario.title">Scénario</h3>
-            <p class="showcase__tag" data-i18n="project.scenario.text">Création d’un personnage et d’une séquence narrative</p>
-          </div>
-        </a>
-
-        <a class="showcase__tile" href="https://www.notion.so/Sommaire-66a54529fae745a3aa74698195202d0a" target="_blank" rel="noopener">
-          <img src="images/projects/bible-univers-sandwia/jaquette.jpg" srcset="images/projects/bible-univers-sandwia/responsive/jaquette-400w.webp 400w, images/projects/bible-univers-sandwia/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette de la bible d’univers Sandwia" loading="lazy" decoding="async" />
-          <div class="showcase__overlay">
-            <p class="showcase__meta" data-i18n="bible.team">Devoir de première année, en binôme</p>
-            <h3 class="showcase__title" data-i18n="bible.title">Sandwia</h3>
-            <p class="showcase__tag" data-i18n="bible.text">Bible d’univers</p>
-          </div>
+      <div class="section-actions">
+        <a class="hero__cta" href="travaux-academiques">
+          <span data-i18n="academicWork.discover">Découvrir les travaux académiques</span>
+          <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
         </a>
       </div>
     </section>
@@ -399,51 +398,10 @@
         Créer des personnages est une passion. Imaginer leur histoire, leur personnalité, leurs motivations et leurs failles avant même de les incarner, puis leur donner vie en sessions de jeu de rôle, sur Red Dead Redemption 2 (RedM) ou GTA V (FiveM).
       </p>
 
-      <div class="roleplay-ids">
-        <a class="id-card id-card--rdr" href="roleplay-rdr2">
-          <div class="id-card__header">
-            <h3 class="id-card__heading" data-i18n="roleplay.rdr.title">Personnage sur Red Dead Redemption II</h3>
-            <span class="id-card__chip" aria-hidden="true"></span>
-          </div>
-          <div class="id-card__body">
-            <div class="id-card__photo">
-              <img src="images/projects/roleplay-rdr2/jaquette.jpg" srcset="images/projects/roleplay-rdr2/responsive/jaquette-400w.webp 400w, images/projects/roleplay-rdr2/responsive/jaquette-426w.webp 426w" sizes="152px" alt="Portrait du personnage incarné sur Red Dead Redemption II" loading="lazy" decoding="async" />
-            </div>
-            <dl class="id-card__fields">
-              <div class="id-card__field"><dt data-i18n="roleplay.id.name">Nom</dt><dd class="id-card__name">Grace Ackerman</dd></div>
-              <div class="id-card__field"><dt data-i18n="roleplay.id.server">Serveur</dt><dd>RedM</dd></div>
-              <div class="id-card__field"><dt data-i18n="roleplay.id.created">Création</dt><dd>2025</dd></div>
-            </dl>
-            <img class="id-card__ghost" src="images/projects/roleplay-rdr2/responsive/jaquette-400w.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-          </div>
-          <div class="id-card__mrz" aria-hidden="true">ACKERMAN&lt;&lt;GRACE&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
-          <div class="id-card__footer">
-            <span data-i18n="roleplay.card.view">Voir la fiche</span>
-            <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
-          </div>
-        </a>
-
-        <a class="id-card id-card--gta" href="roleplay-gta5">
-          <div class="id-card__header">
-            <h3 class="id-card__heading" data-i18n="roleplay.gta.title">Personnage sur GTA V</h3>
-            <span class="id-card__chip" aria-hidden="true"></span>
-          </div>
-          <div class="id-card__body">
-            <div class="id-card__photo">
-              <img src="images/projects/roleplay-gta5/jaquette.jpg" srcset="images/projects/roleplay-gta5/responsive/jaquette-400w.webp 400w, images/projects/roleplay-gta5/responsive/jaquette-426w.webp 426w" sizes="152px" alt="Portrait du personnage incarné sur GTA V" loading="lazy" decoding="async" />
-            </div>
-            <dl class="id-card__fields">
-              <div class="id-card__field"><dt data-i18n="roleplay.id.name">Nom</dt><dd class="id-card__name">Llota Ranez</dd></div>
-              <div class="id-card__field"><dt data-i18n="roleplay.id.server">Serveur</dt><dd>FiveM</dd></div>
-              <div class="id-card__field"><dt data-i18n="roleplay.id.created">Création</dt><dd>2023</dd></div>
-            </dl>
-            <img class="id-card__ghost" src="images/projects/roleplay-gta5/responsive/jaquette-400w.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-          </div>
-          <div class="id-card__mrz" aria-hidden="true">RANEZ&lt;&lt;LLOTA&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
-          <div class="id-card__footer">
-            <span data-i18n="roleplay.card.view">Voir la fiche</span>
-            <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
-          </div>
+      <div class="section-actions">
+        <a class="hero__cta" href="roleplay">
+          <span data-i18n="roleplay.discover">Découvrir les personnages</span>
+          <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
         </a>
       </div>
     </section>
@@ -455,149 +413,15 @@
         Illustrations, études d’observation et expérimentations graphiques réalisées en parallèle des projets de jeu.
       </p>
 
-      <div class="gallery" style="margin-top: var(--space-6);">
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/twitch-alert.webp" srcset="images/gallery/responsive/twitch-alert-400w.webp 400w, images/gallery/responsive/twitch-alert-480w.webp 480w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Animation d’alerte de follow pour une chaîne Twitch" data-i18n-attr="alt:gallery.item01.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item01.caption">Animation de l’alerte de follow pour la chaîne Twitch.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/flyer-2s.png" srcset="images/gallery/responsive/flyer-2s-400w.webp 400w, images/gallery/responsive/flyer-2s-800w.webp 800w, images/gallery/responsive/flyer-2s-1280w.webp 1280w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Flyer pour l’activité de cohésion militaire le 2S" data-i18n-attr="alt:gallery.item02.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item02.caption">Flyer réalisé à la demande d’élèves militaires pour l’activité de cohésion "le 2S", célébration de la bataille d’Austerlitz.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/mugler-vanherpen.png" srcset="images/gallery/responsive/mugler-vanherpen-400w.webp 400w, images/gallery/responsive/mugler-vanherpen-800w.webp 800w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Dessin digital de créations de Thierry Mugler et Iris Van Herpen" data-i18n-attr="alt:gallery.item03.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item03.caption">Dessin digital représentant une création de Thierry Mugler (à gauche) et d’Iris Van Herpen (à droite).</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/digital-drawing.png" srcset="images/gallery/responsive/digital-drawing-400w.webp 400w, images/gallery/responsive/digital-drawing-800w.webp 800w, images/gallery/responsive/digital-drawing-1440w.webp 1440w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Dessin digital" data-i18n-attr="alt:gallery.item04.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item04.caption">Dessin digital.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/observation-crayon.png" srcset="images/gallery/responsive/observation-crayon-400w.webp 400w, images/gallery/responsive/observation-crayon-640w.webp 640w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Dessin d’observation au crayon de couleur" data-i18n-attr="alt:gallery.item05.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item05.caption">Dessin d’observation au crayon de couleur.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/observation-aquarelle.png" srcset="images/gallery/responsive/observation-aquarelle-400w.webp 400w, images/gallery/responsive/observation-aquarelle-800w.webp 800w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Dessin d’observation à l’aquarelle" data-i18n-attr="alt:gallery.item06.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item06.caption">Dessin d’observation à l’aquarelle.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/modele-vivant.webp" srcset="images/gallery/responsive/modele-vivant-400w.webp 400w, images/gallery/responsive/modele-vivant-800w.webp 800w, images/gallery/responsive/modele-vivant-1600w.webp 1600w, images/gallery/responsive/modele-vivant-1920w.webp 1920w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Croquis de modèle vivant" data-i18n-attr="alt:gallery.item07.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item07.caption">Modèle vivant, une pose durant huit minutes.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/personnage.webp" srcset="images/gallery/responsive/personnage-400w.webp 400w, images/gallery/responsive/personnage-800w.webp 800w, images/gallery/responsive/personnage-1600w.webp 1600w, images/gallery/responsive/personnage-1920w.webp 1920w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Illustration de personnage" data-i18n-attr="alt:gallery.item08.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item08.caption">Personnage.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/etude-anatomie.png" srcset="images/gallery/responsive/etude-anatomie-400w.webp 400w, images/gallery/responsive/etude-anatomie-640w.webp 640w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Étude d’anatomie homme et femme" data-i18n-attr="alt:gallery.item09.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item09.caption">Étude d’anatomie, homme et femme.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/bouilloire-sapper.png" srcset="images/gallery/responsive/bouilloire-sapper-320w.webp 320w, images/gallery/responsive/bouilloire-sapper-400w.webp 400w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Dessin d’observation de la bouilloire sifflante de Richard Sapper" data-i18n-attr="alt:gallery.item10.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item10.caption">Dessin d’observation de la bouilloire sifflante (1980) de Richard Sapper, expérimentation de l’effet métallique.</figcaption>
-        </figure>
-
-        <!-- Anciennement dans un slider séparé, en dehors du cadrillage :
-             fusionné directement dans la grille (même ratio 1:1, même
-             traitement gallery__item). Fichiers dans images/gallery/. -->
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/3d-3dsmax.png" srcset="images/gallery/responsive/3d-3dsmax-400w.webp 400w, images/gallery/responsive/3d-3dsmax-800w.webp 800w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Production 3D réalisée sur 3DS Max, intégrée dans Unreal Engine" data-i18n-attr="alt:gallery.item11.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item11.caption">Production 3D sur 3DS Max. Intégré dans Unreal Engine.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/colorimetrie.jpg" srcset="images/gallery/responsive/colorimetrie-400w.webp 400w, images/gallery/responsive/colorimetrie-800w.webp 800w, images/gallery/responsive/colorimetrie-1153w.webp 1153w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Expérimentation de colorimétrie au feutre alcool, posca et collage" data-i18n-attr="alt:gallery.item12.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item12.caption">Expérimentation de la colorimétrie. Techniques au feutre alcool, posca et collage pour la composition.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/paysage.png" srcset="images/gallery/responsive/paysage-400w.webp 400w, images/gallery/responsive/paysage-800w.webp 800w, images/gallery/responsive/paysage-1087w.webp 1087w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Paysage illustré" data-i18n-attr="alt:gallery.item13.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item13.caption">Paysage.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/feutre-collage-01.png" srcset="images/gallery/responsive/feutre-collage-01-400w.webp 400w, images/gallery/responsive/feutre-collage-01-800w.webp 800w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Illustration au feutre alcool, collage et aquarelle" data-i18n-attr="alt:gallery.item14.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item14.caption">Feutre alcool, collage, aquarelle.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/feutre-collage-02.jpg" srcset="images/gallery/responsive/feutre-collage-02-400w.webp 400w, images/gallery/responsive/feutre-collage-02-800w.webp 800w, images/gallery/responsive/feutre-collage-02-1145w.webp 1145w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Illustration au feutre alcool, collage et aquarelle" data-i18n-attr="alt:gallery.item15.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item15.caption">Feutre alcool, collage, aquarelle.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/aquarelle-feutre.png" srcset="images/gallery/responsive/aquarelle-feutre-400w.webp 400w, images/gallery/responsive/aquarelle-feutre-800w.webp 800w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Illustration à l’aquarelle et au feutre alcool" data-i18n-attr="alt:gallery.item16.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item16.caption">Technique graphique : aquarelle et feutre alcool.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/experimentation-technique.jpg" srcset="images/gallery/responsive/experimentation-technique-400w.webp 400w, images/gallery/responsive/experimentation-technique-800w.webp 800w, images/gallery/responsive/experimentation-technique-1600w.webp 1600w, images/gallery/responsive/experimentation-technique-1920w.webp 1920w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Expérimentation de plusieurs techniques graphiques" data-i18n-attr="alt:gallery.item17.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item17.caption">Expérimentation de plusieurs techniques graphiques.</figcaption>
-        </figure>
-
-        <figure class="gallery__item">
-          <div class="gallery__image">
-            <img src="images/gallery/digital-drawing-02.jpg" srcset="images/gallery/responsive/digital-drawing-02-400w.webp 400w, images/gallery/responsive/digital-drawing-02-800w.webp 800w, images/gallery/responsive/digital-drawing-02-1600w.webp 1600w, images/gallery/responsive/digital-drawing-02-1920w.webp 1920w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Dessin digital" data-i18n-attr="alt:gallery.item18.alt" loading="lazy" decoding="async" />
-          </div>
-          <figcaption class="gallery__caption" data-i18n="gallery.item18.caption">Dessin digital.</figcaption>
-        </figure>
-      </div>
-
-      <!-- Vidéo de la production 3D (3DS Max / Unreal Engine), en
-           complément de la grille : même composant que les walkthroughs
-           des pages projet (.project-card__video), embed YouTube sans
-           cookies. Largeur volontairement limitée (.gallery__video). -->
-      <div class="gallery__video">
-        <div class="project-card__video">
-          <iframe src="https://www.youtube-nocookie.com/embed/G6WzWavbAzM" title="Production 3D sur 3DS Max, intégrée dans Unreal Engine" data-i18n-attr="title:gallery.video3d.iframeTitle" data-video-id="3d-3dsmax-unreal" loading="lazy" allowfullscreen></iframe>
-        </div>
-        <p class="gallery__video-caption">
-          <span data-i18n="gallery.video3d.captionLine1">Production 3D sur 3DS Max. Intégré dans Unreal Engine.</span><br />
-          <span data-i18n="gallery.video3d.captionLine2">L’environnement interagit avec la force du vent.</span>
-        </p>
+      <div class="section-actions">
+        <a class="hero__cta" href="productions-visuelles">
+          <span data-i18n="gallery.discover">Découvrir les productions visuelles</span>
+          <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
+        </a>
+        <a class="hero__cta" href="production-3d">
+          <span data-i18n="gallery.video3d.discover">Voir la production 3D en vidéo</span>
+          <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
+        </a>
       </div>
 
     </section>
@@ -606,7 +430,7 @@
     <section id="contact" class="container contact-section">
       <h2 class="section-heading" data-i18n="contact.heading" style="margin-inline:auto;">Contact</h2>
       <p class="contact-section__text" data-i18n="contact.text">
-        Mon objectif : trouver un stage en game design ou en animation 3D.
+        Mon objectif : trouver un stage en Game Design pour l’été 2027.
       </p>
       <a class="contact-section__email" href="mailto:claracahours@hotmail.fr">claracahours@hotmail.fr</a>
       <div class="contact-section__links">
@@ -635,8 +459,6 @@
 
   <script src="scripts/i18n.js"></script>
   <script src="scripts/navbar.js"></script>
-  <script src="scripts/slider.js"></script>
-  <script src="scripts/lightbox.js"></script>
   <script src="scripts/ripple.js"></script>
   <script src="scripts/hero-ring.js"></script>
   <script src="scripts/easter-egg.js"></script>

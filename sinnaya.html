@@ -43,6 +43,7 @@
   <link rel="stylesheet" href="styles/navbar.css" />
   <link rel="stylesheet" href="styles/hero.css" />
   <link rel="stylesheet" href="styles/cards.css" />
+  <link rel="stylesheet" href="styles/overview.css" />
   <link rel="stylesheet" href="styles/gallery.css" />
   <link rel="stylesheet" href="styles/lightbox.css" />
   <link rel="stylesheet" href="styles/project-page.css" />
@@ -94,9 +95,9 @@
 
   <main id="main-content">
     <section class="project-page container">
-      <a class="project-page__back" href="./#projects" data-i18n="project.back">
+      <a class="project-page__back" href="./#projects">
         <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-left"></use></svg>
-        Retour aux projets
+        <span data-i18n="project.back">Retour aux projets</span>
       </a>
 
       <div class="project-grid">
@@ -116,9 +117,19 @@
               À Babylone, en Mésopotamie, incarnez Sînnaya, disciple du Dieu de la Lune, traversant le temple d’Ishtar. Armée d’un sceptre lunaire révélant l’invisible, résolvez les énigmes laissées par la déesse disparue pour retrouver votre enfant perdu et empêcher la chute de Babylone.
             </p>
 
-            <p class="project-card__role-text" data-i18n="project.sinnaya.role">
-              Blocking, level design, sound design, doublage, scénario, world building, chara développement, certains VFX, mise en place des énigmes, documentation (pipelines, sound list, Game Concept Document, GDD).
-            </p>
+            <p class="project-card__text" data-i18n="project.sinnaya.rookies">L’équipe a été candidate aux Rookies 2026 avec Sînnaya.</p>
+
+            <h2 class="project-card__role-heading" data-i18n="project.roleHeading">Mon rôle</h2>
+            <ul class="project-card__role-text project-card__role-list">
+              <li data-i18n="project.sinnaya.role.1">Plans sur papier du tutoriel et des deux salles d’énigmes.</li>
+              <li data-i18n="project.sinnaya.role.2">Blocking dans Unreal Engine avec des blocs modulaires de 1 m³, selon les métriques du jeu.</li>
+              <li data-i18n="project.sinnaya.role.3">Placement des énigmes, objets interactifs et indices.</li>
+              <li data-i18n="project.sinnaya.role.4">Travail sur le rythme et la progression : courbes de difficulté et d’intensité.</li>
+              <li data-i18n="project.sinnaya.role.5">Contribution au scénario, au worldbuilding et aux personnages.</li>
+              <li data-i18n="project.sinnaya.role.6">Sound design et direction du doublage : enregistrements, mixage et intégration dans Unreal Engine.</li>
+              <li data-i18n="project.sinnaya.role.7">Documentation : pipelines, sound list, Game Concept Document et GDD.</li>
+              <li data-i18n="project.sinnaya.role.8">Amélioration de l’UX après les playtests : guidage visuel, feedbacks sonores et ajustement des énigmes pour clarifier les interactions et la progression.</li>
+            </ul>
 
             <a class="project-card__link" href="https://drive.google.com/drive/folders/1IzyHKjib4mx2zXdd3tbGSdvDJVAyWBSz" target="_blank" rel="noopener" data-i18n="project.sinnaya.link">
               Accéder à la build

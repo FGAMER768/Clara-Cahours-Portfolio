@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-i18n="meta.title.scenario">Scénario : Charlie Issa - Écriture narrative | Clara Cahours de Virgile</title>
-  <meta name="description" content="Devoir de première année en binôme : création d'un personnage et rédaction d'une séquence narrative, par Clara Cahours de Virgile." />
+  <title data-i18n="meta.title.video3d">Production 3D - 3DS Max et Unreal Engine | Clara Cahours de Virgile</title>
+  <meta name="description" content="Production 3D de Clara Cahours de Virgile réalisée sur 3DS Max et intégrée dans Unreal Engine, avec un environnement qui réagit au vent." />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Clara Cahours de Virgile" />
   <meta property="og:locale" content="fr_FR" />
-  <link rel="canonical" href="https://claracahours.vercel.app/scenario" />
-  <meta property="og:url" content="https://claracahours.vercel.app/scenario" />
-  <meta property="og:title" content="Scénario : Charlie Issa - Écriture narrative | Clara Cahours de Virgile" />
-  <meta property="og:description" content="Devoir de première année en binôme : création d'un personnage et rédaction d'une séquence narrative, par Clara Cahours de Virgile." />
-  <meta property="og:image" content="https://claracahours.vercel.app/images/og/scenario.jpg" />
+  <link rel="canonical" href="https://claracahours.vercel.app/production-3d" />
+  <meta property="og:url" content="https://claracahours.vercel.app/production-3d" />
+  <meta property="og:title" content="Production 3D - 3DS Max et Unreal Engine | Clara Cahours de Virgile" />
+  <meta property="og:description" content="Production 3D de Clara Cahours de Virgile réalisée sur 3DS Max et intégrée dans Unreal Engine, avec un environnement qui réagit au vent." />
+  <!-- Pas d'image dédiée pour cette page de liste : on reprend l'aperçu de
+       l'accueil. Pour en créer une, déposer images/og/production-3d.jpg (1200 x 630)
+       et remplacer l'adresse ci-dessous. -->
+  <meta property="og:image" content="https://claracahours.vercel.app/images/og/home.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Illustration du scénario Charlie Issa" />
+  <meta property="og:image:alt" content="Portrait de Clara Cahours de Virgile" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicon : SVG pour les navigateurs modernes (net à toute taille),
@@ -26,6 +29,10 @@
   <link rel="icon" href="icons/favicon/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="icons/favicon/apple-touch-icon.png" />
   <meta name="theme-color" content="#6F5D96" />
+
+  <!-- Chargé en tout premier, avant le CSS : pose data-theme sur <html>
+       avant le premier affichage, pour éviter tout flash de thème. -->
+  <script src="scripts/theme.js"></script>
 
   <!-- Police Inter hébergée (voir styles/fonts.css). Le preload lance le
        téléchargement dès le <head>, sans attendre que le CSS soit lu ;
@@ -41,11 +48,7 @@
   <link rel="stylesheet" href="styles/ripple.css" />
   <link rel="stylesheet" href="styles/layout.css" />
   <link rel="stylesheet" href="styles/navbar.css" />
-  <link rel="stylesheet" href="styles/hero.css" />
   <link rel="stylesheet" href="styles/cards.css" />
-  <link rel="stylesheet" href="styles/overview.css" />
-  <link rel="stylesheet" href="styles/gallery.css" />
-  <link rel="stylesheet" href="styles/lightbox.css" />
   <link rel="stylesheet" href="styles/project-page.css" />
   <link rel="stylesheet" href="styles/footer.css" />
   <!-- Statistiques de visite (Vercel Web Analytics, voir README « Statistiques »).
@@ -95,36 +98,23 @@
 
   <main id="main-content">
     <section class="project-page container">
-      <a class="project-page__back" href="travaux-academiques">
+      <a class="project-page__back" href="./#gallery">
         <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-left"></use></svg>
-        <span data-i18n="project.back.academic">Retour aux travaux académiques</span>
+        <span data-i18n="listing.back">Retour à l’accueil</span>
       </a>
 
       <div class="project-grid">
-        <article class="project-card" id="project-scenario-page">
+        <article class="project-card" id="project-3d">
           <header class="project-card__header">
-            <p class="project-card__meta" data-i18n="project.scenario.team">Devoir de première année, en binôme</p>
-            <h1 class="project-card__title" data-i18n="scenario.page.title">Scénario : Charlie Issa</h1>
-            <p class="project-card__subtitle" data-i18n="scenario.page.subtitle">Création d’un personnage et rédaction d’une séquence narrative</p>
+            <p class="project-card__meta" data-i18n="nav.art">Productions visuelles</p>
+            <h1 class="project-card__title" data-i18n="video3d.page.title">Production 3D</h1>
+            <p class="project-card__subtitle" data-i18n="gallery.video3d.captionLine1">Production 3D sur 3DS Max. Intégré dans Unreal Engine.</p>
           </header>
-          <div class="project-card__media">
-            <img src="images/projects/scenario/cover.jpg" srcset="images/projects/scenario/responsive/cover-400w.webp 400w, images/projects/scenario/responsive/cover-800w.webp 800w, images/projects/scenario/responsive/cover-1600w.webp 1600w, images/projects/scenario/responsive/cover-1920w.webp 1920w" sizes="(max-width: 72rem) 100vw, 1152px" alt="Image de présentation du devoir Scénario, Charlie Issa" loading="eager" fetchpriority="high" decoding="async" />
-          </div>
           <div class="project-card__body">
-            <p class="project-card__text" data-i18n="scenario.page.intro">
-              Pour cet exercice en binôme, nous avons imaginé Charlie Issa, une jeune nageuse anxieuse mais douée, élevée à la dure par son père pour intégrer l’élite de la natation. Le document détaille son contexte, celui de sa famille, puis développe une séquence : lors d’une compétition décisive, Charlie est repérée par l’équipe nationale australienne, dont le coach est soupçonné de dopage. Tiraillée entre son envie de ne jamais décevoir ses parents et ses propres doutes, elle doit faire un choix qui va la marquer durablement.
-            </p>
-
-            <h2 class="project-card__role-heading" data-i18n="scenario.page.contentHeading">Contenu du document</h2>
-            <ul class="project-card__role-text">
-              <li data-i18n="scenario.page.content.1">Contexte et description des personnages (Charlie et son père Henry)</li>
-              <li data-i18n="scenario.page.content.2">Séquence complète découpée en plans, avec dialogues</li>
-            </ul>
-
-            <a class="project-card__link" href="https://docs.google.com/document/d/1XyvliadfDXxc8lepzuiESekC1D3w21N9P6-WXn0OwV4/edit?tab=t.0" target="_blank" rel="noopener">
-              <span data-i18n="scenario.page.link">Lire le document complet</span>
-              <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
-            </a>
+            <div class="project-card__video">
+          <iframe src="https://www.youtube-nocookie.com/embed/G6WzWavbAzM" title="Production 3D sur 3DS Max, intégrée dans Unreal Engine" data-i18n-attr="title:gallery.video3d.iframeTitle" data-video-id="3d-3dsmax-unreal" loading="lazy" allowfullscreen></iframe>
+        </div>
+            <p class="project-card__text" data-i18n="gallery.video3d.captionLine2">L’environnement interagit avec la force du vent.</p>
           </div>
         </article>
       </div>
@@ -137,7 +127,6 @@
     </div>
   </footer>
 
-  <script src="scripts/theme.js"></script>
   <script src="scripts/i18n.js"></script>
   <script src="scripts/navbar.js"></script>
   <script src="scripts/ripple.js"></script>

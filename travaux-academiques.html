@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="meta.title.academic">Travaux académiques - Analyse et écriture | Clara Cahours de Virgile</title>
+  <meta name="description" content="Travaux académiques de Clara Cahours de Virgile : analyse de Jetpack Joyride, étude de cas VALORANT, scénario et bible d’univers." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Clara Cahours de Virgile" />
+  <meta property="og:locale" content="fr_FR" />
+  <link rel="canonical" href="https://claracahours.vercel.app/travaux-academiques" />
+  <meta property="og:url" content="https://claracahours.vercel.app/travaux-academiques" />
+  <meta property="og:title" content="Travaux académiques - Analyse et écriture | Clara Cahours de Virgile" />
+  <meta property="og:description" content="Travaux académiques de Clara Cahours de Virgile : analyse de Jetpack Joyride, étude de cas VALORANT, scénario et bible d’univers." />
+  <!-- Pas d'image dédiée pour cette page de liste : on reprend l'aperçu de
+       l'accueil. Pour en créer une, déposer images/og/travaux-academiques.jpg (1200 x 630)
+       et remplacer l'adresse ci-dessous. -->
+  <meta property="og:image" content="https://claracahours.vercel.app/images/og/home.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Portrait de Clara Cahours de Virgile" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon : SVG pour les navigateurs modernes (net à toute taille),
+       .ico en repli pour les anciens, apple-touch-icon pour l'écran d'accueil iOS -->
+  <link rel="icon" href="icons/favicon/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="icons/favicon/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="icons/favicon/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="icons/favicon/apple-touch-icon.png" />
+  <meta name="theme-color" content="#6F5D96" />
+
+  <!-- Chargé en tout premier, avant le CSS : pose data-theme sur <html>
+       avant le premier affichage, pour éviter tout flash de thème. -->
+  <script src="scripts/theme.js"></script>
+
+  <!-- Police Inter hébergée (voir styles/fonts.css). Le preload lance le
+       téléchargement dès le <head>, sans attendre que le CSS soit lu ;
+       crossorigin est obligatoire pour une police, même du même domaine. -->
+  <link rel="preload" href="fonts/inter/Inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+
+  <link rel="stylesheet" href="styles/fonts.css" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <!-- ripple.css doit rester AVANT navbar/gallery/lightbox.css : .ripple-host
+       impose position: relative, et les boutons de la lightbox
+       (position: absolute) doivent pouvoir le surcharger. -->
+  <link rel="stylesheet" href="styles/ripple.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/navbar.css" />
+  <link rel="stylesheet" href="styles/cards.css" />
+  <link rel="stylesheet" href="styles/showcase.css" />
+  <link rel="stylesheet" href="styles/project-page.css" />
+  <link rel="stylesheet" href="styles/footer.css" />
+  <!-- Statistiques de visite (Vercel Web Analytics, voir README « Statistiques »).
+       Sans cookie. Chemin absolu : le script est servi par Vercel à la racine
+       du site, seulement une fois Analytics activé ; ailleurs, simple 404. -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content" data-i18n="nav.skip">Aller au contenu principal</a>
+
+  <header>
+    <nav class="navbar" data-i18n-attr="aria-label:nav.label" aria-label="Navigation principale">
+      <a class="navbar__brand" href="./" style="color: inherit; text-decoration: none;">Clara</a>
+
+      <button class="navbar__icon-btn navbar__menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="nav-links" data-i18n-attr="aria-label:nav.menuOpen" aria-label="Ouvrir le menu">
+        <span class="navbar__burger" aria-hidden="true">
+          <span class="navbar__burger-bar"></span>
+          <span class="navbar__burger-bar"></span>
+          <span class="navbar__burger-bar"></span>
+        </span>
+      </button>
+
+      <ul class="navbar__links" id="nav-links" data-nav-links data-open="false">
+        <li><a class="navbar__link" href="./#about" data-i18n="nav.about">Qui suis-je</a></li>
+        <li><a class="navbar__link" href="./#path" data-i18n="nav.path">Parcours</a></li>
+        <li><a class="navbar__link" href="./#projects" data-i18n="nav.projects">Projets</a></li>
+        <li><a class="navbar__link" href="./#gallery" data-i18n="nav.art">Productions visuelles</a></li>
+        <li><a class="navbar__link" href="./#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+
+      <div class="navbar__controls">
+        <button class="navbar__icon-btn" data-theme-toggle aria-pressed="false" data-i18n-attr="aria-label:theme.toggle" aria-label="Changer le thème">
+          <svg class="icon-moon" aria-hidden="true"><use href="icons/sprite.svg#icon-moon"></use></svg>
+          <svg class="icon-sun" aria-hidden="true"><use href="icons/sprite.svg#icon-sun"></use></svg>
+        </button>
+
+        <div class="navbar__lang" role="group" data-i18n-attr="aria-label:lang.toggle" aria-label="Changer de langue">
+          <button class="navbar__lang-btn" data-lang-btn="fr" aria-pressed="true">FR</button>
+          <button class="navbar__lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="project-page container">
+      <a class="project-page__back" href="./#academic-work">
+        <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-left"></use></svg>
+        <span data-i18n="listing.back">Retour à l’accueil</span>
+      </a>
+
+      <h1 class="section-heading" data-i18n="academicWork.heading">Travaux académiques</h1>
+      <p class="section-intro" data-i18n="listing.academic.hint">
+        Choisissez un devoir pour en voir le détail.
+      </p>
+
+      <div class="showcase" style="margin-top: var(--space-6);">
+        <a class="showcase__tile" href="analyse-deconstruction">
+          <img src="images/projects/analyse-deconstruction-jetpack-joyride/jaquette.jpg" srcset="images/projects/analyse-deconstruction-jetpack-joyride/responsive/jaquette-400w.webp 400w, images/projects/analyse-deconstruction-jetpack-joyride/responsive/jaquette-528w.webp 528w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du devoir Analyse et déconstruction" loading="lazy" decoding="async" />
+          <div class="showcase__overlay">
+            <p class="showcase__meta" data-i18n="project.analysis.team">Devoir de deuxième année</p>
+            <h3 class="showcase__title" data-i18n="project.analysis.title">Analyse et déconstruction</h3>
+            <p class="showcase__tag" data-i18n="project.analysis.text">Analyse en profondeur d’un jeu mobile</p>
+          </div>
+        </a>
+
+        <a class="showcase__tile" href="etude-de-cas">
+          <img src="images/projects/etude-de-cas-valorant/jaquette.jpg" srcset="images/projects/etude-de-cas-valorant/responsive/jaquette-400w.webp 400w, images/projects/etude-de-cas-valorant/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du devoir Étude de cas VALORANT" loading="lazy" decoding="async" />
+          <div class="showcase__overlay">
+            <p class="showcase__meta" data-i18n="project.casestudy.team">Devoir de deuxième année, gestion de production</p>
+            <h3 class="showcase__title" data-i18n="project.casestudy.title">Étude de cas</h3>
+            <p class="showcase__tag" data-i18n="project.casestudy.text">Étude de cas complète d’un jeu vidéo au choix</p>
+          </div>
+        </a>
+
+        <a class="showcase__tile" href="scenario">
+          <img src="images/projects/scenario/jaquette.jpg" srcset="images/projects/scenario/responsive/jaquette-400w.webp 400w, images/projects/scenario/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du devoir Scénario" loading="lazy" decoding="async" />
+          <div class="showcase__overlay">
+            <p class="showcase__meta" data-i18n="project.scenario.team">Devoir de première année, en binôme</p>
+            <h3 class="showcase__title" data-i18n="project.scenario.title">Scénario</h3>
+            <p class="showcase__tag" data-i18n="project.scenario.text">Création d’un personnage et d’une séquence narrative</p>
+          </div>
+        </a>
+
+        <a class="showcase__tile" href="https://www.notion.so/Sommaire-66a54529fae745a3aa74698195202d0a" target="_blank" rel="noopener">
+          <img src="images/projects/bible-univers-sandwia/jaquette.jpg" srcset="images/projects/bible-univers-sandwia/responsive/jaquette-400w.webp 400w, images/projects/bible-univers-sandwia/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette de la bible d’univers Sandwia" loading="lazy" decoding="async" />
+          <div class="showcase__overlay">
+            <p class="showcase__meta" data-i18n="bible.team">Devoir de première année, en binôme</p>
+            <h3 class="showcase__title" data-i18n="bible.title">Sandwia</h3>
+            <p class="showcase__tag" data-i18n="bible.text">Bible d’univers</p>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <div class="site-footer__inner">
+      <p>&copy; 2026 Clara Cahours de Virgile - <span data-i18n="footer.rights">Tous droits réservés</span></p>
+    </div>
+  </footer>
+
+  <script src="scripts/i18n.js"></script>
+  <script src="scripts/navbar.js"></script>
+  <script src="scripts/ripple.js"></script>
+</body>
+</html>

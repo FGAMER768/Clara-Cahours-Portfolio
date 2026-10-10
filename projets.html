@@ -3,20 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-i18n="meta.title.scenario">Scénario : Charlie Issa - Écriture narrative | Clara Cahours de Virgile</title>
-  <meta name="description" content="Devoir de première année en binôme : création d'un personnage et rédaction d'une séquence narrative, par Clara Cahours de Virgile." />
+  <title data-i18n="meta.title.projects">Projets - Jeux vidéo et jeu de plateau | Clara Cahours de Virgile</title>
+  <meta name="description" content="Projets de jeu de Clara Cahours de Virgile : Sînnaya, Glory of Gods, Mecha Crisis et Beez Adventures, du jeu de plateau au jeu vidéo narratif." />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Clara Cahours de Virgile" />
   <meta property="og:locale" content="fr_FR" />
-  <link rel="canonical" href="https://claracahours.vercel.app/scenario" />
-  <meta property="og:url" content="https://claracahours.vercel.app/scenario" />
-  <meta property="og:title" content="Scénario : Charlie Issa - Écriture narrative | Clara Cahours de Virgile" />
-  <meta property="og:description" content="Devoir de première année en binôme : création d'un personnage et rédaction d'une séquence narrative, par Clara Cahours de Virgile." />
-  <meta property="og:image" content="https://claracahours.vercel.app/images/og/scenario.jpg" />
+  <link rel="canonical" href="https://claracahours.vercel.app/projets" />
+  <meta property="og:url" content="https://claracahours.vercel.app/projets" />
+  <meta property="og:title" content="Projets - Jeux vidéo et jeu de plateau | Clara Cahours de Virgile" />
+  <meta property="og:description" content="Projets de jeu de Clara Cahours de Virgile : Sînnaya, Glory of Gods, Mecha Crisis et Beez Adventures, du jeu de plateau au jeu vidéo narratif." />
+  <!-- Pas d'image dédiée pour cette page de liste : on reprend l'aperçu de
+       l'accueil. Pour en créer une, déposer images/og/projets.jpg (1200 x 630)
+       et remplacer l'adresse ci-dessous. -->
+  <meta property="og:image" content="https://claracahours.vercel.app/images/og/home.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Illustration du scénario Charlie Issa" />
+  <meta property="og:image:alt" content="Portrait de Clara Cahours de Virgile" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicon : SVG pour les navigateurs modernes (net à toute taille),
@@ -26,6 +29,10 @@
   <link rel="icon" href="icons/favicon/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="icons/favicon/apple-touch-icon.png" />
   <meta name="theme-color" content="#6F5D96" />
+
+  <!-- Chargé en tout premier, avant le CSS : pose data-theme sur <html>
+       avant le premier affichage, pour éviter tout flash de thème. -->
+  <script src="scripts/theme.js"></script>
 
   <!-- Police Inter hébergée (voir styles/fonts.css). Le preload lance le
        téléchargement dès le <head>, sans attendre que le CSS soit lu ;
@@ -41,11 +48,8 @@
   <link rel="stylesheet" href="styles/ripple.css" />
   <link rel="stylesheet" href="styles/layout.css" />
   <link rel="stylesheet" href="styles/navbar.css" />
-  <link rel="stylesheet" href="styles/hero.css" />
   <link rel="stylesheet" href="styles/cards.css" />
-  <link rel="stylesheet" href="styles/overview.css" />
-  <link rel="stylesheet" href="styles/gallery.css" />
-  <link rel="stylesheet" href="styles/lightbox.css" />
+  <link rel="stylesheet" href="styles/showcase.css" />
   <link rel="stylesheet" href="styles/project-page.css" />
   <link rel="stylesheet" href="styles/footer.css" />
   <!-- Statistiques de visite (Vercel Web Analytics, voir README « Statistiques »).
@@ -95,38 +99,48 @@
 
   <main id="main-content">
     <section class="project-page container">
-      <a class="project-page__back" href="travaux-academiques">
+      <a class="project-page__back" href="./#projects" data-i18n="listing.back">
         <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-left"></use></svg>
-        <span data-i18n="project.back.academic">Retour aux travaux académiques</span>
+        Retour à l’accueil
       </a>
 
-      <div class="project-grid">
-        <article class="project-card" id="project-scenario-page">
-          <header class="project-card__header">
-            <p class="project-card__meta" data-i18n="project.scenario.team">Devoir de première année, en binôme</p>
-            <h1 class="project-card__title" data-i18n="scenario.page.title">Scénario : Charlie Issa</h1>
-            <p class="project-card__subtitle" data-i18n="scenario.page.subtitle">Création d’un personnage et rédaction d’une séquence narrative</p>
-          </header>
-          <div class="project-card__media">
-            <img src="images/projects/scenario/cover.jpg" srcset="images/projects/scenario/responsive/cover-400w.webp 400w, images/projects/scenario/responsive/cover-800w.webp 800w, images/projects/scenario/responsive/cover-1600w.webp 1600w, images/projects/scenario/responsive/cover-1920w.webp 1920w" sizes="(max-width: 72rem) 100vw, 1152px" alt="Image de présentation du devoir Scénario, Charlie Issa" loading="eager" fetchpriority="high" decoding="async" />
-          </div>
-          <div class="project-card__body">
-            <p class="project-card__text" data-i18n="scenario.page.intro">
-              Pour cet exercice en binôme, nous avons imaginé Charlie Issa, une jeune nageuse anxieuse mais douée, élevée à la dure par son père pour intégrer l’élite de la natation. Le document détaille son contexte, celui de sa famille, puis développe une séquence : lors d’une compétition décisive, Charlie est repérée par l’équipe nationale australienne, dont le coach est soupçonné de dopage. Tiraillée entre son envie de ne jamais décevoir ses parents et ses propres doutes, elle doit faire un choix qui va la marquer durablement.
-            </p>
+      <h1 class="section-heading" data-i18n="projects.heading">Projets</h1>
+      <p class="section-intro" data-i18n="listing.projects.hint">
+        Choisissez une jaquette pour ouvrir la fiche du projet.
+      </p>
 
-            <h2 class="project-card__role-heading" data-i18n="scenario.page.contentHeading">Contenu du document</h2>
-            <ul class="project-card__role-text">
-              <li data-i18n="scenario.page.content.1">Contexte et description des personnages (Charlie et son père Henry)</li>
-              <li data-i18n="scenario.page.content.2">Séquence complète découpée en plans, avec dialogues</li>
-            </ul>
-
-            <a class="project-card__link" href="https://docs.google.com/document/d/1XyvliadfDXxc8lepzuiESekC1D3w21N9P6-WXn0OwV4/edit?tab=t.0" target="_blank" rel="noopener">
-              <span data-i18n="scenario.page.link">Lire le document complet</span>
-              <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
-            </a>
+      <div class="showcase">
+        <a class="showcase__tile" href="sinnaya">
+          <img src="images/projects/sinnaya/jaquette.jpeg" srcset="images/projects/sinnaya/responsive/jaquette-400w.webp 400w, images/projects/sinnaya/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du jeu Sînnaya" loading="lazy" decoding="async" />
+          <div class="showcase__overlay">            <p class="showcase__meta" data-i18n="project.sinnaya.team">Projet de troisième année, équipe de 9 personnes (3 game designers, 4 game artists, 2 tech artists)</p>
+            <h3 class="showcase__title" data-i18n="project.sinnaya.title">Sînnaya</h3>
+            <p class="showcase__tag" data-i18n="project.sinnaya.subtitle">Jeu narratif et d’énigmes</p>
           </div>
-        </article>
+        </a>
+
+        <a class="showcase__tile" href="glory-of-gods">
+          <img src="images/projects/glory-of-gods/jaquette.jpeg" srcset="images/projects/glory-of-gods/responsive/jaquette-400w.webp 400w, images/projects/glory-of-gods/responsive/jaquette-800w.webp 800w, images/projects/glory-of-gods/responsive/jaquette-1086w.webp 1086w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du jeu Glory of Gods" loading="lazy" decoding="async" />
+          <div class="showcase__overlay">            <p class="showcase__meta" data-i18n="project.glory.team">Prototype en 1 mois et demi, équipe de 5 élèves en Game Design</p>
+            <h3 class="showcase__title" data-i18n="project.glory.title">Glory of Gods</h3>
+            <p class="showcase__tag" data-i18n="project.glory.subtitle">Prototype d’un jeu de plateau MOBA</p>
+          </div>
+        </a>
+
+        <a class="showcase__tile" href="mecha-crisis">
+          <img src="images/projects/mecha-crisis/jaquette.jpg" srcset="images/projects/mecha-crisis/responsive/jaquette-400w.webp 400w, images/projects/mecha-crisis/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du jeu Mecha Crisis" loading="lazy" decoding="async" />
+          <div class="showcase__overlay">            <p class="showcase__meta" data-i18n="project.mecha.team">Projet interfilière de deuxième année, équipe de 11 (4 Game Designers, 4 Game Artists, 3 Technical Artists)</p>
+            <h3 class="showcase__title" data-i18n="project.mecha.title">Mecha Crisis</h3>
+            <p class="showcase__tag" data-i18n="project.mecha.subtitle">Rail shooter en vue première personne</p>
+          </div>
+        </a>
+
+        <a class="showcase__tile" href="beez-adventures">
+          <img src="images/projects/beez-adventures/jaquette.jpg" srcset="images/projects/beez-adventures/responsive/jaquette-400w.webp 400w, images/projects/beez-adventures/responsive/jaquette-426w.webp 426w" sizes="(max-width: 26rem) 45vw, (max-width: 48rem) 30vw, (max-width: 64rem) 22vw, 260px" alt="Jaquette du jeu Beez Adventures" loading="lazy" decoding="async" />
+          <div class="showcase__overlay">            <p class="showcase__meta" data-i18n="project.beez.team">Projet de fin de première année, équipe de 3 élèves en Game Design</p>
+            <h3 class="showcase__title" data-i18n="project.beez.title">Beez Adventures</h3>
+            <p class="showcase__tag" data-i18n="project.beez.subtitle">Niveau de plateforme</p>
+          </div>
+        </a>
       </div>
     </section>
   </main>
@@ -137,7 +151,6 @@
     </div>
   </footer>
 
-  <script src="scripts/theme.js"></script>
   <script src="scripts/i18n.js"></script>
   <script src="scripts/navbar.js"></script>
   <script src="scripts/ripple.js"></script>

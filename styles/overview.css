@@ -1,0 +1,139 @@
+/*
+  Accueil : aperçu des projets (jaquette + rôle) et boutons « Découvrir ».
+
+  Aucun style existant n'est modifié : ce fichier ne fait que PLACER des
+  composants déjà stylés ailleurs (.project-card, .project-card__meta,
+  .project-card__title, .project-card__team, .project-card__role-heading,
+  .project-card__role-text, .project-card__link, .hero__cta). Couleurs, rayons,
+  ombres et durées viennent uniquement de tokens.css : le thème sombre
+  fonctionne donc sans règle supplémentaire.
+*/
+
+/* ---------- Aperçu d'un projet : jaquette à gauche, détails à droite ---------- */
+
+.project-overview-list {
+  margin-top: var(--space-6);
+  display: grid;
+  gap: var(--space-6);
+}
+
+.project-overview {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  align-items: start;
+  padding: var(--space-5);
+}
+
+/* La jaquette garde le ratio 2:3 de la vitrine. Sur mobile elle est centrée
+   au-dessus du texte, plafonnée pour ne pas occuper tout l'écran. */
+.project-overview__cover {
+  display: block;
+  width: min(100%, 13rem);
+  margin-inline: auto;
+}
+
+.project-overview__cover img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent-soft);
+  box-shadow: var(--shadow-soft);
+}
+
+.project-overview__body > :first-child {
+  margin-top: 0;
+}
+
+.project-overview__title {
+  margin-top: var(--space-2);
+  font-size: var(--step-xl);
+}
+
+.project-overview__title a {
+  color: inherit;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.project-overview__title a:hover,
+.project-overview__title a:focus-visible {
+  color: var(--color-accent-strong);
+}
+
+/* Le titre de la ligne « rôle » reprend .project-card__role-heading ; on
+   laisse simplement la ligne d'équipe respirer sous le titre. */
+.project-overview__body .project-card__team {
+  margin-top: var(--space-2);
+}
+
+@media (min-width: 40rem) {
+  .project-overview {
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: var(--space-6);
+    padding: var(--space-6);
+  }
+
+  .project-overview__cover {
+    width: 100%;
+    margin-inline: 0;
+  }
+}
+
+@media (min-width: 64rem) {
+  .project-overview {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: var(--space-7);
+  }
+}
+
+/* Léger soulèvement de la jaquette au survol de la carte (souris seulement) */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .project-overview__cover img {
+    transition: transform var(--duration-base) var(--ease-standard),
+      box-shadow var(--duration-base) var(--ease-standard);
+  }
+
+  .project-overview:hover .project-overview__cover img {
+    transform: translateY(-0.25rem);
+    box-shadow: var(--shadow-raised);
+  }
+}
+
+/* ---------- Boutons « Découvrir » (un ou plusieurs liens en rangée) ---------- */
+
+.section-actions {
+  margin-top: var(--space-5);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-6);
+}
+
+/* ---------- Liste de tâches (rôle) : accueil et fiche Sînnaya ----------
+   base.css retire les puces de tous les <ul> ; sur une liste de plusieurs
+   tâches longues, elles aident à séparer les lignes. S'ajoute à
+   .project-card__role-text (couleur, largeur) sans le modifier. */
+
+.project-card__role-list {
+  padding-inline-start: 1.25rem;
+  list-style: disc;
+}
+
+.project-card__role-list li + li {
+  margin-top: var(--space-2);
+}
+
+.project-card__role-list li::marker {
+  color: var(--color-secondary);
+}
+
+/* ---------- Flèche des liens de carte (« Lire le document complet ») ----------
+   Le SVG de ces liens n'avait pas de taille : sans règle, il se serait affiché
+   en 300 x 150 px. Même taille que la flèche de .hero__cta. */
+
+.project-card__link svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}

@@ -19,6 +19,16 @@ index.html                  Page d'accueil, toutes les sections dans l'ordre :
                             hero, Qui suis-je, Parcours, Projets, Travaux
                             académiques, Personnages pour le jeu de rôle,
                             Productions visuelles, Contact
+                            (Projets : jaquette + rôle de chacun des 4 jeux,
+                            directement sur l'accueil. Les autres sections
+                            ne gardent que leur texte et des boutons
+                            « Découvrir » vers les pages secondaires)
+Pages secondaires, entre l'accueil et les fiches (voir « Pages secondaires ») :
+travaux-academiques.html    Jaquettes des travaux académiques
+roleplay.html               Cartes d'identité des personnages de jeu de rôle
+petits-exercices.html       Les 2 vidéos des petits exercices Unity
+productions-visuelles.html  Grille de dessins / illustrations (avec lightbox)
+production-3d.html          Vidéo de la production 3D (3DS Max / Unreal)
                             Une fiche par projet, à la racine, à côté de
                             index.html (thème, langue et navbar fonctionnent
                             comme sur l'accueil) :
@@ -79,7 +89,8 @@ styles/
   hero.css                  Section d'accueil
   timeline.css              Frise chronologique du parcours
   cards.css                 Cartes projets et mini-cartes
-  showcase.css              Vitrine des jeux façon bibliothèque (jaquettes)
+  showcase.css              Vitrine façon bibliothèque (jaquettes) : page travaux-academiques
+  overview.css              Accueil : aperçu des projets (jaquette + rôle) et rangée de boutons
   roleplay.css              Vitrine des personnages de jeu de rôle
   gallery.css               Grille de productions visuelles
   lightbox.css              Visionneuse plein écran
@@ -90,7 +101,7 @@ styles/
   beez-egg.css              Style des abeilles et de leur compteur
   ascii-egg.css             Style du portrait ASCII (inactif tant que l'easter egg est désactivé)
 robots.txt                  Autorise l'indexation et indique le sitemap
-sitemap.xml                 Liste des 10 pages (accueil + 9 fiches) pour les
+sitemap.xml                 Liste des 15 pages (accueil + 5 pages secondaires + 9 fiches) pour les
                             moteurs de recherche (voir « Référencement »)
 vercel.json                 Adresses sans .html et redirections des anciennes
                             adresses (voir « Adresses sans .html »), nom du CV
@@ -140,6 +151,10 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 `data/i18n.json` (clé `localStorage` : `clara-portfolio-lang`) :
 
 - `data-i18n="clé"` remplace le texte de l'élément.
+  **Un élément `data-i18n` ne doit contenir aucun autre élément** : son contenu
+  est remplacé en bloc, une icône à l'intérieur serait supprimée. Pour un lien
+  avec une flèche, poser `data-i18n` sur un `<span>` à côté du `<svg>`, pas sur
+  le `<a>` (c'est le cas des liens « Retour » et « Lire le document »).
 - `data-i18n-attr="alt:clé, aria-label:autre.clé"` remplace des attributs
   (textes alternatifs des images, libellés accessibles...).
 - Le titre de l'onglet se traduit comme le reste : la balise `<title>` porte
@@ -148,7 +163,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(221 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
+(249 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -329,7 +344,20 @@ s'ouvre pas par-dessus la lightbox des galeries.
 - **Hero compact** : sous 900 px de hauteur de fenêtre (portables), le
   portrait, l'anneau et les marges sont réduits (bloc `@media (max-height:
   900px)` de `hero.css`) pour que l'aperçu reste visible sans défiler.
-- **Vitrine (jaquettes)** : le titre et le genre sont affichés en
+- **Projets (aperçu)** : l'accueil affiche pour chacun des 4 jeux une carte
+  `.project-overview` (jaquette, genre, titre, équipe, « Mon rôle » et lien
+  « Voir le projet »), qui reprend les clés i18n des fiches
+  (`project.<projet>.subtitle`, `.title`, `.team`, `.role`). La jaquette et le
+  titre mènent à la fiche. Pour un nouveau projet, copier une carte dans
+  `#projects` de `index.html`. Sînnaya est le seul dont le rôle est une liste
+  à puces (clés `project.sinnaya.role.1` à `.8`, classe
+  `.project-card__role-list` dans `overview.css`, aussi chargé par
+  `sinnaya.html`) ; pour en faire autant avec un autre projet, remplacer sa
+  clé `.role` par des clés `.role.N` et un `<ul>` identique. La ligne
+  « candidate aux Rookies 2026 » est la clé `project.sinnaya.rookies`, sur la
+  carte et sur la fiche.
+- **Vitrine (jaquettes)** : seule la page `travaux-academiques` l'utilise
+  encore (`showcase.css`). Le titre et le genre sont affichés en
   permanence ; la ligne de contexte (équipe, année) se déplie au survol ou
   au focus clavier. Sur écran tactile, l'affichage est inchangé.
 - **Frise du Parcours** : les 4 étapes qui sont des projets (Beez, Glory of
@@ -343,6 +371,65 @@ s'ouvre pas par-dessus la lightbox des galeries.
   occupe sinon tout l'écran sur ordinateur. Une nouvelle fiche doit suivre
   le même schéma. Le genre (ou le sous-titre) est **dans** le `<h1>`, voir
   « Référencement ».
+
+## Pages secondaires (parcours en deux étapes)
+
+Le contenu secondaire (jaquettes des travaux, cartes d'identité, vidéos des
+exercices, dessins, vidéo 3D) n'est pas sur l'accueil : chaque section n'y garde
+que son titre et son texte, suivis d'un bouton « Découvrir ... » (classe
+`.hero__cta`, rangée `.section-actions`). Seuls les 4 projets de jeu restent
+affichés sur l'accueil, avec leur rôle.
+
+```
+accueil -> page secondaire (travaux-academiques, roleplay) -> fiche
+accueil -> page secondaire (petits-exercices, productions-visuelles, production-3d)
+accueil -> fiche directement (les 4 projets de jeu)
+```
+
+| Section de l'accueil | Bouton / page                                   | Contenu de la page                          |
+|----------------------|-------------------------------------------------|---------------------------------------------|
+| `#projects`          | (aucune : cartes `.project-overview`)           | fiches : sinnaya, glory-of-gods, mecha-crisis, beez-adventures |
+| `#exercises` (dans `#projects`) | `petits-exercices`                   | `.exercise-grid` : les 2 vidéos Unity       |
+| `#academic-work`     | `travaux-academiques`                           | `.showcase` (4 tuiles) vers analyse-deconstruction, etude-de-cas, scenario (+ Notion pour Sandwia) |
+| `#roleplay`          | `roleplay`                                      | `.roleplay-ids` (2 cartes) vers roleplay-rdr2, roleplay-gta5 |
+| `#gallery`           | `productions-visuelles`                         | `.gallery` (18 dessins, lightbox)           |
+| `#gallery`           | `production-3d`                                 | vidéo 3DS Max / Unreal Engine               |
+
+- **Un seul CSS nouveau** : `styles/overview.css` (aperçu des projets sur
+  l'accueil et rangée de boutons), qui ne fait que placer des composants déjà
+  stylés (`.project-card`, `.project-card__role-text`, `.hero__cta`...) avec
+  les tokens de `tokens.css` (le thème sombre suit tout seul). Les autres
+  pages secondaires réutilisent `showcase.css`, `roleplay.css`, `gallery.css`,
+  `lightbox.css`, `cards.css` et `project-page.css`, sans aucune modification.
+  Le balisage des tuiles, cartes et vidéos est celui qui était sur l'accueil.
+  L'accueil ne charge plus `showcase.css`, `roleplay.css`, `gallery.css`,
+  `lightbox.css`, `slider.js` ni `lightbox.js` (plus rien ne s'en sert).
+- Le `<h1>` d'une page secondaire reprend le titre de la section d'origine
+  (`academicWork.heading`, `roleplay.heading`, `exercises.heading`,
+  `gallery.heading`). Sur `travaux-academiques` et `roleplay`, une courte
+  consigne (`listing.*.hint`) remplace l'introduction pour ne pas répéter le
+  texte de l'accueil.
+- **Liens de retour** : une page secondaire revient à la section d'origine de
+  l'accueil (`./#academic-work`, `./#roleplay`, `./#exercises`, `./#gallery`) ;
+  chaque fiche de travail académique ou de personnage revient à sa liste (clés
+  `project.back.academic`, `project.back.roleplay`) ; les fiches des 4 jeux
+  reviennent à `./#projects`.
+- **Raccourcis conservés** : l'aperçu du hero (`.hero__preview`) et la frise du
+  Parcours renvoient directement aux fiches.
+- **Aperçu de partage** : les pages secondaires reprennent `images/og/home.jpg`.
+  Pour une image dédiée, déposer `images/og/<page>.jpg` (1200 x 630) et
+  changer le `og:image` de la page.
+- **Nouvelle fiche** : pour un travail académique ou un personnage, l'ajouter
+  à la page de liste correspondante (une `.showcase__tile` ou une `.id-card`),
+  pas sur l'accueil, puis suivre « Nouvelle fiche » plus bas. Le `<title>`,
+  l'`og:title` et `meta.title.academic` / `.roleplay` / `.exercises` /
+  `.gallery` / `.video3d` de `data/i18n.json` vont ensemble, comme pour les
+  fiches.
+- `scripts/showcase.js` (sons de survol) n'est chargé par aucune page
+  aujourd'hui : il suffit d'ajouter `<script src="scripts/showcase.js">
+  </script>` à la page `travaux-academiques` pour l'activer. Il laisse le
+  navigateur gérer les tuiles `target="_blank"` (la tuile Notion de Sandwia
+  s'ouvre dans un nouvel onglet, avec le son de validation).
 
 ## Adresses sans `.html`
 
@@ -384,8 +471,9 @@ par les visiteurs change.
   `https://claracahours.vercel.app/nom` dans son `canonical` et son
   `og:url`, et ajouter la même adresse dans `sitemap.xml`.
 - **Noms interdits pour une fiche** : celui d'un dossier du site (`audio`,
-  `data`, `documents`, `fonts`, `icons`, `images`, `scripts`, `styles`) et
-  `index`. Une fiche `images.html` serait en conflit avec le dossier
+  `data`, `documents`, `fonts`, `icons`, `images`, `scripts`, `styles`),
+  `index` et ceux des pages secondaires (`travaux-academiques`, `roleplay`,
+  `petits-exercices`, `productions-visuelles`, `production-3d`). Une fiche `images.html` serait en conflit avec le dossier
   `images/`, puisque les deux auraient l'adresse `/images`.
 - **Vérifier après un déploiement** : `curl -sIL
   https://claracahours.vercel.app/pages/sinnaya.html` (le `L` suit les
@@ -464,7 +552,7 @@ PDF.
 
 ## Aperçu de partage (Open Graph)
 
-Chaque page (l'accueil et les 9 fiches) déclare dans son `<head>` des balises
+Chaque page (l'accueil, les 5 pages secondaires et les 9 fiches) déclare dans son `<head>` des balises
 `og:*` et `twitter:card`, pour qu'un lien collé dans un message, sur LinkedIn
 ou sur X affiche un titre, une description et une image.
 
@@ -472,7 +560,7 @@ ou sur X affiche un titre, une description et une image.
   pas JavaScript, ils ne voient donc jamais la traduction anglaise.
 - Exception à la règle des chemins relatifs : `og:url` et `og:image` doivent
   être des URL **absolues** (`https://claracahours.vercel.app/...`). Si le
-  domaine change, remplacer `claracahours.vercel.app` dans les 10 pages.
+  domaine change, remplacer `claracahours.vercel.app` dans les 15 pages.
 - Chaque page déclare aussi `<link rel="canonical">`, avec la même adresse
   que `og:url` (sans `.html`) : elle indique aux moteurs de recherche
   l'adresse de référence de la page (utile si le site est joint par
@@ -489,7 +577,7 @@ ou sur X affiche un titre, une description et une image.
 ## Référencement
 
 `robots.txt` autorise l'indexation de tout le site et pointe vers
-`sitemap.xml`, qui liste l'accueil et les 9 fiches. Les adresses y sont
+`sitemap.xml`, qui liste l'accueil, les 5 pages secondaires et les 9 fiches. Les adresses y sont
 **absolues** (`https://claracahours.vercel.app/...`) et identiques aux
 `og:url` des pages.
 
@@ -517,7 +605,7 @@ ou sur X affiche un titre, une description et une image.
   `.subtitle` pour allonger le h1 : ces clés servent aussi à la vitrine et à
   l'aperçu de l'accueil.
 - Changement de domaine : remplacer `claracahours.vercel.app` dans
-  `robots.txt`, `sitemap.xml` et les 10 pages (voir aussi « Aperçu de
+  `robots.txt`, `sitemap.xml` et les 15 pages (voir aussi « Aperçu de
   partage »).
 - L'accueil contient un bloc JSON-LD `Person` (nom, métier, image, LinkedIn)
   dans son `<head>`. Si le métier, la description ou le lien LinkedIn
@@ -546,7 +634,7 @@ vues, visiteurs, pays, appareils et provenance, sans cookie et sans rien
 de bord Vercel, onglet **Analytics** du projet.
 
 - **Mise en place** : activer *Analytics* dans le projet Vercel (bouton
-  *Enable*), puis redéployer. Les 10 pages portent dans leur `<head>` un
+  *Enable*), puis redéployer. Les 15 pages portent dans leur `<head>` un
   petit script (`/_vercel/insights/script.js`) ; sans l'activation, ou hors
   Vercel (en local, GitHub Pages), il renvoie une erreur 404 sans
   conséquence.
@@ -559,7 +647,7 @@ de bord Vercel, onglet **Analytics** du projet.
 - **Si les chiffres restent vides** : la documentation Vercel pour le HTML
   pur indique désormais un chemin propre au projet
   (`/<chemin-unique>/script.js`) à la place de `/_vercel/insights/`. Il
-  faudrait alors le remplacer dans les 10 pages (`index.html` et
+  faudrait alors le remplacer dans les 15 pages (`index.html`, les 5 pages secondaires et
   les 9 fiches).
 - **Limites** : un bloqueur de pub peut empêcher la mesure (les chiffres
   sont donc un minimum). Sur l'offre gratuite, pas d'événements

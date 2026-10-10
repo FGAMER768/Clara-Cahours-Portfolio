@@ -10,6 +10,10 @@
     charger, et ça respecte silencieusement les navigateurs qui bloquent
     l'audio avant une interaction utilisateur.
 
+  Les tuiles qui s'ouvrent dans un autre onglet (target="_blank", ex. la bible
+  d'univers Notion) ne sont PAS interceptées : le son de validation joue, puis
+  le navigateur ouvre le nouvel onglet lui-même, sans quitter la page.
+
   Aucune navigation clavier personnalisée (flèches) n'est ajoutée : la
   navigation au clavier reste le comportement natif du navigateur (Tab /
   Maj+Tab / Entrée sur les liens), pour rester simple et sans surprise.
@@ -117,6 +121,13 @@
       }
     }
 
+    // Lien prévu pour un autre onglet (target="_blank", "_new"...) : on ne
+    // touche pas à la navigation, sinon la page courante serait remplacée.
+    function opensElsewhere(tile) {
+      var target = tile.getAttribute("target");
+      return !!target && target !== "_self";
+    }
+
     function activateTile(tile) {
       var href = tile.getAttribute("href");
       if (!href) {
@@ -167,6 +178,11 @@
         if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
           return;
         }
+        if (opensElsewhere(tile)) {
+          // Son de validation seulement : le clic natif ouvre le nouvel onglet.
+          playSelectSound();
+          return;
+        }
         event.preventDefault();
         activateTile(tile);
         // Le prochain focus (ex: Tab reçu juste après cette navigation
@@ -178,7 +194,9 @@
       // Entrée sur une jaquette qui a le focus (Tab) : même son de
       // validation, sans toucher au reste du comportement clavier natif.
       tile.addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
+        // Pour un lien vers un autre onglet, Entrée déclenche déjà un clic
+        // natif : c'est le gestionnaire de clic qui joue le son.
+        if (event.key === "Enter" && !opensElsewhere(tile)) {
           event.preventDefault();
           activateTile(tile);
         }
