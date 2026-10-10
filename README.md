@@ -61,7 +61,8 @@ fonts/
                             toutes graisses) et sa licence SIL OFL
 icons/
   sprite.svg                Icônes de l'interface : menu, lune, soleil,
-                            flèches, fermer, lecture, LinkedIn, téléchargement
+                            flèches, fermer, lecture, LinkedIn, téléchargement,
+                            titres de section (academic, character, artwork)
   Unity/                    Logo Unity, versions claire et sombre
   favicon/                  Favicon « CC » : .svg (principal), .ico et .png
                             (repli), apple-touch-icon.png (écran d'accueil iOS)
@@ -341,6 +342,13 @@ s'ouvre pas par-dessus la lightbox des galeries.
   vitrine. Pour changer de projet mis en avant, modifier ces 4 `<li>`.
   Elles utilisent les jaquettes `-400w.webp` déjà chargées par la vitrine :
   garder cette variante pour ne rien télécharger en plus.
+- **Icônes de titre** : « Travaux académiques », « Personnages pour le jeu de
+  rôle » et « Productions visuelles » ont une icône à gauche de leur titre
+  (accueil et pages secondaires), dans `<div class="section-heading-row">`
+  (`overview.css`). Les icônes (`icon-academic`, `icon-character`,
+  `icon-artwork`) sont dans `sprite.svg`, au même trait que les autres, et
+  prennent le violet des liens. Pour en ajouter une : un `<symbol>` dans le
+  sprite, puis le même bloc autour du titre.
 - **Ligne de disponibilité** (`.hero__status`, sous l'accroche, sans cadre) : « À la
   recherche d'un stage en Game Design du 20 juin au 31 août 2027 » (clés
   `hero.status` et `hero.status.dates`, les dates en gras). Style dans

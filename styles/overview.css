@@ -160,3 +160,25 @@
   /* Les dates restent groupées : à la ligne, elles passent ensemble. */
   white-space: nowrap;
 }
+
+/* ---------- Icône devant un titre de section ----------
+   Même trait que les icônes de la navbar (sprite.svg), teinte du violet des
+   liens (--color-accent-strong). Décoratif : aria-hidden dans le HTML. */
+
+.section-heading-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.section-heading-row .section-heading {
+  margin-bottom: 0;
+}
+
+.section-heading-row__icon {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-accent-strong);
+}
