@@ -1,5 +1,6 @@
 /*
-  Accueil : aperçu des projets (jaquette + rôle) et boutons « Découvrir ».
+  Accueil : ligne de disponibilité du hero, aperçu des projets (jaquette + rôle)
+  et boutons « Découvrir ».
 
   Aucun style existant n'est modifié : ce fichier ne fait que PLACER des
   composants déjà stylés ailleurs (.project-card, .project-card__meta,
@@ -136,4 +137,26 @@
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
+}
+
+/* ---------- Hero : ligne de disponibilité (recherche de stage) ----------
+   Simple ligne de texte sous l'accroche, avant les boutons : c'est ce qu'un
+   recruteur cherche en premier. Aucun cadre ni pastille, dans le ton du reste
+   du site : même corps et même gris que les lignes d'équipe des projets, et
+   les dates en ocre gras comme les dates de la frise du Parcours
+   (--color-secondary-text, le jeton prévu pour du texte ocre). */
+
+.hero__status {
+  margin-top: var(--space-3);
+  max-width: 34rem;
+  font-size: var(--step-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-ink-muted);
+}
+
+.hero__status strong {
+  color: var(--color-secondary-text);
+  font-weight: 700;
+  /* Les dates restent groupées : à la ligne, elles passent ensemble. */
+  white-space: nowrap;
 }

@@ -163,7 +163,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(249 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
+(251 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -341,6 +341,12 @@ s'ouvre pas par-dessus la lightbox des galeries.
   vitrine. Pour changer de projet mis en avant, modifier ces 4 `<li>`.
   Elles utilisent les jaquettes `-400w.webp` déjà chargées par la vitrine :
   garder cette variante pour ne rien télécharger en plus.
+- **Ligne de disponibilité** (`.hero__status`, sous l'accroche, sans cadre) : « À la
+  recherche d'un stage en Game Design du 20 juin au 31 août 2027 » (clés
+  `hero.status` et `hero.status.dates`, les dates en gras). Style dans
+  `overview.css`. Pour changer la période, modifier `hero.status.dates` **et**
+  `contact.text` dans les deux langues de `data/i18n.json` ; le paragraphe
+  « Qui suis-je » ne parle que de « l'été 2027 ».
 - **Hero compact** : sous 900 px de hauteur de fenêtre (portables), le
   portrait, l'anneau et les marges sont réduits (bloc `@media (max-height:
   900px)` de `hero.css`) pour que l'aperçu reste visible sans défiler.
