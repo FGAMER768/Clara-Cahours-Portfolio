@@ -95,7 +95,7 @@ styles/
   roleplay.css              Vitrine des personnages de jeu de rôle
   gallery.css               Grille de productions visuelles
   lightbox.css              Visionneuse plein écran
-  project-page.css          Fiches projet (lien de retour, dégagement navbar)
+  project-page.css          Fiches projet (lien de retour, dégagement navbar, bandeau de chiffres et rythme vertical de la fiche Sînnaya)
   footer.css                Pied de page et section contact
   ripple.css                Style de l'effet « goutte d'eau » (voir plus bas)
   easter-egg.css            Style du trophée caché
@@ -164,7 +164,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(251 clés chacun aujourd'hui), puis poser `data-i18n="la.cle"` sur
+(281 clés chacun à la date de la dernière mise à jour de la fiche Sînnaya), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -387,6 +387,27 @@ s'ouvre pas par-dessus la lightbox des galeries.
   occupe sinon tout l'écran sur ordinateur. Une nouvelle fiche doit suivre
   le même schéma. Le genre (ou le sous-titre) est **dans** le `<h1>`, voir
   « Référencement ».
+- **Fiche Sînnaya (chiffres, playtests, son)** : après la présentation et
+  avant « Mon rôle », un titre `<h2 id="sinnaya-stats-heading">` (« Les
+  chiffres ») et la liste `.sinnaya-stats` (4 blocs : valeur dans un
+  `<strong>`, libellé dans un `<span>`, tous deux avec leur `data-i18n`, clés
+  `project.sinnaya.stats.N.v` / `.l`). La liste est rattachée au titre par
+  `aria-labelledby`. Sur mobile, grille 2 x 2 avec croisillon de filets ; à
+  partir de 40 em, une seule ligne de 4 colonnes. Garder des valeurs courtes
+  (un chiffre) et l'unité dans le libellé, sinon les lignes se décalent.
+  Plus bas, trois blocs `.project-card__block` : « Playtests et décisions »
+  (classe `.sinnaya-flow`, qui règle l'espacement vertical, clés `.pt.*`),
+  « Sound design » (clés `.snd.*`) et « Pour aller plus loin » (clés
+  `.more.*`, liens vers le GDD, le Lore et les voicelines). Le bloc playtests
+  n'a volontairement aucune image : les diapos de playtest répétaient le texte
+  mot pour mot, il suffit de le garder court et chiffré.
+  **Aucun chiffre inventé** : ils viennent du GDD, des diapos de playtest, de
+  la Sound List (50 événements « Done », Dôme coupé exclu) et du PDF des
+  voicelines (36 « Done », dont 5 du Dôme coupé). « 6 testeurs sur 7 » est
+  déduit des pourcentages de la QA 2 (14,3 % = 1 sur 7). Les correctifs n'ont
+  pas été retestés : le texte le dit, ne pas y ajouter de moyenne « après »
+  sans vrai test. Si la Sound List ou les voicelines évoluent, mettre à jour
+  `.stats.4.v` et `.snd.text` dans les deux langues.
 
 ## Pages secondaires (parcours en deux étapes)
 
