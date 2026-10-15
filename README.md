@@ -164,7 +164,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(281 clés chacun à la date de la dernière mise à jour de la fiche Sînnaya), puis poser `data-i18n="la.cle"` sur
+(292 clés chacun à la date de la dernière mise à jour de la fiche Sînnaya), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -399,8 +399,22 @@ s'ouvre pas par-dessus la lightbox des galeries.
   (classe `.sinnaya-flow`, qui règle l'espacement vertical, clés `.pt.*`),
   « Sound design » (clés `.snd.*`) et « Pour aller plus loin » (clés
   `.more.*`, liens vers le GDD, le Lore et les voicelines). Le bloc playtests
-  n'a volontairement aucune image : les diapos de playtest répétaient le texte
-  mot pour mot, il suffit de le garder court et chiffré.
+  suit l'ordre problème, décisions, résultat visible, puis preuves : le
+  constat (chiffres), la liste des décisions, la **vidéo de la version finale**
+  (`.project-card__video`, juste après les décisions car elle montre ce qu'elles
+  ont produit), le résultat honnête (non retesté), puis l'**évolution de la
+  fresque** en dernier, car c'est une preuve secondaire qui ne doit pas
+  interrompre le récit. La vidéo est celle de la version finale (`data-video-id="sinnaya-cadran-final"`), embarquée comme le trailer et le walkthrough. Le slider d'évolution est un slider standard en mode une slide par
+  vue (classe `media-slider--single`, cadre `--slider-ratio: 4 / 1`,
+  `--slide-fit: contain` pour ne rogner aucune bande) ; la lightbox s'ouvre
+  dessus sans code en plus et réutilise le texte alternatif. Les 4 images sont
+  `images/projects/sinnaya/fresque-v1.jpg`, `-v2`, `-v3` et `-finale` (repli
+  1920 px) avec leurs variantes `responsive/fresque-*-400w/800w/1600w/2400w.webp`
+  (`sizes="(max-width: 72rem) 92vw, 960px"`). Les textes alternatifs
+  décrivent chaque version (`.pt.hist.alt1` à `.alt4`, via
+  `data-i18n-attr="alt:..."`) ; le titre de l'iframe est dans `.pt.video.title`
+  (via `data-i18n-attr="title:..."`). Une légende visible sous le slider
+  (`.pt.hist.legend`) donne l'ordre des versions.
   **Aucun chiffre inventé** : ils viennent du GDD, des diapos de playtest, de
   la Sound List (50 événements « Done », Dôme coupé exclu) et du PDF des
   voicelines (36 « Done », dont 5 du Dôme coupé). « 6 testeurs sur 7 » est
