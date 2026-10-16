@@ -291,7 +291,11 @@
     "project.sinnaya.pt.hist.alt3": "Version 3 de la fresque : les scènes sont remplacées par une phase de lune au centre, une figure ailée au-dessus, un poisson-chèvre en dessous et une flèche rose indiquant le sens de rotation.",
     "project.sinnaya.pt.hist.alt4": "Version finale de la fresque : quatre cadres dorés sur fond bleu nuit montrant la lune noire, pleine, à moitié éclairée puis en croissant, avec la figure ailée et le poisson-chèvre.",
     "project.sinnaya.pt.d5": "Feedback de validation : sur une bonne réponse, le cadran tourne sur lui-même et des particules violettes apparaissent sur la fresque validée. Sur une erreur, il ne réagit pas.",
-    "project.sinnaya.pt.d6": "Feedback sonore : un son puissant et résonnant accompagne la validation finale de l’énigme."
+    "project.sinnaya.pt.d6": "Feedback sonore : un son puissant et résonnant accompagne la validation finale de l’énigme.",
+    "project.sinnaya.snd.video.title": "Vidéo du sound design de Sînnaya",
+    "project.sinnaya.team.heading": "L’équipe",
+    "project.sinnaya.team.caption": "L’équipe de Sînnaya au complet, neuf personnes.",
+    "project.sinnaya.team.alt": "Photo de groupe de l’équipe de Sînnaya : neuf personnes souriantes, debout côte à côte devant un bâtiment ancien aux murs beiges."
   },
   "en": {
     "meta.title": "Clara Cahours de Virgile - Portfolio",
@@ -585,6 +589,10 @@
     "project.sinnaya.pt.hist.alt3": "Version 3 of the mural: the scenes are replaced by a moon phase in the centre, a winged figure above, a goat-fish below and a pink arrow showing the rotation direction.",
     "project.sinnaya.pt.hist.alt4": "Final version of the mural: four golden frames on a midnight blue background showing the dark, full, half-lit and crescent moon, with the winged figure and the goat-fish.",
     "project.sinnaya.pt.d5": "Validation feedback: on a correct answer, the dial spins and purple particles appear on the validated mural. On a mistake, it does not react.",
-    "project.sinnaya.pt.d6": "Sound feedback: a powerful, resonant sound accompanies the final validation of the puzzle."
+    "project.sinnaya.pt.d6": "Sound feedback: a powerful, resonant sound accompanies the final validation of the puzzle.",
+    "project.sinnaya.snd.video.title": "Sînnaya sound design video",
+    "project.sinnaya.team.heading": "The team",
+    "project.sinnaya.team.caption": "The full Sînnaya team, nine people.",
+    "project.sinnaya.team.alt": "Group photo of the Sînnaya team: nine smiling people standing side by side in front of an old building with beige walls."
   }
 }

@@ -73,7 +73,8 @@ scripts/
   slider.js                 Carrousels d'images des fiches projet, avec compteur
                             (plage « 1-2 / 9 » sur ordinateur où 2 slides sont
                             visibles, « 3 / 9 » sur mobile)
-  lightbox.js               Visionneuse plein écran (sliders et galerie) :
+  lightbox.js               Visionneuse plein écran (sliders, galerie et conteneurs
+                            `data-lightbox-group`) :
                             flèches, clavier, swipe sur mobile
   hero-ring.js              Met en pause l'anneau animé du hero hors écran
   ripple.js                 Effet « goutte d'eau » au tap (voir plus bas)
@@ -164,7 +165,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(292 clés chacun à la date de la dernière mise à jour de la fiche Sînnaya), puis poser `data-i18n="la.cle"` sur
+(296 clés chacun à la date de la dernière mise à jour de la fiche Sînnaya), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -415,6 +416,20 @@ s'ouvre pas par-dessus la lightbox des galeries.
   `data-i18n-attr="alt:..."`) ; le titre de l'iframe est dans `.pt.video.title`
   (via `data-i18n-attr="title:..."`). Une légende visible sous le slider
   (`.pt.hist.legend`) donne l'ordre des versions.
+  Le bloc « Sound design » contient la vidéo de démonstration
+  (`data-video-id="sinnaya-sound-design"`, bloc en `.sinnaya-flow` pour l'espacement vertical, entre le texte et le lien vers la
+  Sound List : la preuve vient juste après l'affirmation). En fin de fiche,
+  l'ordre est : trailer, walkthrough, « Pour aller plus loin » (documents),
+  puis « L'équipe » (`.sinnaya-team`, photo `images/projects/sinnaya/team.jpg`
+  en 1600 px de repli et `responsive/team-400w/800w/1200w/1600w.webp`, texte
+  alternatif `.team.alt`, légende `.team.caption`). La photo ouvre la
+  lightbox : la `<figure>` porte `data-lightbox-group` et l'image est dans un
+  `<button data-lightbox-trigger>` (utilisable au clavier). Pour réutiliser :
+  poser `data-lightbox-group` sur le conteneur des `<img>` ; avec une seule
+  image, la lightbox masque flèches et compteur (`data-single`). Un `<img data-full="...">` fait
+  charger cette version haute définition à l'ouverture (la photo d'équipe
+  utilise `team-1600w.webp`), sinon la lightbox reprend `currentSrc`. Garder la photo en dernier
+  : elle clôt la page sur le côté humain sans retarder les preuves.
   **Aucun chiffre inventé** : ils viennent du GDD, des diapos de playtest, de
   la Sound List (50 événements « Done », Dôme coupé exclu) et du PDF des
   voicelines (36 « Done », dont 5 du Dôme coupé). « 6 testeurs sur 7 » est

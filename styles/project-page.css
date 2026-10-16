@@ -141,3 +141,44 @@
 .sinnaya-flow > .project-card__role-heading + * {
   margin-top: var(--space-3);
 }
+
+/* Photo d'équipe en fin de fiche */
+.sinnaya-team {
+  margin: var(--space-4) 0 0;
+  max-width: 46rem;
+}
+
+.sinnaya-team img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+
+.sinnaya-team figcaption {
+  margin-top: var(--space-2);
+  font-size: var(--step-sm);
+  color: var(--color-ink-muted);
+}
+
+.sinnaya-flow > .project-card__video {
+  margin-top: var(--space-6);
+}
+
+.sinnaya-flow > .project-card__video + * {
+  margin-top: var(--space-6);
+}
+
+.sinnaya-flow > .project-card__role-heading + .project-card__video {
+  margin-top: var(--space-3);
+}
+
+.sinnaya-team__trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: var(--radius-md);
+  cursor: zoom-in;
+}

@@ -223,3 +223,9 @@
     animation: none;
   }
 }
+
+/* Visuel unique : pas de flèches ni de compteur */
+.lightbox[data-single="true"] .lightbox__nav,
+.lightbox[data-single="true"] .lightbox__status {
+  display: none;
+}

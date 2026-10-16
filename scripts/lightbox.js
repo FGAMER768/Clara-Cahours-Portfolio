@@ -14,7 +14,8 @@
   document.addEventListener("DOMContentLoaded", function () {
     var sliders = document.querySelectorAll("[data-slider]");
     var galleries = document.querySelectorAll(".gallery__item");
-    if (!sliders.length && !galleries.length) {
+    var groups = document.querySelectorAll("[data-lightbox-group]");
+    if (!sliders.length && !galleries.length && !groups.length) {
       return;
     }
 
@@ -83,7 +84,8 @@
       void image.offsetWidth; // force reflow
 
       image.alt = source.alt || "";
-      image.src = source.currentSrc || source.src;
+      // data-full : version haute définition chargée uniquement à l'ouverture.
+      image.src = source.getAttribute("data-full") || source.currentSrc || source.src;
       image.classList.add("lightbox__image--enter");
 
       updateNav();
@@ -94,6 +96,8 @@
       prevButton.disabled = currentIndex <= 0;
       nextButton.disabled = currentIndex >= total - 1;
       status.textContent = (currentIndex + 1) + " / " + total;
+      // Visuel unique : flèches et compteur n'ont pas de sens.
+      lightbox.setAttribute("data-single", total <= 1 ? "true" : "false");
     }
 
     function openLightbox(images, startIndex) {
@@ -167,6 +171,24 @@
     });
 
     // --- Contrôles -------------------------------------------------------
+    // Groupe d'images libre : tout conteneur [data-lightbox-group] ouvre la
+    // lightbox sur ses <img>. Le clic peut venir de l'image ou d'un bouton
+    // [data-lightbox-trigger] qui l'entoure (accessible au clavier).
+    groups.forEach(function (group) {
+      group.addEventListener("click", function (event) {
+        var target = event.target.closest("img, [data-lightbox-trigger]");
+        if (!target || !group.contains(target)) {
+          return;
+        }
+        var img = target.tagName === "IMG" ? target : target.querySelector("img");
+        if (!img) {
+          return;
+        }
+        var images = Array.prototype.slice.call(group.querySelectorAll("img"));
+        openLightbox(images, Math.max(0, images.indexOf(img)));
+      });
+    });
+
     prevButton.addEventListener("click", function () {
       render(currentIndex - 1);
     });
