@@ -92,11 +92,12 @@ styles/
   timeline.css              Frise chronologique du parcours
   cards.css                 Cartes projets et mini-cartes
   showcase.css              Vitrine façon bibliothèque (jaquettes) : page travaux-academiques
-  overview.css              Accueil : aperçu des projets (jaquette + rôle) et rangée de boutons
+  overview.css              Accueil : aperçu des projets (jaquette + rôle), rangée de boutons
+                            et composant `.key-figures` (chiffres clés)
   roleplay.css              Vitrine des personnages de jeu de rôle
   gallery.css               Grille de productions visuelles
   lightbox.css              Visionneuse plein écran
-  project-page.css          Fiches projet (lien de retour, dégagement navbar, bandeau de chiffres et rythme vertical de la fiche Sînnaya)
+  project-page.css          Fiches projet (lien de retour, dégagement navbar, rythme vertical de la fiche Sînnaya)
   footer.css                Pied de page et section contact
   ripple.css                Style de l'effet « goutte d'eau » (voir plus bas)
   easter-egg.css            Style du trophée caché
@@ -165,7 +166,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(296 clés chacun à la date de la dernière mise à jour de la fiche Sînnaya), puis poser `data-i18n="la.cle"` sur
+(300 clés chacun à la date de la dernière mise à jour de la fiche Sînnaya), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -390,12 +391,15 @@ s'ouvre pas par-dessus la lightbox des galeries.
   « Référencement ».
 - **Fiche Sînnaya (chiffres, playtests, son)** : après la présentation et
   avant « Mon rôle », un titre `<h2 id="sinnaya-stats-heading">` (« Les
-  chiffres ») et la liste `.sinnaya-stats` (4 blocs : valeur dans un
-  `<strong>`, libellé dans un `<span>`, tous deux avec leur `data-i18n`, clés
-  `project.sinnaya.stats.N.v` / `.l`). La liste est rattachée au titre par
-  `aria-labelledby`. Sur mobile, grille 2 x 2 avec croisillon de filets ; à
-  partir de 40 em, une seule ligne de 4 colonnes. Garder des valeurs courtes
-  (un chiffre) et l'unité dans le libellé, sinon les lignes se décalent.
+  chiffres ») et la liste `.key-figures` (composant partagé, défini dans `overview.css`, utilisé
+  aussi par la carte Sînnaya de l'accueil, titre `#home-stats-heading`). Chaque
+  `<li>` contient un chiffre (`.key-figures__value`), un titre court
+  (`.key-figures__title`) et une ligne de description (`.key-figures__desc`),
+  clés `project.sinnaya.stats.N.v` / `.t` / `.d`. La liste est rattachée au
+  titre par `aria-labelledby`. Deux colonnes sur mobile, quatre à partir de
+  64 rem. Garder le chiffre court et la description à une phrase, sinon les
+  colonnes se décalent. Les mêmes clés servent à l'accueil et à la fiche : les
+  chiffres ne peuvent pas diverger.
   Plus bas, trois blocs `.project-card__block` : « Playtests et décisions »
   (classe `.sinnaya-flow`, qui règle l'espacement vertical, clés `.pt.*`),
   « Sound design » (clés `.snd.*`) et « Pour aller plus loin » (clés

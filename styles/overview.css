@@ -198,3 +198,51 @@
     margin-top: 0;
   }
 }
+
+/* Chiffres clés : chiffre, titre court, une ligne de description.
+   Partagé par la carte de l'accueil et la fiche Sînnaya. */
+.key-figures {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-6) var(--space-5);
+}
+
+.key-figures__value {
+  display: block;
+  font-size: var(--step-3xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+}
+
+.key-figures__title {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--step-base);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  color: var(--color-ink);
+}
+
+.key-figures__desc {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--step-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-ink-muted);
+}
+
+.key-figures + .project-card__role-heading {
+  margin-top: var(--space-7);
+}
+
+@media (min-width: 64rem) {
+  .key-figures {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-5);
+  }
+}
