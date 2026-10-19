@@ -292,3 +292,9 @@
     height: 100%;
   }
 }
+
+/* Texte d'introduction suivi d'un slider (ex. storyboard de Mecha Crisis) :
+   sans cet espace, les images sont collées au paragraphe. */
+.project-card__text + .media-slider {
+  margin-top: var(--space-5);
+}
