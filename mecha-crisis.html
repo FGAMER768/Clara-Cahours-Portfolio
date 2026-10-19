@@ -43,6 +43,7 @@
   <link rel="stylesheet" href="styles/navbar.css" />
   <link rel="stylesheet" href="styles/hero.css" />
   <link rel="stylesheet" href="styles/cards.css" />
+  <link rel="stylesheet" href="styles/overview.css" />
   <link rel="stylesheet" href="styles/gallery.css" />
   <link rel="stylesheet" href="styles/lightbox.css" />
   <link rel="stylesheet" href="styles/project-page.css" />
@@ -113,9 +114,25 @@
               Dernier membre d’une unité spéciale dont la mission a échoué, vous devez atteindre le point d’extraction qui vous permettra de vous échapper d’une ville contrôlée par des robots hostiles. Éliminez les ennemis qui se mettent en travers de votre chemin et servez-vous de votre aimant afin d’atteindre votre objectif.
             </p>
 
-            <p class="project-card__role-text" data-i18n="project.mecha.role">
-              Mon apport principal a été la réalisation du jeu sur Unreal Engine. J’ai également contribué au pipeline, au Game Concept Document, à la mise en place et à l’équilibrage des mécaniques principales, au doublage, au world building, au storyboard, au scénario, au développement des personnages et aux tests QA.
-            </p>
+            <h2 class="project-card__role-heading" id="mecha-stats-heading" data-i18n="project.mecha.stats.heading">Les chiffres</h2>
+            <ul class="key-figures" aria-labelledby="mecha-stats-heading">
+              <li><strong class="key-figures__value" data-i18n="project.mecha.stats.1.v"></strong> <span class="key-figures__title" data-i18n="project.mecha.stats.1.t"></span> <span class="key-figures__desc" data-i18n="project.mecha.stats.1.d"></span></li>
+              <li><strong class="key-figures__value" data-i18n="project.mecha.stats.2.v"></strong> <span class="key-figures__title" data-i18n="project.mecha.stats.2.t"></span> <span class="key-figures__desc" data-i18n="project.mecha.stats.2.d"></span></li>
+              <li><strong class="key-figures__value" data-i18n="project.mecha.stats.3.v"></strong> <span class="key-figures__title" data-i18n="project.mecha.stats.3.t"></span> <span class="key-figures__desc" data-i18n="project.mecha.stats.3.d"></span></li>
+              <li><strong class="key-figures__value" data-i18n="project.mecha.stats.4.v"></strong> <span class="key-figures__title" data-i18n="project.mecha.stats.4.t"></span> <span class="key-figures__desc" data-i18n="project.mecha.stats.4.d"></span></li>
+            </ul>
+
+            <h2 class="project-card__role-heading" data-i18n="project.roleHeading">Mon rôle</h2>
+            <ul class="project-card__role-text project-card__role-list"><li data-i18n="project.mecha.role.1"></li><li data-i18n="project.mecha.role.2"></li><li data-i18n="project.mecha.role.3"></li><li data-i18n="project.mecha.role.4"></li><li data-i18n="project.mecha.role.5"></li><li data-i18n="project.mecha.role.6"></li><li data-i18n="project.mecha.role.7"></li></ul>
+
+            <div class="project-card__block sinnaya-flow">
+              <h2 class="project-card__block-heading" data-i18n="project.mecha.qa.heading"></h2>
+              <p class="project-card__text"><strong data-i18n="project.mecha.qa.lead"></strong></p>
+              <p class="project-card__text" data-i18n="project.mecha.qa.text"></p>
+              <h3 class="project-card__role-heading" data-i18n="project.mecha.qa.causes"></h3>
+              <ul class="project-card__role-text project-card__role-list"><li data-i18n="project.mecha.qa.c1"></li><li data-i18n="project.mecha.qa.c2"></li><li data-i18n="project.mecha.qa.c3"></li><li data-i18n="project.mecha.qa.c4"></li><li data-i18n="project.mecha.qa.c5"></li></ul>
+              <p class="project-card__text" data-i18n="project.mecha.qa.open"></p>
+            </div>
 
             <div class="project-card__block">
               <h2 class="project-card__block-heading" data-i18n="project.mecha.walkthrough">Walkthrough</h2>
@@ -169,6 +186,27 @@
                 </button>
               </div>
               <p class="media-slider__status" data-slider-status role="status" aria-live="polite">1 / 9</p>
+            </div>
+
+            <div class="project-card__block">
+              <h2 class="project-card__block-heading" data-i18n="project.mecha.storyboard">Storyboard</h2>
+              <p class="project-card__text" data-i18n="project.mecha.storyboard.text"></p>
+              <div class="media-slider" data-slider style="--slider-ratio: 16 / 9;">
+                <button class="media-slider__button" type="button" data-slider-prev data-i18n-attr="aria-label:slider.previous" disabled>
+                  <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-left"></use></svg>
+                </button>
+                <div class="media-slider__viewport" data-slider-viewport tabindex="0" role="region" data-i18n-attr="aria-label:slider.region">
+                  <div class="media-slider__track">
+                    <figure class="media-slider__slide"><img src="images/projects/mecha-crisis/storyboard-01.jpg" srcset="images/projects/mecha-crisis/responsive/storyboard-01-400w.webp 400w, images/projects/mecha-crisis/responsive/storyboard-01-800w.webp 800w, images/projects/mecha-crisis/responsive/storyboard-01-1600w.webp 1600w, images/projects/mecha-crisis/responsive/storyboard-01-1920w.webp 1920w" sizes="(max-width: 72rem) 92vw, 720px" alt="" data-i18n-attr="alt:project.mecha.storyboard.alt1" loading="lazy" decoding="async" onerror="this.closest('.media-slider__slide').remove()" /></figure>
+                    <figure class="media-slider__slide"><img src="images/projects/mecha-crisis/storyboard-02.jpg" srcset="images/projects/mecha-crisis/responsive/storyboard-02-400w.webp 400w, images/projects/mecha-crisis/responsive/storyboard-02-800w.webp 800w, images/projects/mecha-crisis/responsive/storyboard-02-1600w.webp 1600w, images/projects/mecha-crisis/responsive/storyboard-02-1920w.webp 1920w" sizes="(max-width: 72rem) 92vw, 720px" alt="" data-i18n-attr="alt:project.mecha.storyboard.alt2" loading="lazy" decoding="async" onerror="this.closest('.media-slider__slide').remove()" /></figure>
+                    <figure class="media-slider__slide"><img src="images/projects/mecha-crisis/storyboard-03.jpg" srcset="images/projects/mecha-crisis/responsive/storyboard-03-400w.webp 400w, images/projects/mecha-crisis/responsive/storyboard-03-800w.webp 800w, images/projects/mecha-crisis/responsive/storyboard-03-1600w.webp 1600w, images/projects/mecha-crisis/responsive/storyboard-03-1920w.webp 1920w" sizes="(max-width: 72rem) 92vw, 720px" alt="" data-i18n-attr="alt:project.mecha.storyboard.alt3" loading="lazy" decoding="async" onerror="this.closest('.media-slider__slide').remove()" /></figure>
+                  </div>
+                </div>
+                <button class="media-slider__button" type="button" data-slider-next data-i18n-attr="aria-label:slider.next">
+                  <svg aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
+                </button>
+              </div>
+              <p class="media-slider__status" data-slider-status role="status" aria-live="polite">1 / 3</p>
             </div>
           </div>
         </article>

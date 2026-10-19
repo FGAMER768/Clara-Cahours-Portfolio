@@ -32,8 +32,11 @@
   height: 1.1rem;
 }
 
-/* Sînnaya : rythme vertical (titres, listes, slider) */
-#sinnaya-stats-heading {
+/* Sînnaya, Glory of Gods, Mecha Crisis : rythme vertical (titres, listes, slider).
+   .sinnaya-flow garde son nom d'origine mais sert aussi aux blocs playtests / QA. */
+#sinnaya-stats-heading,
+#glory-stats-heading,
+#mecha-stats-heading {
   margin-top: var(--space-7);
 }
 

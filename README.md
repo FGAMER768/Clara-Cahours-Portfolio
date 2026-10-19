@@ -166,7 +166,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(311 clés chacun à la date de la dernière mise à jour : Parcours, étape IIM et cartes de l'accueil sans rôle), puis poser `data-i18n="la.cle"` sur
+(385 clés chacun à la date de la dernière mise à jour : chiffres, rôles en liste, playtests et QA des fiches Glory of Gods, Mecha Crisis et Beez), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -370,7 +370,7 @@ s'ouvre pas par-dessus la lightbox des galeries.
   (`project.<projet>.team`, plus détaillée) : à répercuter à la main si la
   fiche évolue. Le genre et le titre reprennent les clés des fiches
   (`project.<projet>.subtitle`, `.title`). La jaquette et le titre mènent à la
-  fiche. La carte Sînnaya est la seule à avoir en plus son pitch
+  fiche. Les cartes Glory of Gods et Mecha Crisis affichent aussi leurs chiffres clés (mêmes clés `project.<projet>.stats.N.v/.t` que leur fiche, titres `#home-glory-stats-heading` / `#home-mecha-stats-heading`) ; Beez n'en a pas. La carte Sînnaya est la seule à avoir en plus son pitch
   (`home.sinnaya.pitch`), la ligne « équipe candidate aux Rookies 2026 »
   (`home.sinnaya.rookies`) et les chiffres clés. Pour un nouveau projet, copier
   une carte dans `#projects` de `index.html` et créer sa clé `home.<projet>.team`.
@@ -453,6 +453,31 @@ s'ouvre pas par-dessus la lightbox des galeries.
   pas été retestés : le texte le dit, ne pas y ajouter de moyenne « après »
   sans vrai test. Si la Sound List ou les voicelines évoluent, mettre à jour
   `.stats.4.v` et `.snd.text` dans les deux langues.
+
+**Fiches Glory of Gods, Mecha Crisis et Beez (rôle en liste, chiffres, playtests / QA).**
+Même schéma que Sînnaya : `.key-figures` (clés `project.<projet>.stats.N.v/.t/.d`,
+titre `#glory-stats-heading` / `#mecha-stats-heading`), « Mon rôle » en liste
+(`project.<projet>.role.N`, qui remplacent les anciennes clés `project.<projet>.role`),
+puis un bloc `.project-card__block.sinnaya-flow` (nom d'origine conservé, il sert
+aussi ici à l'espacement vertical). Ces trois fiches chargent désormais
+`styles/overview.css`, qui porte `.key-figures` et `.project-card__role-list`.
+- **Glory of Gods** : bloc « Premiers playtests » (`project.glory.pt.*`), chiffres tirés du
+  questionnaire post-partie (8 réponses). Les comptes ne viennent que des graphiques ;
+  les listes de texte libre sont tronquées dans les captures, donc non comptées.
+  **Aucune décision ni correctif n'est indiqué** : aucune information fournie. Si des
+  règles ont changé après ces playtests, ajouter une liste « Décisions » avant les
+  difficultés rencontrées (même schéma que `project.sinnaya.pt.d*`).
+- **Mecha Crisis** : bloc « Tests QA » (`project.mecha.qa.*`), chiffres tirés du PDF
+  « QA Test MechaCrisis - Bug Report GD » : 32 lignes (numérotées 1 à 33, **la n° 18 est
+  absente du PDF**), dont 29 « Clôt », 1 « Corrigé » (#22), 1 « En cours » (#30), 1 sans état
+  (#14) ; 10 de degré « S (Must Fix) », tous clôturés ; 20 assignés à Clara. Le sens des
+  degrés A, B, C et U n'est pas défini dans le PDF : ils ne sont pas utilisés sur la page.
+- **Mecha Crisis, storyboard** : bloc `project.mecha.storyboard.*` après « Game concept », slider
+  de 3 images (une par page du PDF « StoryBoard_MechaCrisis », 14 vignettes) :
+  `images/projects/mecha-crisis/storyboard-01.jpg` à `-03` (1920 px) et leurs variantes
+  `responsive/storyboard-0N-400w/800w/1600w/1920w.webp`. Les alt sont dans les clés
+  `.storyboard.alt1` à `.alt3`. Les images de référence du PDF ont une origine non précisée.
+- **Beez Adventures** : « Mon rôle » en liste uniquement (pas de chiffres ni de playtest fournis).
 
 **Vocabulaire.** Pour Mecha Crisis, on écrit « réalisation » / « je réalise » et non
 « développement » / « je développe » (`path.mecha.text`, `project.mecha.role`) : en Game Design, « développer » laisse entendre un rôle de
