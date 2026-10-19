@@ -246,3 +246,23 @@
     gap: var(--space-5);
   }
 }
+
+/* Chiffres clés sur l'accueil : plus discrets que sur la fiche Sînnaya (qui
+   garde le grand format). Petit, mi-gras, en violet du site ; le titre court
+   en gris, plus léger. */
+.project-overview .key-figures {
+  gap: var(--space-4) var(--space-5);
+}
+
+.project-overview .key-figures__value {
+  font-size: var(--step-lg);
+  font-weight: 600;
+  color: var(--color-accent-strong);
+}
+
+.project-overview .key-figures__title {
+  margin-top: 0;
+  font-size: var(--step-sm);
+  font-weight: 500;
+  color: var(--color-ink-muted);
+}

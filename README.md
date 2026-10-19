@@ -89,7 +89,7 @@ styles/
   layout.css                Ajustements de mise en page globaux
   navbar.css                Barre de navigation
   hero.css                  Section d'accueil
-  timeline.css              Frise chronologique du parcours
+  timeline.css              Frise chronologique du parcours : formation à gauche, projets à droite
   cards.css                 Cartes projets et mini-cartes
   showcase.css              Vitrine façon bibliothèque (jaquettes) : page travaux-academiques
   overview.css              Accueil : aperçu des projets (jaquette + rôle), rangée de boutons
@@ -166,7 +166,7 @@ Toutes les chaînes visibles passent par des attributs, résolus via
 
 Pour ajouter un texte traduisible : ajouter la clé dans les deux blocs
 (`fr` et `en`) du JSON, qui doivent rester strictement identiques
-(300 clés chacun à la date de la dernière mise à jour de la fiche Sînnaya), puis poser `data-i18n="la.cle"` sur
+(311 clés chacun à la date de la dernière mise à jour : Parcours, étape IIM et cartes de l'accueil sans rôle), puis poser `data-i18n="la.cle"` sur
 l'élément HTML concerné.
 
 Pour du HTML créé par JavaScript (c'est le cas de la lightbox), poser
@@ -363,27 +363,37 @@ s'ouvre pas par-dessus la lightbox des galeries.
   portrait, l'anneau et les marges sont réduits (bloc `@media (max-height:
   900px)` de `hero.css`) pour que l'aperçu reste visible sans défiler.
 - **Projets (aperçu)** : l'accueil affiche pour chacun des 4 jeux une carte
-  `.project-overview` (jaquette, genre, titre, équipe, « Mon rôle » et lien
-  « Voir le projet »), qui reprend les clés i18n des fiches
-  (`project.<projet>.subtitle`, `.title`, `.team`, `.role`). La jaquette et le
-  titre mènent à la fiche. Pour un nouveau projet, copier une carte dans
-  `#projects` de `index.html`. Sînnaya est le seul dont le rôle est une liste
-  à puces (clés `project.sinnaya.role.1` à `.8`, classe
-  `.project-card__role-list` dans `overview.css`, aussi chargé par
-  `sinnaya.html`) ; pour en faire autant avec un autre projet, remplacer sa
-  clé `.role` par des clés `.role.N` et un `<ul>` identique. La ligne
-  « candidate aux Rookies 2026 » est la clé `project.sinnaya.rookies`, sur la
-  carte et sur la fiche.
+  `.project-overview` : jaquette, genre, titre, ligne d'équipe et lien « Voir le
+  projet ». **Pas de « Mon rôle » sur l'accueil** : le rôle et les tâches ne sont
+  que sur les fiches (`project.<projet>.role`). La ligne d'équipe a sa propre
+  clé courte `home.<projet>.team`, distincte de celle de la fiche
+  (`project.<projet>.team`, plus détaillée) : à répercuter à la main si la
+  fiche évolue. Le genre et le titre reprennent les clés des fiches
+  (`project.<projet>.subtitle`, `.title`). La jaquette et le titre mènent à la
+  fiche. La carte Sînnaya est la seule à avoir en plus son pitch
+  (`home.sinnaya.pitch`), la ligne « équipe candidate aux Rookies 2026 »
+  (`home.sinnaya.rookies`) et les chiffres clés. Pour un nouveau projet, copier
+  une carte dans `#projects` de `index.html` et créer sa clé `home.<projet>.team`.
 - **Vitrine (jaquettes)** : seule la page `travaux-academiques` l'utilise
   encore (`showcase.css`). Le titre et le genre sont affichés en
   permanence ; la ligne de contexte (équipe, année) se déplie au survol ou
   au focus clavier. Sur écran tactile, l'affichage est inchangé.
-- **Frise du Parcours** : les 4 étapes qui sont des projets (Beez, Glory of
-  Gods, Mecha Crisis, Sînnaya) ont un titre cliquable vers leur fiche, avec
-  une flèche toujours visible (`.timeline__link`). Pour une nouvelle étape
-  qui est un projet, garder `data-i18n` sur le `<span>` **dans** le lien :
-  posé sur le `<h3>`, le script de traduction supprimerait le lien. Les
-  étapes scolaires restent de simples titres.
+- **Frise du Parcours** : frise à deux colonnes autour d'un axe central, la
+  **formation à gauche** (Bac, Brassart, LISAA, IIM Digital School) et les
+  **projets à droite** (Beez, Glory of Gods, Mecha Crisis, Sînnaya). Les étapes
+  sont écrites **dans l'ordre chronologique** dans `index.html` ; la classe
+  `.timeline__item--school` (gauche) ou `.timeline__item--project` (droite)
+  décide du côté. La grille les place sans `grid-auto-flow: dense` : une étape
+  de gauche suivie d'une étape de droite partagent la même ligne (Brassart +
+  Beez, LISAA + Glory of Gods). **Ne pas ajouter `dense`** dans `timeline.css`.
+  Chaque étape affiche son type à côté de la date (`.timeline__kind` :
+  « Formation » / « Projet », clés `path.kind.*`), en toutes tailles d'écran.
+  Sur mobile, une seule colonne dans l'ordre chronologique. Les 4 étapes qui
+  sont des projets ont un titre cliquable vers leur fiche, avec une flèche
+  toujours visible (`.timeline__link`). Pour une nouvelle étape qui est un
+  projet, garder `data-i18n` sur le `<span>` **dans** le lien : posé sur le
+  `<h3>`, le script de traduction supprimerait le lien. Pour une étape
+  scolaire, `data-i18n` se pose directement sur le `<h3>`.
 - **Fiches projet** : l'en-tête (`<header class="project-card__header">` :
   genre, titre en `<h1>`, ligne d'équipe) est placé **avant** la cover, qui
   occupe sinon tout l'écran sur ordinateur. Une nouvelle fiche doit suivre
@@ -392,13 +402,15 @@ s'ouvre pas par-dessus la lightbox des galeries.
 - **Fiche Sînnaya (chiffres, playtests, son)** : après la présentation et
   avant « Mon rôle », un titre `<h2 id="sinnaya-stats-heading">` (« Les
   chiffres ») et la liste `.key-figures` (composant partagé, défini dans `overview.css`, utilisé
-  aussi par la carte Sînnaya de l'accueil, titre `#home-stats-heading`). Chaque
+  aussi par la carte Sînnaya de l'accueil, titre `#home-stats-heading`, qui n'affiche que le chiffre et
+  son titre court, sans la ligne `.d` ; sur l'accueil ils sont affichés en petit, en violet
+  (`.project-overview .key-figures__*` dans `overview.css`), la fiche gardant le grand format). Chaque
   `<li>` contient un chiffre (`.key-figures__value`), un titre court
   (`.key-figures__title`) et une ligne de description (`.key-figures__desc`),
   clés `project.sinnaya.stats.N.v` / `.t` / `.d`. La liste est rattachée au
   titre par `aria-labelledby`. Deux colonnes sur mobile, quatre à partir de
   64 rem. Garder le chiffre court et la description à une phrase, sinon les
-  colonnes se décalent. Les mêmes clés servent à l'accueil et à la fiche : les
+  colonnes se décalent. Les clés `.v` et `.t` servent à l'accueil et à la fiche : les
   chiffres ne peuvent pas diverger.
   Plus bas, trois blocs `.project-card__block` : « Playtests et décisions »
   (classe `.sinnaya-flow`, qui règle l'espacement vertical, clés `.pt.*`),
@@ -441,6 +453,10 @@ s'ouvre pas par-dessus la lightbox des galeries.
   pas été retestés : le texte le dit, ne pas y ajouter de moyenne « après »
   sans vrai test. Si la Sound List ou les voicelines évoluent, mettre à jour
   `.stats.4.v` et `.snd.text` dans les deux langues.
+
+**Vocabulaire.** Pour Mecha Crisis, on écrit « réalisation » / « je réalise » et non
+« développement » / « je développe » (`path.mecha.text`, `project.mecha.role`) : en Game Design, « développer » laisse entendre un rôle de
+programmeuse.
 
 ## Pages secondaires (parcours en deux étapes)
 

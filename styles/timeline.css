@@ -1,9 +1,14 @@
 /*
-  Timeline verticale, répartie sur deux colonnes en zigzag (impair /
-  pair) pour éviter un long scroll à une seule colonne. Une ligne
-  centrale continue traverse les deux colonnes ; chaque repère s'y
+  Timeline verticale sur deux colonnes : la FORMATION à gauche
+  (.timeline__item--school), les PROJETS à droite (.timeline__item--project).
+  Une ligne centrale continue traverse les deux colonnes ; chaque repère s'y
   accroche par un petit connecteur horizontal. Sur mobile, une seule
   colonne, ligne à gauche, comme une frise classique.
+
+  Les étapes sont écrites dans l'ordre chronologique dans le HTML. La grille
+  les place SANS « dense » : une étape de gauche suivie d'une étape de droite
+  partagent la même ligne (ex. Brassart + Beez, LISAA + Glory of Gods).
+  Ne pas ajouter grid-auto-flow: dense : la chronologie serait brouillée.
 */
 
 .timeline {
@@ -49,6 +54,21 @@
   font-size: var(--step-sm);
   font-weight: 700;
   color: var(--color-secondary-text);
+}
+
+/* Date + type d'étape (« Formation » / « Projet ») sur une même ligne, en
+   toutes tailles d'écran. */
+.timeline__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--space-3);
+}
+
+.timeline__kind {
+  font-size: var(--step-sm);
+  font-weight: 600;
+  color: var(--color-ink-muted);
 }
 
 .timeline__title {
@@ -124,15 +144,20 @@
     padding-left: 0;
   }
 
-  /* Colonne de gauche : items impairs (1er, 3e, 5e...) */
-  .timeline__item:nth-child(odd) {
+  /* Colonne de gauche : la formation */
+  .timeline__item--school {
     grid-column: 1;
     padding-right: var(--space-7);
     text-align: right;
   }
 
-  /* Colonne de droite : items pairs */
-  .timeline__item:nth-child(even) {
+  /* Colonne de gauche, texte aligné à droite : date et type aussi. */
+  .timeline__item--school .timeline__meta {
+    justify-content: flex-end;
+  }
+
+  /* Colonne de droite : les projets */
+  .timeline__item--project {
     grid-column: 2;
     padding-left: var(--space-7);
   }
@@ -142,11 +167,11 @@
     left: auto;
   }
 
-  .timeline__item:nth-child(odd) .timeline__marker {
+  .timeline__item--school .timeline__marker {
     right: calc(-1 * (var(--space-8) / 2) - 0.425rem);
   }
 
-  .timeline__item:nth-child(even) .timeline__marker {
+  .timeline__item--project .timeline__marker {
     left: calc(-1 * (var(--space-8) / 2) - 0.425rem);
   }
 
@@ -160,11 +185,11 @@
     background-color: var(--color-border);
   }
 
-  .timeline__item:nth-child(odd)::after {
+  .timeline__item--school::after {
     right: 0;
   }
 
-  .timeline__item:nth-child(even)::after {
+  .timeline__item--project::after {
     left: 0;
   }
 }

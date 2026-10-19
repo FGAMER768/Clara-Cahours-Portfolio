@@ -211,22 +211,34 @@
         Un résumé chronologique des étapes de formation et des projets marquants, avant de détailler chaque travail plus bas.
       </p>
 
+      <!-- Parcours : la formation à gauche, les projets à droite (voir styles/timeline.css).
+           Les étapes restent dans l'ordre chronologique ; la classe --school ou --project
+           décide du côté. -->
       <ul class="timeline">
-        <li class="timeline__item">
+        <li class="timeline__item timeline__item--school">
           <span class="timeline__marker" aria-hidden="true"></span>
-          <p class="timeline__year" data-i18n="path.bac.date">Juin 2023</p>
+          <div class="timeline__meta">
+            <p class="timeline__year" data-i18n="path.bac.date">Juin 2023</p>
+            <p class="timeline__kind" data-i18n="path.kind.school">Formation</p>
+          </div>
           <h3 class="timeline__title" data-i18n="path.bac.title">Bac STD2A</h3>
           <p class="timeline__text" data-i18n="path.bac.text">J’obtiens mon baccalauréat Sciences et Technologies du Design et des Arts Appliqués.</p>
         </li>
-        <li class="timeline__item">
+        <li class="timeline__item timeline__item--school">
           <span class="timeline__marker" aria-hidden="true"></span>
-          <p class="timeline__year" data-i18n="path.brassart.date">Septembre 2023</p>
+          <div class="timeline__meta">
+            <p class="timeline__year" data-i18n="path.brassart.date">Septembre 2023</p>
+            <p class="timeline__kind" data-i18n="path.kind.school">Formation</p>
+          </div>
           <h3 class="timeline__title" data-i18n="path.brassart.title">Première année de Game Design à Brassart</h3>
           <p class="timeline__text" data-i18n="path.brassart.text">Je choisis le game design pour sa polyvalence dans la production de jeu et j’en découvre les bases.</p>
         </li>
-        <li class="timeline__item">
+        <li class="timeline__item timeline__item--project">
           <span class="timeline__marker" data-beez-trigger aria-hidden="true"></span>
-          <p class="timeline__year" data-i18n="path.beez.date">Mai 2024</p>
+          <div class="timeline__meta">
+            <p class="timeline__year" data-i18n="path.beez.date">Mai 2024</p>
+            <p class="timeline__kind" data-i18n="path.kind.project">Projet</p>
+          </div>
           <h3 class="timeline__title">
             <a class="timeline__link" href="beez-adventures">
               <span data-i18n="path.beez.title">Beez Adventures</span>
@@ -235,15 +247,21 @@
           </h3>
           <p class="timeline__text" data-i18n="path.beez.text">Je conçois un niveau de plateforme en équipe de 3 pour clore ma première année à Brassart.</p>
         </li>
-        <li class="timeline__item">
+        <li class="timeline__item timeline__item--school">
           <span class="timeline__marker" aria-hidden="true"></span>
-          <p class="timeline__year" data-i18n="path.lisaa.date">Septembre 2024</p>
+          <div class="timeline__meta">
+            <p class="timeline__year" data-i18n="path.lisaa.date">Septembre 2024</p>
+            <p class="timeline__kind" data-i18n="path.kind.school">Formation</p>
+          </div>
           <h3 class="timeline__title" data-i18n="path.lisaa.title">Entrée à LISAA</h3>
           <p class="timeline__text" data-i18n="path.lisaa.text">J’intègre le bachelor Jeu Vidéo directement en deuxième année.</p>
         </li>
-        <li class="timeline__item">
+        <li class="timeline__item timeline__item--project">
           <span class="timeline__marker" aria-hidden="true"></span>
-          <p class="timeline__year" data-i18n="path.glory.date">Novembre 2024</p>
+          <div class="timeline__meta">
+            <p class="timeline__year" data-i18n="path.glory.date">Novembre 2024</p>
+            <p class="timeline__kind" data-i18n="path.kind.project">Projet</p>
+          </div>
           <h3 class="timeline__title">
             <a class="timeline__link" href="glory-of-gods">
               <span data-i18n="path.glory.title">Glory of Gods</span>
@@ -252,20 +270,26 @@
           </h3>
           <p class="timeline__text" data-i18n="path.glory.text">Je prototype un jeu de plateau MOBA en équipe de 5, en 1 mois et demi, peu après mon arrivée à LISAA.</p>
         </li>
-        <li class="timeline__item">
+        <li class="timeline__item timeline__item--project">
           <span class="timeline__marker" aria-hidden="true"></span>
-          <p class="timeline__year" data-i18n="path.mecha.date">Avril 2025</p>
+          <div class="timeline__meta">
+            <p class="timeline__year" data-i18n="path.mecha.date">Avril 2025</p>
+            <p class="timeline__kind" data-i18n="path.kind.project">Projet</p>
+          </div>
           <h3 class="timeline__title">
             <a class="timeline__link" href="mecha-crisis">
               <span data-i18n="path.mecha.title">Mecha Crisis</span>
               <svg class="timeline__arrow" aria-hidden="true"><use href="icons/sprite.svg#icon-chevron-right"></use></svg>
             </a>
           </h3>
-          <p class="timeline__text" data-i18n="path.mecha.text">Je développe un rail shooter sur Unreal Engine en équipe de 11, pour mon projet interfilière de fin de deuxième année.</p>
+          <p class="timeline__text" data-i18n="path.mecha.text">Je réalise un rail shooter sur Unreal Engine en équipe de 11, pour mon projet interfilière de fin de deuxième année.</p>
         </li>
-        <li class="timeline__item">
+        <li class="timeline__item timeline__item--project">
           <span class="timeline__marker" aria-hidden="true"></span>
-          <p class="timeline__year" data-i18n="path.sinnaya.date">Novembre 2025 – juillet 2026</p>
+          <div class="timeline__meta">
+            <p class="timeline__year" data-i18n="path.sinnaya.date">Novembre 2025 – juillet 2026</p>
+            <p class="timeline__kind" data-i18n="path.kind.project">Projet</p>
+          </div>
           <h3 class="timeline__title">
             <a class="timeline__link" href="sinnaya">
               <span data-i18n="path.sinnaya.title">Sînnaya</span>
@@ -273,6 +297,15 @@
             </a>
           </h3>
           <p class="timeline__text" data-i18n="path.sinnaya.text">Je participe à un jeu narratif et d’énigmes en équipe de 9, sur 9 mois de production, pour ma troisième année.</p>
+        </li>
+        <li class="timeline__item timeline__item--school">
+          <span class="timeline__marker" aria-hidden="true"></span>
+          <div class="timeline__meta">
+            <p class="timeline__year" data-i18n="path.iim.date">Septembre 2026</p>
+            <p class="timeline__kind" data-i18n="path.kind.school">Formation</p>
+          </div>
+          <h3 class="timeline__title" data-i18n="path.iim.title">Entrée à l’IIM Digital School</h3>
+          <p class="timeline__text" data-i18n="path.iim.text">Je poursuis une formation en Animation 3D & VFX pour compléter mes compétences en création visuelle.</p>
         </li>
       </ul>
     </section>
@@ -284,7 +317,7 @@
         Sept projets menés en formation, du prototype de jeu de plateau au jeu vidéo narratif complet.
       </p>
 
-      <!-- Aperçu des 4 projets : jaquette + rôle ; le titre et le bouton mènent à la fiche détaillée. -->
+      <!-- Aperçu des 4 projets : jaquette, genre, titre, équipe (Sînnaya : pitch, Rookies, chiffres) ; le titre et le bouton mènent à la fiche détaillée (rôle, tâches). -->
       <div class="project-overview-list">
         <article class="project-card project-overview" id="overview-sinnaya">
           <a class="project-overview__cover" href="sinnaya" tabindex="-1" aria-hidden="true">
@@ -293,25 +326,15 @@
           <div class="project-overview__body">
             <p class="project-card__meta" data-i18n="project.sinnaya.subtitle">Jeu narratif et d’énigmes</p>
             <h3 class="project-card__title project-overview__title"><a href="sinnaya"><span data-i18n="project.sinnaya.title">Sînnaya</span></a></h3>
-            <p class="project-card__team" data-i18n="project.sinnaya.team">Projet de troisième année, équipe de 9 personnes (3 game designers, 4 game artists, 2 tech artists)</p>
-            <p class="project-card__text" data-i18n="project.sinnaya.rookies">L’équipe a été candidate aux Rookies 2026 avec Sînnaya.</p>
+            <p class="project-card__team" data-i18n="home.sinnaya.team">Projet de troisième année, 9 mois de production, équipe de 9</p>
+            <p class="project-card__text" data-i18n="home.sinnaya.pitch">À Babylone, incarnez Sînnaya, disciple du Dieu de la Lune. Armée d’un sceptre lunaire, résolvez les énigmes du temple d’Ishtar pour retrouver votre enfant et empêcher la chute de Babylone.</p>
+            <p class="project-card__text" data-i18n="home.sinnaya.rookies">Équipe candidate aux Rookies 2026</p>
             <h4 class="project-card__role-heading" id="home-stats-heading" data-i18n="project.sinnaya.stats.heading">Les chiffres</h4>
             <ul class="key-figures" aria-labelledby="home-stats-heading">
-              <li><strong class="key-figures__value" data-i18n="project.sinnaya.stats.1.v"></strong> <span class="key-figures__title" data-i18n="project.sinnaya.stats.1.t"></span> <span class="key-figures__desc" data-i18n="project.sinnaya.stats.1.d"></span></li>
-              <li><strong class="key-figures__value" data-i18n="project.sinnaya.stats.2.v"></strong> <span class="key-figures__title" data-i18n="project.sinnaya.stats.2.t"></span> <span class="key-figures__desc" data-i18n="project.sinnaya.stats.2.d"></span></li>
-              <li><strong class="key-figures__value" data-i18n="project.sinnaya.stats.3.v"></strong> <span class="key-figures__title" data-i18n="project.sinnaya.stats.3.t"></span> <span class="key-figures__desc" data-i18n="project.sinnaya.stats.3.d"></span></li>
-              <li><strong class="key-figures__value" data-i18n="project.sinnaya.stats.4.v"></strong> <span class="key-figures__title" data-i18n="project.sinnaya.stats.4.t"></span> <span class="key-figures__desc" data-i18n="project.sinnaya.stats.4.d"></span></li>
-              </ul>
-            <h4 class="project-card__role-heading" data-i18n="project.roleHeading">Mon rôle</h4>
-            <ul class="project-card__role-text project-card__role-list">
-              <li data-i18n="project.sinnaya.role.1">Plans sur papier du tutoriel et des deux salles d’énigmes.</li>
-              <li data-i18n="project.sinnaya.role.2">Blocking dans Unreal Engine avec des blocs modulaires de 1 m³, selon les métriques du jeu.</li>
-              <li data-i18n="project.sinnaya.role.3">Placement des énigmes, objets interactifs et indices.</li>
-              <li data-i18n="project.sinnaya.role.4">Travail sur le rythme et la progression : courbes de difficulté et d’intensité.</li>
-              <li data-i18n="project.sinnaya.role.5">Contribution au scénario, au worldbuilding et aux personnages.</li>
-              <li data-i18n="project.sinnaya.role.6">Sound design et direction du doublage : enregistrements, mixage et intégration dans Unreal Engine.</li>
-              <li data-i18n="project.sinnaya.role.7">Documentation : pipelines, sound list, Game Concept Document et GDD.</li>
-              <li data-i18n="project.sinnaya.role.8">Amélioration de l’UX après les playtests : guidage visuel, feedbacks sonores et ajustement des énigmes pour clarifier les interactions et la progression.</li>
+              <li><strong class="key-figures__value" data-i18n="project.sinnaya.stats.1.v"></strong> <span class="key-figures__title" data-i18n="project.sinnaya.stats.1.t"></span></li>
+              <li><strong class="key-figures__value" data-i18n="project.sinnaya.stats.2.v"></strong> <span class="key-figures__title" data-i18n="project.sinnaya.stats.2.t"></span></li>
+              <li><strong class="key-figures__value" data-i18n="project.sinnaya.stats.3.v"></strong> <span class="key-figures__title" data-i18n="project.sinnaya.stats.3.t"></span></li>
+              <li><strong class="key-figures__value" data-i18n="project.sinnaya.stats.4.v"></strong> <span class="key-figures__title" data-i18n="project.sinnaya.stats.4.t"></span></li>
             </ul>
             <a class="project-card__link" href="sinnaya">
               <span data-i18n="project.card.view">Voir le projet</span>
@@ -326,9 +349,7 @@
           <div class="project-overview__body">
             <p class="project-card__meta" data-i18n="project.glory.subtitle">Prototype d’un jeu de plateau MOBA</p>
             <h3 class="project-card__title project-overview__title"><a href="glory-of-gods"><span data-i18n="project.glory.title">Glory of Gods</span></a></h3>
-            <p class="project-card__team" data-i18n="project.glory.team">Prototype en 1 mois et demi, équipe de 5 élèves en Game Design</p>
-            <h4 class="project-card__role-heading" data-i18n="project.roleHeading">Mon rôle</h4>
-            <p class="project-card__role-text" data-i18n="project.glory.role">J’ai conçu l’ensemble des graphismes (plateau, tuiles de personnages, jetons, boîte, livret de règles), coécrit les mécaniques et les règles avec l’équipe, organisé le pipeline de production et la répartition des tâches, rédigé et mis en page le livret, mené les sessions de playtest et analysé les retours, puis travaillé le level design du plateau (aménagement, jungle, autels de prière, jetons).</p>
+            <p class="project-card__team" data-i18n="home.glory.team">Prototype en 1 mois et demi, équipe de 5</p>
             <a class="project-card__link" href="glory-of-gods">
               <span data-i18n="project.card.view">Voir le projet</span>
             </a>
@@ -342,9 +363,7 @@
           <div class="project-overview__body">
             <p class="project-card__meta" data-i18n="project.mecha.subtitle">Rail shooter en vue première personne</p>
             <h3 class="project-card__title project-overview__title"><a href="mecha-crisis"><span data-i18n="project.mecha.title">Mecha Crisis</span></a></h3>
-            <p class="project-card__team" data-i18n="project.mecha.team">Projet interfilière de deuxième année, équipe de 11 (4 Game Designers, 4 Game Artists, 3 Technical Artists)</p>
-            <h4 class="project-card__role-heading" data-i18n="project.roleHeading">Mon rôle</h4>
-            <p class="project-card__role-text" data-i18n="project.mecha.role">Mon apport principal a été le développement du jeu sur Unreal Engine. J’ai également contribué au pipeline, au Game Concept Document, à la mise en place et à l’équilibrage des mécaniques principales, au doublage, au world building, au storyboard, au scénario, au développement des personnages et aux tests QA.</p>
+            <p class="project-card__team" data-i18n="home.mecha.team">Projet interfilière de deuxième année, équipe de 11</p>
             <a class="project-card__link" href="mecha-crisis">
               <span data-i18n="project.card.view">Voir le projet</span>
             </a>
@@ -358,9 +377,7 @@
           <div class="project-overview__body">
             <p class="project-card__meta" data-i18n="project.beez.subtitle">Niveau de plateforme</p>
             <h3 class="project-card__title project-overview__title"><a href="beez-adventures"><span data-i18n="project.beez.title">Beez Adventures</span></a></h3>
-            <p class="project-card__team" data-i18n="project.beez.team">Projet de fin de première année, équipe de 3 élèves en Game Design</p>
-            <h4 class="project-card__role-heading" data-i18n="project.roleHeading">Mon rôle</h4>
-            <p class="project-card__role-text" data-i18n="project.beez.role">J’ai contribué au Game Concept, mis en place les mécaniques principales, conçu l’univers et la verticalité du level design, réalisé le blocking, des assets, le sound design et l’UI, puis mené les tests QA.</p>
+            <p class="project-card__team" data-i18n="home.beez.team">Projet de fin de première année, équipe de 3</p>
             <a class="project-card__link" href="beez-adventures">
               <span data-i18n="project.card.view">Voir le projet</span>
             </a>
