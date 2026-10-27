@@ -46,6 +46,12 @@
   margin-bottom: var(--space-5);
 }
 
+/* Sînnaya : jaquette un peu plus grande sur sa fiche, sans changer les autres
+   pages qui partagent .project-card__cover. */
+.project-card__cover--lg {
+  max-width: 20rem;
+}
+
 .project-card__cover img {
   display: block;
   width: 100%;

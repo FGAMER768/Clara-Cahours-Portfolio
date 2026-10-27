@@ -89,6 +89,28 @@
   }
 }
 
+/* Sînnaya a plus de contenu que les autres aperçus : sa jaquette profite
+   d'une colonne un peu plus large, sans élargir la carte elle-même. */
+.project-overview--cover-lg .project-overview__cover {
+  width: min(100%, 14rem);
+}
+
+@media (min-width: 40rem) {
+  .project-overview--cover-lg {
+    grid-template-columns: 13.5rem minmax(0, 1fr);
+  }
+
+  .project-overview--cover-lg .project-overview__cover {
+    width: 100%;
+  }
+}
+
+@media (min-width: 64rem) {
+  .project-overview--cover-lg {
+    grid-template-columns: 16rem minmax(0, 1fr);
+  }
+}
+
 /* Léger soulèvement de la jaquette au survol de la carte (souris seulement) */
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .project-overview__cover img {
