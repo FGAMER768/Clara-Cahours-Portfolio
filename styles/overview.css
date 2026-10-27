@@ -186,6 +186,12 @@
   color: var(--color-accent-strong);
 }
 
+/* Le mot-symbole Unity est horizontal (ratio 275:100) : même hauteur et même
+   centrage vertical que les pictos carrés, mais sur toute sa largeur. */
+.section-heading-row__icon--unity {
+  width: 5.5rem;
+}
+
 /* Mobile : l'icône passe AU-DESSUS du titre. À côté, elle prend 2,75 rem de
    largeur et fait passer « Personnages pour le jeu de rôle » sur 3 lignes. */
 @media (max-width: 40rem) {
