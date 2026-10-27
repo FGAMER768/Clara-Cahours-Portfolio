@@ -219,6 +219,13 @@
   color: var(--color-ink-muted);
 }
 
+/* Petite icône illustrative au-dessus du texte d'une mini-carte. */
+.mini-card__icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--color-accent-strong);
+}
+
 .mini-card__link {
   margin-top: var(--space-4);
   display: inline-flex;
