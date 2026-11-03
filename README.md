@@ -371,7 +371,7 @@ s'ouvre pas par-dessus la lightbox des galeries.
   fiche évolue. Le genre et le titre reprennent les clés des fiches
   (`project.<projet>.subtitle`, `.title`). La jaquette et le titre mènent à la
   fiche. Les cartes Glory of Gods et Mecha Crisis affichent aussi leurs chiffres clés (mêmes clés `project.<projet>.stats.N.v/.t` que leur fiche, titres `#home-glory-stats-heading` / `#home-mecha-stats-heading`) ; Beez n'en a pas. La carte Sînnaya est la seule à avoir en plus son pitch
-  (`home.sinnaya.pitch`), la ligne « équipe candidate aux Rookies 2026 »
+  (`home.sinnaya.pitch`), la ligne « Candidature aux Rookies 2026 et aux Chatons d’Or 2026 »
   (`home.sinnaya.rookies`) et les chiffres clés. Pour un nouveau projet, copier
   une carte dans `#projects` de `index.html` et créer sa clé `home.<projet>.team`.
 - **Vitrine (jaquettes)** : seule la page `travaux-academiques` l'utilise
